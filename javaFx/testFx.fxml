@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.application.Application.*?>
+<?import javafx.fxml.FXMLLoader.*?>
+<?import javafx.scene.Camera.*?>
+<?import javafx.scene.Group.*?>
+<?import javafx.scene.Parent.*?>
+<?import javafx.scene.PerspectiveCamera.*?>
+<?import javafx.scene.Scene.*?>
+<?import javafx.scene.input.KeyEvent.*?>
+<?import javafx.scene.paint.Color.*?>
+<?import javafx.stage.Stage.*?>
+<?import javafx.scene.shape.Sphere.*?>
+<?import javafx.scene.shape.Box.*?>
+
+<VBox preHeight="800.0" prefWidth="600.0" xmins="http://javafx.com/javafx/8" xmins:fx="http://javafx.com/fxml"
+      fx:controller="sample.Controller">
+
+      
+</VBox>
