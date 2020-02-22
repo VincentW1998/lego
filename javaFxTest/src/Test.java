@@ -16,6 +16,7 @@ import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Circle;
 
 
 public class Test extends Application{
@@ -30,7 +31,7 @@ public class Test extends Application{
 	public void start(Stage primaryStage) throws Exception{
 		Box box = new Box(20,20,20);
 		Box box2 = new Box(40,40,40);
-		
+	
 		//setup
 		SmartGrp group = new SmartGrp();
 		Scene scene = new Scene(group, WIDTH, HEIGHT);
@@ -55,8 +56,6 @@ public class Test extends Application{
 		camera.setFarClip(1000);
 		
 		SelectionModel selection = new SelectionModel();
-		
-		
 		scene.setFill(Color.GREY);
 		
 		

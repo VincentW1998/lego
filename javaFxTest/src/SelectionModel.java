@@ -48,13 +48,13 @@ public class SelectionModel {
 	
 	public void Z() {
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+10);
+			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-10);
 		}//devrait monter et non descendre
 	}
 	
 	public void X() {
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-10);
+			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+10);
 		}//devrait descendre et non monter
 	}
 	
