@@ -1,0 +1,27 @@
+LISTE DES COMMANDES :
+
+      Mouvement du cube:
+        W = profondeur +
+        S = profondeur -
+        A = gauche
+        D = droit
+
+        Z = haut
+        X = bas
+
+      Mouvement de la camera:
+        UP = haut
+        DOWN = bas
+        LEFT = gauche
+        RIGHT = droite
+
+        SCROLL UP = zoom+
+        SCROLL DOWN = zoom -
+
+      (fonctionne avec les trackpads seulement)
+        SCROLL LEFT = gauche
+        SCROLL RIGHT = droit
+
+
+      LEFT CLICK pour sélectionner un cube
+      ESCAPE pour annuler la sélection
