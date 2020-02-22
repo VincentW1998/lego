@@ -11,6 +11,7 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.stage.Stage;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
@@ -29,7 +30,8 @@ public class Test extends Application{
 	}
 	
 	public void start(Stage primaryStage) throws Exception{
-		Box box = new Box(20,20,20);
+		Box box = new Cube(Color.DARKRED);
+		
 		Box box2 = new Box(40,40,40);
 	
 		//setup
@@ -60,11 +62,11 @@ public class Test extends Application{
 		
 		
 		box.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			selection.clear();
+			
 			selection.add((Box) event.getSource());
 		});
 		box2.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			selection.clear();
+		
 			selection.add((Box) event.getSource());	
 		});
 	
@@ -124,18 +126,27 @@ public class Test extends Application{
 				else 
 					camera.translateZProperty().set(camera.getTranslateZ()-10);
 			}
-			//for trackpad users only
+		//for trackpad users only
 			else {
 				if(zoomX>0) 
-					camera.translateXProperty().set(camera.getTranslateX()+10);	
+					camera.translateXProperty().set(camera.getTranslateX()-10);	
 				else 
-					camera.translateXProperty().set(camera.getTranslateX()-10);
+					camera.translateXProperty().set(camera.getTranslateX()+10);
 			}
 		});
 		
 		primaryStage.setTitle("FxTest"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+	
+	public class Cube extends Box{
+		
+		public Cube(Color color) {
+			super(40,40,40);
+			setMaterial(new PhongMaterial(color));
+		}
+		
 	}
 		
 }
