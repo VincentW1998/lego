@@ -36,19 +36,23 @@ public class Test extends Application{
 		Scene scene = new Scene(group, WIDTH, HEIGHT);
 		group.getChildren().add(box);	
 		group.getChildren().add(box2);	
-		Camera camera = new PerspectiveCamera();
+		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		
-
+		
+		camera.translateXProperty().set(0);
+		camera.translateYProperty().set(0);
+		camera.translateZProperty().set(-500);
 //		group.translateXProperty().set(WIDTH/2); // set x axis to the center of the screen
 //		group.translateYProperty().set(HEIGHT/2);// set y axis to the center
-//		group.translateZProperty().set(-1200);
+//		group.translateZProperty().set(0);
 //		
 //		box2.translateXProperty().set(WIDTH/2); // set x axis to the center of the screen
 //		box2.translateYProperty().set(HEIGHT/2);// set y axis to the center
-//		box2.translateZProperty().set(-1200);
-		
-		
+//		box2.translateZProperty().set(0);
+//		
+		camera.setNearClip(1);
+		camera.setFarClip(1000);
 		
 		SelectionModel selection = new SelectionModel();
 		
