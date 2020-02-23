@@ -26,3 +26,4 @@ LISTE DES COMMANDES :
       LEFT CLICK pour sélectionner un cube
       SHIFT+CLICK pour en sélectionner plusieurs
       ESCAPE pour annuler la sélection
+      BACKSPACE suppression du ou des cubes sélectionnés

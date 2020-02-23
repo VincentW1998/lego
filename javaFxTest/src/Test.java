@@ -43,7 +43,6 @@ public class Test extends Application{
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		
-		
 		camera.translateXProperty().set(0);
 		camera.translateYProperty().set(0);
 		camera.translateZProperty().set(-500);
@@ -103,6 +102,11 @@ public class Test extends Application{
 				break;
 			case E:
 				selection.E();				
+				break;
+			case BACK_SPACE:
+				for(int i=0;i<selection.selection.size();i++) {
+					group.getChildren().remove(selection.selection.get(i));
+				}
 				break;
 		//Camera
 			case UP:
