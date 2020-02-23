@@ -18,6 +18,8 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.CullFace;
+import javafx.scene.shape.DrawMode;
 
 
 public class Test extends Application{
@@ -30,13 +32,12 @@ public class Test extends Application{
 	}
 	
 	public void start(Stage primaryStage) throws Exception{
-		Box box = new Cube(Color.DARKRED);
-		
-		Box box2 = new Box(40,40,40);
+		Cube box = new Cube(Color.DARKRED);
+		Cube box2 = new Cube(Color.DARKBLUE);
 	
 		//setup
 		SmartGrp group = new SmartGrp();
-		Scene scene = new Scene(group, WIDTH, HEIGHT);
+		Scene scene = new Scene(group, WIDTH, HEIGHT, true);
 		group.getChildren().add(box);	
 		group.getChildren().add(box2);	
 		Camera camera = new PerspectiveCamera(true);
@@ -53,23 +54,25 @@ public class Test extends Application{
 //		box2.translateXProperty().set(WIDTH/2); // set x axis to the center of the screen
 //		box2.translateYProperty().set(HEIGHT/2);// set y axis to the center
 //		box2.translateZProperty().set(0);
-//		
+
 		camera.setNearClip(1);
 		camera.setFarClip(1000);
 		
 		SelectionModel selection = new SelectionModel();
 		scene.setFill(Color.GREY);
-		
-		
+
 		box.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			
+			if(!event.isShiftDown())
+				selection.clear();
 			selection.add((Box) event.getSource());
 		});
 		box2.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-		
+			if(!event.isShiftDown())
+				selection.clear();
 			selection.add((Box) event.getSource());	
 		});
-	
+		
+		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			switch (event.getCode()) {
 		//seclection
@@ -134,19 +137,10 @@ public class Test extends Application{
 					camera.translateXProperty().set(camera.getTranslateX()+10);
 			}
 		});
-		
+	
 		primaryStage.setTitle("FxTest"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
-	}
-	
-	public class Cube extends Box{
-		
-		public Cube(Color color) {
-			super(40,40,40);
-			setMaterial(new PhongMaterial(color));
-		}
-		
 	}
 		
 }

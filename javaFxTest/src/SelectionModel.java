@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 
@@ -14,11 +15,17 @@ public class SelectionModel {
 	}
 	
 	public void add(Box b) {
-		selection.add(b);
+		if(!contains(b)) {
+			b.setDrawMode(DrawMode.LINE);
+			selection.add(b);
+		}
 	}
 	
 	public void clear() {
-		selection.clear();
+		while(!selection.isEmpty()) {
+			selection.getFirst().setDrawMode(DrawMode.FILL);
+			selection.removeFirst();
+		}
 	}
 	
 	public boolean contains(Box b) {
@@ -44,18 +51,24 @@ public class SelectionModel {
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+10);
 		}
+		
 	}
 	
 	public void Z() {
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-10);
-		}//devrait monter et non descendre
+		}
 	}
 	
 	public void X() {
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+10);
-		}//devrait descendre et non monter
+			if(selection.get(i).getTranslateY()<=-10 ) {
+				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+10);
+			}
+			else {
+				selection.get(i).translateYProperty().set(0);
+			}
+		}
 	}
 	
 	public void Q() {
