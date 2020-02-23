@@ -5,16 +5,16 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 
 public class SelectionModel {
-	LinkedList <Box> selection;
+	LinkedList <Cube> selection;
 	Rotate r;
 	Transform t;
 	
 	public SelectionModel() {
-		selection = new LinkedList<Box>();
+		selection = new LinkedList<Cube>();
 		t = new Rotate();
 	}
 	
-	public void add(Box b) {
+	public void add(Cube b) {
 		if(!contains(b)) {
 			b.setDrawMode(DrawMode.LINE);
 			selection.add(b);
@@ -28,7 +28,7 @@ public class SelectionModel {
 		}
 	}
 	
-	public boolean contains(Box b) {
+	public boolean contains(Cube b) {
 		return selection.contains(b);
 	}
 	

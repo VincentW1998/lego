@@ -1,5 +1,7 @@
 
 import javafx.application.Application;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +11,7 @@ import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
@@ -20,26 +23,55 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
-
+import javafx.scene.input.KeyEvent;
 
 public class Test extends Application{
 
 	private static final int HEIGHT = 800;
 	private static final int WIDTH = 1400;
 
+	private double anchorX, anchorY;
+	private double anchorAngleX=0;
+	private double anchorAngleY=0;
+	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
+	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
-	public void start(Stage primaryStage) throws Exception{
-		Cube box = new Cube(Color.DARKRED);
-		Cube box2 = new Cube(Color.DARKBLUE);
+	public void initMouseControl(Group group, Scene scene) {
+		Rotate xRotate;
+		Rotate yRotate;
+		group.getTransforms().addAll(
+			xRotate = new Rotate(0,Rotate.X_AXIS),
+			yRotate = new Rotate(0,Rotate.Y_AXIS)
+		);
+		xRotate.angleProperty().bind(angleX);
+		yRotate.angleProperty().bind(angleY);
+		
+		scene.setOnMousePressed(event -> {
+			anchorX = event.getSceneX();
+			anchorY = event.getSceneY();
+			anchorAngleX = angleX.get();
+			anchorAngleY = angleY.get();
+		});
+		
+		scene.setOnMouseDragged(event -> {
+			angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
+			angleY.set(anchorAngleX + (anchorX - event.getSceneX()));
+		});
+		}
 	
+	public void start(Stage primaryStage) throws Exception{
+//		Cube box = new Cube(Color.DARKRED);
+//		Cube box2 = new Cube(Color.DARKBLUE);
+//	
 		//setup
-		SmartGrp group = new SmartGrp();
+		Group group = new Group();
 		Scene scene = new Scene(group, WIDTH, HEIGHT, true);
-		group.getChildren().add(box);	
-		group.getChildren().add(box2);	
+//		group.getChildren().add(box);	
+//		group.getChildren().add(box2);	
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		
@@ -60,18 +92,18 @@ public class Test extends Application{
 		SelectionModel selection = new SelectionModel();
 		scene.setFill(Color.GREY);
 
-		box.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			if(!event.isShiftDown())
-				selection.clear();
-			selection.add((Box) event.getSource());
-		});
-		box2.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-			if(!event.isShiftDown())
-				selection.clear();
-			selection.add((Box) event.getSource());	
-		});
+//		box.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//			if(!event.isShiftDown())
+//				selection.clear();
+//			selection.add((Box) event.getSource());
+//		});
+//		box2.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//			if(!event.isShiftDown())
+//				selection.clear();
+//			selection.add((Box) event.getSource());	
+//		});
 		
-		
+		// *********************** KEYBOARD CONTROLS ****************************
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			switch (event.getCode()) {
 		//seclection
@@ -123,6 +155,21 @@ public class Test extends Application{
 				break;
 			}	
 		});
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
+				{
+					Cube c = new Cube();
+//					c.addRandomColor();
+					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
+						if(!e.isShiftDown())
+							selection.clear();
+						selection.add((Cube) e.getSource());
+					});
+				group.getChildren().add(c); 
+				}
+			}
+		});	
+		
 		//Zoom 
 		primaryStage.addEventHandler(ScrollEvent.SCROLL, event -> {
 			double zoomY = event.getDeltaY();
@@ -141,7 +188,12 @@ public class Test extends Application{
 					camera.translateXProperty().set(camera.getTranslateX()+10);
 			}
 		});
-	
+		
+// *********************** MOUSE CONTROLS ****************************
+		
+		//******* 
+		
+		initMouseControl(group,scene);
 		primaryStage.setTitle("FxTest"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();

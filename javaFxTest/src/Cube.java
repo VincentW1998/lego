@@ -1,4 +1,5 @@
 import javafx.scene.paint.Color;
+import java.util.Random;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 
@@ -17,8 +18,11 @@ public class Cube extends Box{
 	public Cube() {
 		super(40,40,40);
 	}
-		
-	public void SetColor(Color c) {
+	public void addRandomColor() {
+		Random rand = new Random();
+		setColor(Color.rgb(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
+	}
+	public void setColor(Color c) {
 		setMaterial(new PhongMaterial(c));
 	}
 }
