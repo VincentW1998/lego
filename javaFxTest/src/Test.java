@@ -159,7 +159,7 @@ public class Test extends Application{
 			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
 				{
 					Cube c = new Cube();
-//					c.addRandomColor();
+					c.addRandomColor();
 					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
 						if(!e.isShiftDown())
 							selection.clear();
