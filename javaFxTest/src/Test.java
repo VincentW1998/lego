@@ -91,7 +91,10 @@ public class Test extends Application{
 		
 		SelectionModel selection = new SelectionModel();
 		scene.setFill(Color.GREY);
-
+		
+		Save save = new Save();
+		
+		
 //		box.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 //			if(!event.isShiftDown())
 //				selection.clear();
@@ -131,11 +134,15 @@ public class Test extends Application{
 				break;		
 			case Q:
 				selection.Q();
+//				camera.Q();
 				break;
 			case E:
-				selection.E();				
+				selection.E();
+//				camera.E();
 				break;
 			case BACK_SPACE:
+//				
+				save.add(selection);
 				for(int i=0;i<selection.selection.size();i++) {
 					group.getChildren().remove(selection.selection.get(i));
 				}
@@ -155,6 +162,7 @@ public class Test extends Application{
 				break;
 			}	
 		});
+		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
 				{
@@ -170,6 +178,19 @@ public class Test extends Application{
 			}
 		});	
 		
+		//********Undo*********
+		
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+			if(event.isMetaDown() && event.getCode()== KeyCode.Z) {
+				SelectionModel m;
+				if(!save.Empty()) {
+					m = save.pop();
+					for(int i=0;i<m.selection.size();i++) {
+						group.getChildren().add(m.selection.get(i));
+					}
+				}
+			}
+		});
 		//Zoom 
 		primaryStage.addEventHandler(ScrollEvent.SCROLL, event -> {
 			double zoomY = event.getDeltaY();

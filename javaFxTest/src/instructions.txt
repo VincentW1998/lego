@@ -23,6 +23,7 @@ LISTE DES COMMANDES :
         SCROLL RIGHT = droit
 
       COMMAND+N (ALT+N sur Windows)pour creer un cube
+      COMMAND+Z (ALT+Z sur Windows)undo
 
       LEFT CLICK pour sélectionner un cube
       SHIFT+CLICK pour en sélectionner plusieurs
