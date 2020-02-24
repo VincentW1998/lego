@@ -8,6 +8,9 @@ LISTE DES COMMANDES :
 
         Z = deplace le cube vers le haut (axe Y)
         X = deplace le cube vers le bas (axe Y)
+        
+        E = rotation du cube sur l'axe Y dans le sens horaire 
+        Q = rotation du cube sur l'axe Y dans le sens anti-horaire
 
       Mouvement de la camera:
         UP = haut

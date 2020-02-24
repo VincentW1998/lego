@@ -78,7 +78,7 @@ public class SelectionModel {
 //	****************ROTATION*****************
 	
 	public void Q() {
-		r = new Rotate(-10, Rotate.Y_AXIS);
+		r = new Rotate(+10, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).getTransforms().clear();
@@ -87,7 +87,7 @@ public class SelectionModel {
 	}
 	
 	public void E() {
-		r = new Rotate(+10, Rotate.Y_AXIS);
+		r = new Rotate(-10, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).getTransforms().clear();
