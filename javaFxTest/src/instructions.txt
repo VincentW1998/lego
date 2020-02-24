@@ -22,6 +22,7 @@ LISTE DES COMMANDES :
         SCROLL LEFT = gauche
         SCROLL RIGHT = droit
 
+      COMMAND+N (ALT+N sur Windows)pour creer un cube
 
       LEFT CLICK pour sélectionner un cube
       SHIFT+CLICK pour en sélectionner plusieurs
