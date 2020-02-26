@@ -36,36 +36,36 @@ public class SelectionModel {
 	
 	public void W() {
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+15);
+			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
 		}
 	}
 	public void S() {
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-15);
+			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
 		}
 	}
 	public void A() {
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-10);
+			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
 		}
 	}
 	public void D() {
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+10);
+			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
 		}
 		
 	}
 	
 	public void Z() {
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-10);
+			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
 		}
 	}
 	
 	public void X() {
 		for(int i=0;i<selection.size();i++) {
-			if(selection.get(i).getTranslateY()<=-10 ) {
-				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+10);
+			if(selection.get(i).getTranslateY()<=-1 ) {
+				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
 			}
 			else {
 				selection.get(i).translateYProperty().set(0);
@@ -78,7 +78,7 @@ public class SelectionModel {
 //	****************ROTATION*****************
 	
 	public void Q() {
-		r = new Rotate(+10, Rotate.Y_AXIS);
+		r = new Rotate(+90, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).getTransforms().clear();
@@ -87,7 +87,7 @@ public class SelectionModel {
 	}
 	
 	public void E() {
-		r = new Rotate(-10, Rotate.Y_AXIS);
+		r = new Rotate(-90, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).getTransforms().clear();

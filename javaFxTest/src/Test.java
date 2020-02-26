@@ -77,7 +77,7 @@ public class Test extends Application{
 		
 		camera.translateXProperty().set(0);
 		camera.translateYProperty().set(0);
-		camera.translateZProperty().set(-500);
+		camera.translateZProperty().set(-12);
 //		group.translateXProperty().set(WIDTH/2); // set x axis to the center of the screen
 //		group.translateYProperty().set(HEIGHT/2);// set y axis to the center
 //		group.translateZProperty().set(0);

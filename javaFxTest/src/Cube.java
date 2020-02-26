@@ -12,11 +12,11 @@ public class Cube extends Box{
 		setMaterial(new PhongMaterial(c));
 	}
 	public Cube(Color c) {
-		this(c,40,40,40);
+		this(c,1,1,1);
 	}
 		
 	public Cube() {
-		super(40,40,40);
+		super(1,1,1);
 	}
 	public void addRandomColor() {
 		Random rand = new Random();
