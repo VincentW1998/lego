@@ -5,18 +5,28 @@ import javafx.scene.shape.Box;
 
 public class Cube extends Box{
 	Color color;
+	static int numeroCube = 0;
+	int id;
+	
+	
 		
 	public Cube(Color c, int w, int h, int d) {
 		super(w,h,d);
 		color = c;
 		setMaterial(new PhongMaterial(c));
+		numeroCube++;
+		id = numeroCube;
+		
+		
+		
+		
 	}
 	public Cube(Color c) {
-		this(c,40,40,40);
+		this(c,1,1,1);
 	}
 		
 	public Cube() {
-		super(40,40,40);
+		super(1,1,1);
 	}
 	public void addRandomColor() {
 		Random rand = new Random();
@@ -24,5 +34,12 @@ public class Cube extends Box{
 	}
 	public void setColor(Color c) {
 		setMaterial(new PhongMaterial(c));
+	}
+	public Color getColor() {
+		return color;
+	}
+	
+	public boolean equals(Cube c) {
+		return this.id == c.id;
 	}
 }

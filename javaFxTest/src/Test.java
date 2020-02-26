@@ -74,10 +74,13 @@ public class Test extends Application{
 //		group.getChildren().add(box2);	
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
+		Ground sol = new Ground(WIDTH,HEIGHT); 
+		group.getChildren().add(sol);
+		sol.translateYProperty().set(+0.51);
 		
 		camera.translateXProperty().set(0);
 		camera.translateYProperty().set(0);
-		camera.translateZProperty().set(-500);
+		camera.translateZProperty().set(-10);
 //		group.translateXProperty().set(WIDTH/2); // set x axis to the center of the screen
 //		group.translateYProperty().set(HEIGHT/2);// set y axis to the center
 //		group.translateZProperty().set(0);
@@ -89,8 +92,8 @@ public class Test extends Application{
 		camera.setNearClip(1);
 		camera.setFarClip(1000);
 		
-		SelectionModel selection = new SelectionModel();
-		scene.setFill(Color.GREY);
+		SelectionModel selection = new SelectionModel(group);
+		scene.setFill(Color.WHITE);
 		
 		Save save = new Save();
 		
@@ -108,59 +111,64 @@ public class Test extends Application{
 		
 		// *********************** KEYBOARD CONTROLS ****************************
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			switch (event.getCode()) {
-		//seclection
-			case ESCAPE:
-				selection.clear();
-				break;
-		//Cube	
-			case W:
-				selection.W();// add 15 to the Z axis when the W key is pressed
-				break;
-			case S: 
-				selection.S(); // substract 15 to Z axis
-				break;
-			case A:
-				selection.A();// substract 10 to X axis
-				break;
-			case D:
-				selection.D(); // add 10 to X axis
-				break;			
-			case Z:
-				selection.Z();
-				break;		
-			case X:
-				selection.X();
-				break;		
-			case Q:
-				selection.Q();
-//				camera.Q();
-				break;
-			case E:
-				selection.E();
-//				camera.E();
-				break;
-			case BACK_SPACE:
-//				
-				save.add(selection);
-				for(int i=0;i<selection.selection.size();i++) {
-					group.getChildren().remove(selection.selection.get(i));
-				}
-				break;
-		//Camera
-			case UP:
-				camera.translateYProperty().set(camera.getTranslateY()-15);
-				break;
-			case DOWN:
-				camera.translateYProperty().set(camera.getTranslateY()+15);
-				break;
-			case LEFT:
-				camera.translateXProperty().set(camera.getTranslateX()-10);
-				break;
-			case RIGHT:				
-				camera.translateXProperty().set(camera.getTranslateX()+10);
-				break;
-			}	
+			if(!event.isMetaDown()) {
+				switch (event.getCode()) {
+			//seclection
+				case ESCAPE:
+					selection.clear();
+					break;
+			//Cube	
+				case W:
+					selection.W();// add 15 to the Z axis when the W key is pressed
+					break;
+				case S: 
+					selection.S(); // substract 15 to Z axis
+					break;
+				case A:
+					selection.A();// substract 10 to X axis
+					break;
+				case D:
+					selection.D(); // add 10 to X axis
+					break;			
+				case Z:
+					selection.Z();
+					break;		
+				case X:
+					selection.X();
+					break;		
+				case Q:
+					selection.Q();
+					break;
+				case E:
+					selection.E();
+					break;
+				case BACK_SPACE:
+					
+					save.add(selection.copy());
+					for(int i=0;i<selection.selection.size();i++) {
+						group.getChildren().remove(selection.selection.get(i));
+					}
+					selection.clear();
+					break;
+			//Camera
+				case UP:
+					camera.translateYProperty().set(camera.getTranslateY()-1);
+					break;
+				case DOWN:
+					camera.translateYProperty().set(camera.getTranslateY()+1);
+					break;
+				case LEFT:
+					camera.translateXProperty().set(camera.getTranslateX()-1);
+					break;
+				case RIGHT:				
+					camera.translateXProperty().set(camera.getTranslateX()+1);
+					break;
+//				*****************TEST
+				case P:
+					selection.changeColor();
+					break;
+				}	
+			}
 		});
 		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -197,16 +205,16 @@ public class Test extends Application{
 			double zoomX = event.getDeltaX();
 			if(zoomY!=0) {
 				if(zoomY>0) 
-					camera.translateZProperty().set(camera.getTranslateZ()+10);	
+					camera.translateZProperty().set(camera.getTranslateZ()+0.2);	
 				else 
-					camera.translateZProperty().set(camera.getTranslateZ()-10);
+					camera.translateZProperty().set(camera.getTranslateZ()-0.2);
 			}
 		//for trackpad users only
 			else {
 				if(zoomX>0) 
-					camera.translateXProperty().set(camera.getTranslateX()-10);	
+					camera.translateXProperty().set(camera.getTranslateX()-0.2);	
 				else 
-					camera.translateXProperty().set(camera.getTranslateX()+10);
+					camera.translateXProperty().set(camera.getTranslateX()+0.2);
 			}
 		});
 		
