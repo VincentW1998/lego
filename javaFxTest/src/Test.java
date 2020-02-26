@@ -149,16 +149,16 @@ public class Test extends Application{
 				break;
 		//Camera
 			case UP:
-				camera.translateYProperty().set(camera.getTranslateY()-15);
+				camera.translateYProperty().set(camera.getTranslateY()-1);
 				break;
 			case DOWN:
-				camera.translateYProperty().set(camera.getTranslateY()+15);
+				camera.translateYProperty().set(camera.getTranslateY()+1);
 				break;
 			case LEFT:
-				camera.translateXProperty().set(camera.getTranslateX()-10);
+				camera.translateXProperty().set(camera.getTranslateX()-1);
 				break;
 			case RIGHT:				
-				camera.translateXProperty().set(camera.getTranslateX()+10);
+				camera.translateXProperty().set(camera.getTranslateX()+1);
 				break;
 			}	
 		});
@@ -197,16 +197,16 @@ public class Test extends Application{
 			double zoomX = event.getDeltaX();
 			if(zoomY!=0) {
 				if(zoomY>0) 
-					camera.translateZProperty().set(camera.getTranslateZ()+10);	
+					camera.translateZProperty().set(camera.getTranslateZ()+1);
 				else 
-					camera.translateZProperty().set(camera.getTranslateZ()-10);
+					camera.translateZProperty().set(camera.getTranslateZ()-1);
 			}
 		//for trackpad users only
 			else {
 				if(zoomX>0) 
-					camera.translateXProperty().set(camera.getTranslateX()-10);	
+					camera.translateXProperty().set(camera.getTranslateX()-1);
 				else 
-					camera.translateXProperty().set(camera.getTranslateX()+10);
+					camera.translateXProperty().set(camera.getTranslateX()+1);
 			}
 		});
 		
@@ -215,7 +215,7 @@ public class Test extends Application{
 		//******* 
 		
 		initMouseControl(group,scene);
-		primaryStage.setTitle("FxTest"); // frame
+		primaryStage.setTitle("Editeur LEGO"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
