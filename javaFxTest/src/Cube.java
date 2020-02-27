@@ -25,4 +25,6 @@ public class Cube extends Box{
 	public void setColor(Color c) {
 		setMaterial(new PhongMaterial(c));
 	}
+
+
 }

@@ -162,7 +162,8 @@ public class Test extends Application{
 				break;
 			}	
 		});
-		
+
+		// Creation d'un nouveau cube
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
 				{
@@ -219,6 +220,7 @@ public class Test extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
 		
 }
 
