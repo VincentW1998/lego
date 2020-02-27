@@ -1,24 +1,38 @@
-[
+{
 
-  
+  "construction" :
+[
   {
-    "id" : 0,
+    "id" : 1,
     "color" : {"red" : 42, "green" : 42, "blue" : 42 },
     "width" : 1,
     "height" : 1,
-    "deep" : 1,
+    "depth" : 1,
     "x" : 0,
     "y" : 0,
     "z" : 0
   },
+
   {
-    "id" : 1,
+    "id" : 2,
     "color" : {"red" : 111, "green" : 111, "blue" : 111 },
     "width" : 1,
     "height" : 1,
-    "deep" : 1,
+    "depth" : 1,
     "x" : 1,
     "y" : 0,
     "z" : 0
+  },
+
+  {
+    "id" : 3,
+    "color" : {"red" : 222, "green" : 222, "blue" : 222 },
+    "width" : 1,
+    "height" : 1,
+    "depth" : 1,
+    "x" : 1,
+    "y" : -1,
+    "z" : 0
   }
 ]
+}
