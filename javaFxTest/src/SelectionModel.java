@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
@@ -61,43 +62,84 @@ public class SelectionModel {
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
 		}
 	}
+	
+//	*****
 	public void A() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {		
 				selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
-//				****************
-//				for(int j=0;j<group.getChildren().size();j++) {
-//					if(group.getChildren().get(j).isPickOnBounds())
-//						selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
-//				}
+				for(int j=1;j<group.getChildren().size();j++) {
+					if(!(selection.get(i).equals(group.getChildren().get(j)))){
+						tmp = (Cube)group.getChildren().get(j);
+						if(tmp.isColliding(selection.get(i))) {
+							selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
+							j=0;
+						}
+						
+					}
+				}
 		}
 	}
 	public void D() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {
 				selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
-//				for(int j=0;j<group.getChildren().size();j++) {
-//					if(group.getChildren().get(j).isPickOnBounds())
-//						selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
-//				}
+				for(int j=1;j<group.getChildren().size();j++) {
+					if(!(selection.get(i).equals(group.getChildren().get(j)))){
+						tmp = (Cube)group.getChildren().get(j);
+						if(tmp.isColliding(selection.get(i))) {
+							selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
+							j=0;
+						}
+						
+					}
+				}
 		}
 		
 	}
+//	*****
 	
+
 	public void Z() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {
 		
 				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
+				for(int j=1;j<group.getChildren().size();j++) {
+					if(!(selection.get(i).equals(group.getChildren().get(j)))){
+						tmp = (Cube)group.getChildren().get(j);
+						if(tmp.isColliding(selection.get(i))) {
+							selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
+							j=0;
+						}
+						
+					}
+				}
 		}
 	}
 	public void X() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {
-			if(selection.get(i).getTranslateY()<=-0.1 ) {
+			if(selection.get(i).getTranslateY()<0 ) {
 				
 					selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+					for(int j=1;j<group.getChildren().size();j++) {
+						if(!(selection.get(i).equals(group.getChildren().get(j)))){
+							tmp = (Cube)group.getChildren().get(j);
+							if(tmp.isColliding(selection.get(i))) {
+								selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+								if(selection.get(i).getTranslateY()>-1)
+									selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-2);
+//								j=0; cree une boucle est infinie
+								
+								
+							}
+							
+						}
+					}
 			}
-			else {
 			
-					selection.get(i).translateYProperty().set(0);
-			}
+			
 		}
 	}
 	
