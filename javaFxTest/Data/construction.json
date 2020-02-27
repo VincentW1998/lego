@@ -1,7 +1,9 @@
 [
+
+  
   {
     "id" : 0,
-    "color" : "BLUE",
+    "color" : {"red" : 42, "green" : 42, "blue" : 42 },
     "width" : 1,
     "height" : 1,
     "deep" : 1,
@@ -11,7 +13,7 @@
   },
   {
     "id" : 1,
-    "color" : "RED",
+    "color" : {"red" : 111, "green" : 111, "blue" : 111 },
     "width" : 1,
     "height" : 1,
     "deep" : 1,
