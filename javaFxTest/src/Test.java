@@ -25,6 +25,9 @@ import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.input.KeyEvent;
 
+import java.io.File;
+import java.io.IOException;
+
 public class Test extends Application{
 
 	private static final int HEIGHT = 800;
@@ -210,6 +213,17 @@ public class Test extends Application{
 					camera.translateXProperty().set(camera.getTranslateX()+1);
 			}
 		});
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if(event.isMetaDown() && event.getCode() == KeyCode.I){
+				try {
+					Importer.loadFrom(new File("../Data/construction.json"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		});
 		
 // *********************** MOUSE CONTROLS ****************************
 		
@@ -220,6 +234,7 @@ public class Test extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
 
 		
 }

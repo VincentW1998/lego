@@ -5,25 +5,27 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class Importer {
 
+    LinkedList <Cube> figure;
 
     public static void loadFrom(File f) throws IOException {
-        JSONObject json = new JSONObject(FileUtils.readFileToString(f,"utf-8"));
-        JSONArray construction = json.getJSONArray("construction");
+        JSONObject json = new JSONObject(FileUtils.readFileToString(f,"utf-8")); // recupere le fichier JSON
+        JSONArray construction = json.getJSONArray("construction"); // creer un JSON Array de la clé "construction"
         for(int i = 0; i < construction.length(); i++){
-            JSONObject content = construction.getJSONObject(i);
+            JSONObject content = construction.getJSONObject(i); // recupere l'objet contenu dans le JSON array qu'on a creer auparavant
             int id = content.getInt("id");
-            int w = content.getInt("width");
-            int h = content.getInt("height");
-            int d = content.getInt("depth");
-            JSONObject color = content.getJSONObject("color");
+            double w = content.getInt("width");
+            double h = content.getInt("height");
+            double d = content.getInt("depth");
+            JSONObject color = content.getJSONObject("color"); // une couleur est un objet contenant 3 int (red,green,blue)
             int red = color.getInt("red");
             int green = color.getInt("green");
             int blue = color.getInt("blue");
             Color color1 = Color.rgb(red,green,blue);
-            Cube cube = new Cube(color1,w,h,d);
+            Cube cube = new Cube(color1,w,h,d,id); // creation du cube 3D
 
         }
     }

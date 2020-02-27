@@ -10,6 +10,9 @@ public class Cube extends Box{
 	static int numeroCube = 0;
 	int id;
 
+	public void setId(int id){
+		this.id = id;
+	}
 
 
 	public Cube(Color c, double w, double h, double d) {
@@ -18,6 +21,13 @@ public class Cube extends Box{
 		setMaterial(new PhongMaterial(c));
 		numeroCube++;
 		id = numeroCube;
+	}
+
+	public Cube(Color c, double w, double h, double d, int id){
+		super(w,h,d);
+		color = c;
+		setMaterial(new PhongMaterial(c));
+		this.id = id;
 	}
 
 	public Cube(Color c) {
@@ -50,4 +60,6 @@ public class Cube extends Box{
 				&& getBoundsInParent().getMinY()	+0.01<= cube.getBoundsInParent().getMaxY();
 
 	}
+
+
 }
