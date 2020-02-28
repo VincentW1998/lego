@@ -25,6 +25,10 @@ import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.input.KeyEvent;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.LinkedList;
+
 public class Test extends Application{
 
 	private static final int HEIGHT = 800;
@@ -160,7 +164,8 @@ public class Test extends Application{
 				}	
 			}
 		});
-		
+
+		// Creation d'un nouveau cube
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
 				{
@@ -208,18 +213,53 @@ public class Test extends Application{
 		//for trackpad users only
 			else {
 				if(zoomX>0) 
-					camera.translateXProperty().set(camera.getTranslateX()-0.2);	
+					camera.translateXProperty().set(camera.getTranslateX()-1);
 				else 
-					camera.translateXProperty().set(camera.getTranslateX()+0.2);
+					camera.translateXProperty().set(camera.getTranslateX()+1);
 			}
 		});
-	
+
+		// importer un fichier de sauvegarde
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if(event.isMetaDown() && event.getCode() == KeyCode.I){
+				try {
+					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction.json"));
+					for(int i = 0; i < construction.size(); i++){
+						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
+							if(!e.isShiftDown())
+								selection.clear();
+							selection.add((Cube) e.getSource());
+						});
+						group.getChildren().add(construction.get(i));
+						group.getChildren().get(i).translateXProperty().set(construction.get(i).x);
+						group.getChildren().get(i).translateYProperty().set(construction.get(i).y);
+						group.getChildren().get(i).translateZProperty().set(construction.get(i).z);
+					}
+
+				} catch (IOException e) {
+
+					e.printStackTrace();
+				}
+
+			}
+		});
+
+		// exporter la construction dans un fichier de sauvegarde
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if(event.isMetaDown() && event.getCode() == KeyCode.S){
+
+
+			}
+		});
+
+
+		
 // *********************** MOUSE CONTROLS ****************************
 		
 		//******* 
 		
 		initMouseControl(group,scene);
-		primaryStage.setTitle("FxTest"); // frame
+		primaryStage.setTitle("Editeur LEGO"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
