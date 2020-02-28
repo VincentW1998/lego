@@ -1,1 +1,10 @@
+/.metadata/
+
+*.idea/
+*.iml
+target/
+
+*/out/
+
 *.class
+
