@@ -15,6 +15,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.scene.shape.Sphere;
 import javafx.scene.transform.Rotate;
@@ -25,9 +26,12 @@ import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.input.KeyEvent;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Test extends Application{
 
@@ -39,6 +43,8 @@ public class Test extends Application{
 	private double anchorAngleY=0;
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+
+	private Desktop desktop = Desktop.getDesktop();
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -91,6 +97,8 @@ public class Test extends Application{
 		scene.setFill(Color.WHITE);
 		
 		Save save = new Save();
+
+		final FileChooser fileChooser = new FileChooser();
 		
 		
 		// *********************** KEYBOARD CONTROLS ****************************
@@ -222,6 +230,10 @@ public class Test extends Application{
 		// importer un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
+				File file = fileChooser.showOpenDialog(primaryStage);
+				if (file != null) {
+					openFile(file);
+				}
 				try {
 					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction.json"));
 					for(int i = 0; i < construction.size(); i++){
@@ -262,6 +274,17 @@ public class Test extends Application{
 		primaryStage.setTitle("Editeur LEGO"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
+	}
+
+	private void openFile(File file) {
+		try {
+			desktop.open(file);
+		} catch (IOException ex) {
+			Logger.getLogger(
+					Test.class.getName()).log(
+					Level.SEVERE, null, ex
+			);
+		}
 	}
 //		*******SAVEMOVE
 //	public void saveMove(Save save, Group group) {
