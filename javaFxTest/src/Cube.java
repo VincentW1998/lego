@@ -9,6 +9,9 @@ public class Cube extends Box{
 	Color color;
 	static int numeroCube = 0;
 	int id;
+	double x;
+	double y;
+	double z;
 
 	public void setId(int id){
 		this.id = id;
@@ -23,11 +26,14 @@ public class Cube extends Box{
 		id = numeroCube;
 	}
 
-	public Cube(Color c, double w, double h, double d, int id){
+	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z){
 		super(w,h,d);
 		color = c;
 		setMaterial(new PhongMaterial(c));
 		this.id = id;
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 
 	public Cube(Color c) {

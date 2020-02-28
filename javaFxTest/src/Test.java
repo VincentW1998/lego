@@ -227,20 +227,11 @@ public class Test extends Application{
 							selection.add((Cube) e.getSource());
 						});
 						group.getChildren().add(construction.get(i));
+						group.getChildren().get(i).translateXProperty().set(construction.get(i).x);
+						group.getChildren().get(i).translateYProperty().set(construction.get(i).y);
+						group.getChildren().get(i).translateZProperty().set(construction.get(i).z);
 					}
-//					int id = 1;
-//					int w =1 ;
-//					int h = 1;
-//					int d = 1;
-//					Color color2 = Color.rgb(42,42,42);
 
-//					Cube c2 = new Cube(color2,w,h,d,id);
-//					c2.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
-//						if(!e.isShiftDown())
-//							selection.clear();
-//						selection.add((Cube) e.getSource());
-//					});
-//					group.getChildren().add(c2);
 				} catch (IOException e) {
 
 					e.printStackTrace();
