@@ -231,11 +231,12 @@ public class Test extends Application{
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
 				File file = fileChooser.showOpenDialog(primaryStage);
+				String path = "Data/";
 				if (file != null) {
-					openFile(file);
+					path += file.getName();
 				}
 				try {
-					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction.json"));
+					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
 					for(int i = 0; i < construction.size(); i++){
 						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 							if(!e.isShiftDown())
