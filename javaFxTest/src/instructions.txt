@@ -36,3 +36,9 @@ LISTE DES COMMANDES :
         SHIFT+CLICK = sélection de plusieurs cubes
         ESCAPE = desélection
         BACKSPACE = suppression du ou des cubes sélectionnés
+
+      Importer une construction :
+        COMMAND + I
+
+      Exporter une construction :
+        COMMAND + S

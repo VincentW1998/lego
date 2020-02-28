@@ -242,7 +242,7 @@ public class Test extends Application{
 
 		// exporter la construction dans un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if(event.isMetaDown() && event.getCode() == KeyCode.E){
+			if(event.isMetaDown() && event.getCode() == KeyCode.S){
 
 
 			}
