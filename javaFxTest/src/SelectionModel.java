@@ -1,5 +1,4 @@
 import java.util.LinkedList;
-
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -26,7 +25,9 @@ public class SelectionModel {
 		SelectionModel tmp = new SelectionModel(group);
 		for(int i=0;i<selection.size();i++) {
 			tmp.add(selection.get(i));
+//			tmp.add(selection.get(i).copy());
 		}
+	
 		return tmp;
 	}
 	
@@ -45,6 +46,10 @@ public class SelectionModel {
 			selection.getFirst().setDrawMode(DrawMode.FILL);
 			selection.removeFirst();
 		}
+	}
+	
+	public boolean empty() {
+		return selection.isEmpty();
 	}
 	
 	public boolean contains(Cube b) {
@@ -142,7 +147,6 @@ public class SelectionModel {
 			
 		}
 	}
-	
 	
 	
 //	****************ROTATION*****************

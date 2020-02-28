@@ -58,20 +58,18 @@ public class Test extends Application{
 		});
 		
 		scene.setOnMouseDragged(event -> {
-			angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
-			angleY.set(anchorAngleX + (anchorX - event.getSceneX()));
+
+				angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
+				angleY.set(anchorAngleX + (anchorX - event.getSceneX()));
 		});
 		}
 	
 	public void start(Stage primaryStage) throws Exception{
-//		Cube box = new Cube(Color.DARKRED);
-//		Cube box2 = new Cube(Color.DARKBLUE);
-//	
-		//setup
+
+	
 		Group group = new Group();
 		Scene scene = new Scene(group, WIDTH, HEIGHT, true);
-//		group.getChildren().add(box);	
-//		group.getChildren().add(box2);	
+
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
 		Ground sol = new Ground(WIDTH,HEIGHT); 
@@ -80,14 +78,7 @@ public class Test extends Application{
 		
 		camera.translateXProperty().set(0);
 		camera.translateYProperty().set(0);
-		camera.translateZProperty().set(-10);
-//		group.translateXProperty().set(WIDTH/2); // set x axis to the center of the screen
-//		group.translateYProperty().set(HEIGHT/2);// set y axis to the center
-//		group.translateZProperty().set(0);
-//		
-//		box2.translateXProperty().set(WIDTH/2); // set x axis to the center of the screen
-//		box2.translateYProperty().set(HEIGHT/2);// set y axis to the center
-//		box2.translateZProperty().set(0);
+		camera.translateZProperty().set(-15);
 
 		camera.setNearClip(1);
 		camera.setFarClip(1000);
@@ -97,17 +88,6 @@ public class Test extends Application{
 		
 		Save save = new Save();
 		
-		
-//		box.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//			if(!event.isShiftDown())
-//				selection.clear();
-//			selection.add((Box) event.getSource());
-//		});
-//		box2.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//			if(!event.isShiftDown())
-//				selection.clear();
-//			selection.add((Box) event.getSource());	
-//		});
 		
 		// *********************** KEYBOARD CONTROLS ****************************
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -119,15 +99,19 @@ public class Test extends Application{
 					break;
 			//Cube	
 				case W:
+//					saveMove(save,group);
 					selection.W();// add 15 to the Z axis when the W key is pressed
 					break;
 				case S: 
+//					saveMove(save,group);
 					selection.S(); // substract 15 to Z axis
 					break;
 				case A:
+//					saveMove(save,group);
 					selection.A();// substract 10 to X axis
 					break;
 				case D:
+//					saveMove(save,group);
 					selection.D(); // add 10 to X axis
 					break;			
 				case Z:
@@ -143,12 +127,18 @@ public class Test extends Application{
 					selection.E();
 					break;
 				case BACK_SPACE:
-					
-					save.add(selection.copy());
-					for(int i=0;i<selection.selection.size();i++) {
-						group.getChildren().remove(selection.selection.get(i));
-					}
+					if(!selection.empty()) {
+						save.add(selection.copy());
+						for(int i=0;i<selection.selection.size();i++) {
+							group.getChildren().remove(selection.selection.get(i));
+						}
 					selection.clear();
+//					saveMove(save,group);
+//					for(int i=0;i<selection.selection.size();i++) {
+//						group.getChildren().remove(selection.selection.get(i));
+//					}
+//					selection.clear();
+					}
 					break;
 			//Camera
 				case UP:
@@ -190,12 +180,18 @@ public class Test extends Application{
 		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.isMetaDown() && event.getCode()== KeyCode.Z) {
+//				selection.clear();
 				SelectionModel m;
 				if(!save.Empty()) {
+//				for(int i=0;i<group.getChildren().size();i++) {
+//					group.getChildren().remove(i);
+//				}
 					m = save.pop();
 					for(int i=0;i<m.selection.size();i++) {
 						group.getChildren().add(m.selection.get(i));
+//						m.selection.get(i).giveLocation();
 					}
+			
 				}
 			}
 		});
@@ -217,7 +213,7 @@ public class Test extends Application{
 					camera.translateXProperty().set(camera.getTranslateX()+0.2);
 			}
 		});
-		
+	
 // *********************** MOUSE CONTROLS ****************************
 		
 		//******* 
@@ -227,7 +223,15 @@ public class Test extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
-		
+//		*******SAVEMOVE
+//	public void saveMove(Save save, Group group) {
+//		SelectionModel tmp = new SelectionModel(group);
+//		for(int i=0; i<group.getChildren().size();i++) {
+//			tmp.add((Cube)group.getChildren().get(i));
+//		}
+//		save.add(tmp.copy());
+//		tmp.clear();
+//	}		
 }
 
 
