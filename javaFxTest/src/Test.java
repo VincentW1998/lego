@@ -213,9 +213,9 @@ public class Test extends Application{
 		//for trackpad users only
 			else {
 				if(zoomX>0) 
-					camera.translateXProperty().set(camera.getTranslateX()-1);
+					camera.translateXProperty().set(camera.getTranslateX()-0.2);
 				else 
-					camera.translateXProperty().set(camera.getTranslateX()+1);
+					camera.translateXProperty().set(camera.getTranslateX()+0.2);
 			}
 		});
 
