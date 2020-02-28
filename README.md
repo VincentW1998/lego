@@ -2,10 +2,6 @@
 
 **Projet de programmation L2**
 
-**AMAURY RAYANE**
-*    numéro étudiant : 2180378
-*    alias : @Amaury
-
 
 **LIM KEVIN** : 
 *    numéro étudiant : 21701090
