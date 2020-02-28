@@ -223,17 +223,17 @@ public class Test extends Application{
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
 				try {
-					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction2.json"));
+					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction.json"));
 					for(int i = 0; i < construction.size(); i++){
-						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
+						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 							if(!e.isShiftDown())
 								selection.clear();
 							selection.add((Cube) e.getSource());
 						});
 						group.getChildren().add(construction.get(i));
-						group.getChildren().get(i).translateXProperty().set(construction.get(i).x);
-						group.getChildren().get(i).translateYProperty().set(construction.get(i).y);
-						group.getChildren().get(i).translateZProperty().set(construction.get(i).z);
+						construction.get(i).translateXProperty().set(construction.get(i).x);
+						construction.get(i).translateYProperty().set(construction.get(i).y);
+						construction.get(i).translateZProperty().set(construction.get(i).z);
 					}
 
 				} catch (IOException e) {
