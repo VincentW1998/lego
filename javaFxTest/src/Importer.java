@@ -13,10 +13,9 @@ public class Importer {
 
     public static LinkedList<Cube> loadFrom(File f) throws IOException {
         figure = new LinkedList<Cube>();
-        JSONObject json = new JSONObject(FileUtils.readFileToString(f,"utf-8")); // recupere le fichier JSON
-        JSONArray construction = json.getJSONArray("construction"); // creer un JSON Array de la clé "construction"
-        for(int i = 0; i < construction.length(); i++){
-            JSONObject content = construction.getJSONObject(i); // recupere l'objet contenu dans le JSON array qu'on a creer auparavant
+        JSONArray json = new JSONArray(FileUtils.readFileToString(f,"utf-8")); // recupere le fichier JSON
+        for(int i = 0; i < json.length(); i++){
+            JSONObject content = json.getJSONObject(i); // recupere l'objet contenu dans le JSON array qu'on a creer auparavant
             int id = content.getInt("id");
             double w = content.getDouble("width");
             double h = content.getDouble("height");
