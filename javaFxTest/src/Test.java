@@ -27,6 +27,7 @@ import javafx.scene.input.KeyEvent;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class Test extends Application{
 
@@ -214,16 +215,49 @@ public class Test extends Application{
 			}
 		});
 
+		// importer un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
 				try {
-					Importer.loadFrom(new File("../Data/construction.json"));
+					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction.json"));
+					for(int i = 0; i < construction.size(); i++){
+						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
+							if(!e.isShiftDown())
+								selection.clear();
+							selection.add((Cube) e.getSource());
+						});
+						group.getChildren().add(construction.get(i));
+					}
+//					int id = 1;
+//					int w =1 ;
+//					int h = 1;
+//					int d = 1;
+//					Color color2 = Color.rgb(42,42,42);
+
+//					Cube c2 = new Cube(color2,w,h,d,id);
+//					c2.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
+//						if(!e.isShiftDown())
+//							selection.clear();
+//						selection.add((Cube) e.getSource());
+//					});
+//					group.getChildren().add(c2);
 				} catch (IOException e) {
+
 					e.printStackTrace();
 				}
 
 			}
 		});
+
+		// exporter la construction dans un fichier de sauvegarde
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if(event.isMetaDown() && event.getCode() == KeyCode.E){
+
+
+			}
+		});
+
+
 		
 // *********************** MOUSE CONTROLS ****************************
 		

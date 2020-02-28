@@ -9,9 +9,10 @@ import java.util.LinkedList;
 
 public class Importer {
 
-    LinkedList <Cube> figure;
+    private static LinkedList<Cube> figure;
 
-    public static void loadFrom(File f) throws IOException {
+    public static LinkedList<Cube> loadFrom(File f) throws IOException {
+        figure = new LinkedList<Cube>();
         JSONObject json = new JSONObject(FileUtils.readFileToString(f,"utf-8")); // recupere le fichier JSON
         JSONArray construction = json.getJSONArray("construction"); // creer un JSON Array de la clé "construction"
         for(int i = 0; i < construction.length(); i++){
@@ -26,7 +27,9 @@ public class Importer {
             int blue = color.getInt("blue");
             Color color1 = Color.rgb(red,green,blue);
             Cube cube = new Cube(color1,w,h,d,id); // creation du cube 3D
+            figure.add(cube);
 
         }
+        return figure;
     }
 }
