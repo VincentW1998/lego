@@ -1,7 +1,9 @@
 import java.util.LinkedList;
-
+import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
@@ -10,24 +12,44 @@ public class SelectionModel {
 	LinkedList <Cube> selection;
 	Rotate r;
 	Transform t;
+	Group group;
 	
-	public SelectionModel() {
+	public SelectionModel(Group g) {
 		selection = new LinkedList<Cube>();
 		t = new Rotate();
+		group = g;
+	}
+	
+	public SelectionModel copy() { 
+// permet de creer une copie de la selection qui ne pointe pas vers l'objet actuel
+		SelectionModel tmp = new SelectionModel(group);
+		for(int i=0;i<selection.size();i++) {
+			tmp.add(selection.get(i));
+//			tmp.add(selection.get(i).copy());
+		}
+	
+		return tmp;
 	}
 	
 	public void add(Cube b) {
 		if(!contains(b)) {
+			Color c = b.getColor();
 			b.setDrawMode(DrawMode.LINE);
+		
 			selection.add(b);
 		}
 	}
 	
 	public void clear() {
 		while(!selection.isEmpty()) {
+			Color c = selection.getFirst().getColor();
 			selection.getFirst().setDrawMode(DrawMode.FILL);
 			selection.removeFirst();
 		}
+	}
+	
+	public boolean empty() {
+		return selection.isEmpty();
 	}
 	
 	public boolean contains(Cube b) {
@@ -37,6 +59,7 @@ public class SelectionModel {
 	public void W() {
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
+//			****************
 		}
 	}
 	public void S() {
@@ -44,35 +67,86 @@ public class SelectionModel {
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
 		}
 	}
+	
+//	*****
 	public void A() {
-		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
+		Cube tmp;
+		for(int i=0;i<selection.size();i++) {		
+				selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
+				for(int j=1;j<group.getChildren().size();j++) {
+					if(!(selection.get(i).equals(group.getChildren().get(j)))){
+						tmp = (Cube)group.getChildren().get(j);
+						if(tmp.isColliding(selection.get(i))) {
+							selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
+							j=0;
+						}
+						
+					}
+				}
 		}
 	}
 	public void D() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
+				selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
+				for(int j=1;j<group.getChildren().size();j++) {
+					if(!(selection.get(i).equals(group.getChildren().get(j)))){
+						tmp = (Cube)group.getChildren().get(j);
+						if(tmp.isColliding(selection.get(i))) {
+							selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
+							j=0;
+						}
+						
+					}
+				}
 		}
 		
 	}
+//	*****
 	
+
 	public void Z() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
+		
+				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
+				for(int j=1;j<group.getChildren().size();j++) {
+					if(!(selection.get(i).equals(group.getChildren().get(j)))){
+						tmp = (Cube)group.getChildren().get(j);
+						if(tmp.isColliding(selection.get(i))) {
+							selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
+							j=0;
+						}
+						
+					}
+				}
 		}
 	}
-	
 	public void X() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {
-			if(selection.get(i).getTranslateY()<=-1 ) {
-				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+			if(selection.get(i).getTranslateY()<0 ) {
+				
+					selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+					for(int j=1;j<group.getChildren().size();j++) {
+						if(!(selection.get(i).equals(group.getChildren().get(j)))){
+							tmp = (Cube)group.getChildren().get(j);
+							if(tmp.isColliding(selection.get(i))) {
+								selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+								if(selection.get(i).getTranslateY()>-1)
+									selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-2);
+//								j=0; cree une boucle est infinie
+								
+								
+							}
+							
+						}
+					}
 			}
-			else {
-				selection.get(i).translateYProperty().set(0);
-			}
+			
+			
 		}
 	}
-	
 	
 	
 //	****************ROTATION*****************
@@ -92,6 +166,16 @@ public class SelectionModel {
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).getTransforms().clear();
 			selection.get(i).getTransforms().addAll(t);
+		}
+	}
+	
+//	*************CHECK***************
+	
+	
+	//****************TEST
+	public void changeColor() {
+		for(int i=0;i<selection.size();i++) {
+			selection.get(i).addRandomColor();
 		}
 	}
 	
