@@ -223,7 +223,7 @@ public class Test extends Application{
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
 				try {
-					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction.json"));
+					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction2.json"));
 					for(int i = 0; i < construction.size(); i++){
 						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
 							if(!e.isShiftDown())
