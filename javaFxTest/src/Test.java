@@ -219,6 +219,9 @@ public class Test extends Application{
 		// importer un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
+				for (int i = 1; i < group.getChildren().size(); i++){
+					group.getChildren().remove(i);
+				}
 				configureFileChooser(fileChooser);
 
 				File file = fileChooser.showOpenDialog(primaryStage);
