@@ -98,6 +98,10 @@ public class Cube extends Box{
 				(getBoundsInParent().getMinZ()+0.01 <= cube.getBoundsInParent().getMaxZ() && getBoundsInParent().getMaxZ() >= cube.getBoundsInParent().getMinZ()+0.01));
 	}
 
+	public boolean equalsPosition(double x, double y, double z){
+		return this.x == x && this.y == y && this.z == z;
+	}
+
 
 
 }
