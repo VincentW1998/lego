@@ -1,6 +1,8 @@
 import java.util.LinkedList;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.CullFace;
@@ -25,7 +27,7 @@ public class SelectionModel {
 		SelectionModel tmp = new SelectionModel(group);
 		for(int i=0;i<selection.size();i++) {
 			tmp.add(selection.get(i));
-//			tmp.add(selection.get(i).copy());
+
 		}
 	
 		return tmp;
@@ -136,8 +138,8 @@ public class SelectionModel {
 								if(selection.get(i).getTranslateY()>-1)
 									selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-2);
 //								j=0; cree une boucle est infinie
-								
-								
+
+
 							}
 							
 						}
@@ -169,9 +171,80 @@ public class SelectionModel {
 		}
 	}
 	
-//	*************CHECK***************
-	
-	
+//	*************UNDO***************
+	public void Undo(Save save){
+		KeyEvent e ;
+		if(!save.moves.isEmpty()){
+			e = save.moves.pollLast();
+			if(e.getEventType().equals(KeyEvent.KEY_PRESSED)) {
+				if(e.isMetaDown() && e.getCode() == KeyCode.N){
+					Cube tmp;
+					for(int i=1;i<group.getChildren().size();i++){
+						tmp = (Cube) group.getChildren().get(i);
+						if(tmp.equals(save.cubes.getLast())){
+							group.getChildren().remove(i);
+							save.cubes.pollLast();
+							return;
+						}
+					}
+				}
+				switch (e.getCode()) {
+
+					case W:
+						remote(save);
+						this.S();
+						break;
+					case S:
+						remote(save);
+						this.W();
+						break;
+					case A:
+						remote(save);
+						this.D();
+						break;
+					case D:
+
+						remote(save);
+						this.A();
+						break;
+					case Z:
+						remote(save);
+						this.X();
+						break;
+					case X:
+						remote(save);
+						this.Z();
+						break;
+					case Q:
+						remote(save);
+						this.E();
+						break;
+					case E:
+						remote(save);
+						this.Q();
+						break;
+					case BACK_SPACE:
+						remote(save);
+						for(int i=0;i<selection.size();i++) {
+							group.getChildren().add(selection.get(i));
+						}
+						break;
+					}
+
+
+			}
+		}
+	}
+
+	public void remote(Save save){
+		LinkedList <Cube> s;
+			selection.clear();
+			s = save.remotes.pollLast().selection;
+			for(int i=0;i<s.size();i++){
+				this.add(s.get(i));
+			}
+
+	}
 	//****************TEST
 	public void changeColor() {
 		for(int i=0;i<selection.size();i++) {
