@@ -1,0 +1,56 @@
+[
+  {
+    "id" : 1,
+    "color" : {"red" : 4, "green" : 0, "blue" : 255 },
+    "width" : 1,
+    "height" : 1,
+    "depth" : 1,
+    "x" : -1,
+    "y" : 0,
+    "z" : 0
+  },
+
+  {
+    "id" : 2,
+    "color" : {"red" : 255, "green" : 255, "blue" : 255 },
+    "width" : 1,
+    "height" : 1,
+    "depth" : 1,
+    "x" : 0,
+    "y" : 0,
+    "z" : 0
+  },
+
+  {
+    "id" : 3,
+    "color" : {"red" : 255, "green" : 0, "blue" : 0 },
+    "width" : 1,
+    "height" : 1,
+    "depth" : 1,
+    "x" : 1,
+    "y" : 0,
+    "z" : 0
+  },
+  {
+    "id" : 4,
+    "color" : {"red" : 0, "green" : 0, "blue" : 0 },
+    "width" : 1,
+    "height" : 1,
+    "depth" : 1,
+    "x" : 0,
+    "y" : -1,
+    "z" : 0
+  },
+  {
+    "id" : 5,
+    "color" : {"red" : 255, "green" : 255, "blue" : 0 },
+    "width" : 1,
+    "height" : 1,
+    "depth" : 1,
+    "x" : 0,
+    "y" : -2,
+    "z" : 0
+  }
+]
+
+

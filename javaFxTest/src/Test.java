@@ -4,30 +4,24 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Point3D;
 import javafx.scene.Camera;
 import javafx.scene.Group;
-import javafx.scene.Parent;
+
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.scene.shape.Sphere;
+
 import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.CullFace;
-import javafx.scene.shape.DrawMode;
-import javafx.scene.input.KeyEvent;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Random;
+
 
 public class Test extends Application{
 
@@ -39,6 +33,7 @@ public class Test extends Application{
 	private double anchorAngleY=0;
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
+
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -91,6 +86,8 @@ public class Test extends Application{
 		scene.setFill(Color.WHITE);
 		
 		Save save = new Save();
+
+		final FileChooser fileChooser = new FileChooser();
 		
 		
 		// *********************** KEYBOARD CONTROLS ****************************
@@ -222,18 +219,28 @@ public class Test extends Application{
 		// importer un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
+				for (int i = 1; i < group.getChildren().size(); i++){
+					group.getChildren().remove(i);
+				}
+				configureFileChooser(fileChooser);
+
+				File file = fileChooser.showOpenDialog(primaryStage);
+				String path = "Data/";
+				if (file != null) {
+					path += file.getName();
+				}
 				try {
-					LinkedList<Cube> construction = Importer.loadFrom(new File("Data/construction.json"));
+					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
 					for(int i = 0; i < construction.size(); i++){
-						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
+						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 							if(!e.isShiftDown())
 								selection.clear();
 							selection.add((Cube) e.getSource());
 						});
 						group.getChildren().add(construction.get(i));
-						group.getChildren().get(i).translateXProperty().set(construction.get(i).x);
-						group.getChildren().get(i).translateYProperty().set(construction.get(i).y);
-						group.getChildren().get(i).translateZProperty().set(construction.get(i).z);
+						construction.get(i).translateXProperty().set(construction.get(i).x);
+						construction.get(i).translateYProperty().set(construction.get(i).y);
+						construction.get(i).translateZProperty().set(construction.get(i).z);
 					}
 
 				} catch (IOException e) {
@@ -247,7 +254,13 @@ public class Test extends Application{
 		// exporter la construction dans un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.S){
-
+				configureFileSave(fileChooser);
+				File file = fileChooser.showSaveDialog(primaryStage);
+				try {
+					Exporter.saveToFile(group,file);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
 			}
 		});
@@ -263,6 +276,22 @@ public class Test extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
+
+	// Filtre les fichiers importes sous le format .json
+	private static void configureFileChooser(final FileChooser fileChooser) {
+		fileChooser.setTitle("Import");
+		fileChooser.setInitialDirectory(new File("Data")
+		);
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter( "fichier json","*.json"));
+	}
+
+
+	// Filtre les fichiers de sauvegade sous le format .json
+	private static void configureFileSave(final FileChooser fileChooser){
+		fileChooser.setTitle("Save");
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
+	}
+
 //		*******SAVEMOVE
 //	public void saveMove(Save save, Group group) {
 //		SelectionModel tmp = new SelectionModel(group);
@@ -271,7 +300,7 @@ public class Test extends Application{
 //		}
 //		save.add(tmp.copy());
 //		tmp.clear();
-//	}		
+//	}
 }
 
 

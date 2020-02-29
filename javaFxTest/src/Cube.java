@@ -8,13 +8,17 @@ import javafx.scene.shape.Box;
 public class Cube extends Box{
 	Color color;
 	static int numeroCube = 0;
-	int id;
+	private int identifiant;
 	double x;
 	double y;
 	double z;
 
 	public void setId(int id){
-		this.id = id;
+		this.identifiant = id;
+	}
+
+	public int getIdentifiant() {
+		return identifiant;
 	}
 
 
@@ -23,14 +27,14 @@ public class Cube extends Box{
 		color = c;
 		setMaterial(new PhongMaterial(c));
 		numeroCube++;
-		id = numeroCube;
+		identifiant = numeroCube;
 	}
 
 	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z){
 		super(w,h,d);
 		color = c;
 		setMaterial(new PhongMaterial(c));
-		this.id = id;
+		this.identifiant = id;
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -49,15 +53,17 @@ public class Cube extends Box{
 		setColor(Color.rgb(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
 	}
 	public void setColor(Color c) {
+		this.color = c;
 		setMaterial(new PhongMaterial(c));
 	}
+
 	public Color getColor() {
 		return color;
 	
 	}
 	
 	public boolean equals(Cube c) {
-		return this.id == c.id;
+		return this.identifiant == c.identifiant;
 	}
 	
 	public Cube copy() {
@@ -65,7 +71,7 @@ public class Cube extends Box{
 		tmp.x =this.getTranslateX();
 		tmp.y = this.getTranslateY();
 		tmp.z = this.getTranslateZ();
-		tmp.id = this.id;
+		tmp.identifiant = this.identifiant;
 		numeroCube-=1;
 		return tmp;
 	}
@@ -81,6 +87,7 @@ public class Cube extends Box{
 				&& getBoundsInParent().getMinY()	+0.01<= cube.getBoundsInParent().getMaxY();
 
 	}
+
 
 
 }
