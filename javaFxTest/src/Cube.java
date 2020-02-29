@@ -55,6 +55,7 @@ public class Cube extends Box{
 	public void setColor(Color c) {
 		setMaterial(new PhongMaterial(c));
 	}
+
 	public Color getColor() {
 		return color;
 	
@@ -85,6 +86,7 @@ public class Cube extends Box{
 				&& getBoundsInParent().getMinY()	+0.01<= cube.getBoundsInParent().getMaxY();
 
 	}
+
 
 
 }

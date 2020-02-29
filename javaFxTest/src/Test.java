@@ -20,6 +20,7 @@ import javafx.scene.transform.Rotate;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
+import java.util.Random;
 
 
 public class Test extends Application{
@@ -165,8 +166,10 @@ public class Test extends Application{
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
 				{
-					Cube c = new Cube();
-					c.addRandomColor();
+					Random rand = new Random();
+					Color color  =Color.rgb(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
+					Cube c = new Cube(color);
+//					c.addRandomColor();
 					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
 						if(!e.isShiftDown())
 							selection.clear();
@@ -250,7 +253,11 @@ public class Test extends Application{
 		// exporter la construction dans un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.S){
-
+				try {
+					Exporter.saveToFile(group);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
 			}
 		});
