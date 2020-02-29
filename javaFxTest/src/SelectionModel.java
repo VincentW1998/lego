@@ -214,8 +214,10 @@ public class SelectionModel {
 	}
 
 	public boolean hasCube(double x, double y, double z){
+		Cube tmp;
 		for(int i = 1; i < group.getChildren().size(); i ++){
-			Cube tmp = (Cube) group.getChildren().get(i);
+			tmp = (Cube) group.getChildren().get(i);
+			System.out.println(group.getChildren().get(i));
 			if(tmp.equalsPosition(x,y,z))
 				return true;
 		}

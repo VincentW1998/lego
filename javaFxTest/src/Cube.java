@@ -46,6 +46,8 @@ public class Cube extends Box{
 
 	public Cube() {
 		super(1,1,1);
+		numeroCube++;
+		identifiant = numeroCube;
 	}
 	
 	public void addRandomColor() {
@@ -102,6 +104,14 @@ public class Cube extends Box{
 		return this.x == x && this.y == y && this.z == z;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Cube{" +
+				"color=" + color +
+				", identifiant=" + identifiant +
+				", x=" + this.getTranslateX() +
+				", y=" + this.getTranslateY() +
+				", z=" + this.getTranslateZ() +
+				'}';
+	}
 }

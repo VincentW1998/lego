@@ -264,6 +264,14 @@ public class Test extends Application{
 			}
 		});
 
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+			if(event.getCode()== KeyCode.G) {
+				for(int i = 0; i < group.getChildren().size(); i ++){
+					System.out.println(group.getChildren().get(i));
+				}
+			}
+		});
+
 
 		
 // *********************** MOUSE CONTROLS ****************************
