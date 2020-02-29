@@ -101,7 +101,7 @@ public class Cube extends Box{
 	}
 
 	public boolean equalsPosition(double x, double y, double z){
-		return this.x == x && this.y == y && this.z == z;
+		return this.getTranslateX() == x && this.getTranslateY() == y && this.getTranslateZ() == z;
 	}
 
 	@Override

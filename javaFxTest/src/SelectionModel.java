@@ -217,7 +217,7 @@ public class SelectionModel {
 		Cube tmp;
 		for(int i = 1; i < group.getChildren().size(); i ++){
 			tmp = (Cube) group.getChildren().get(i);
-			System.out.println(group.getChildren().get(i));
+//			System.out.println(group.getChildren().get(i));
 			if(tmp.equalsPosition(x,y,z))
 				return true;
 		}
