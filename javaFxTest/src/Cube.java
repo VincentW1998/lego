@@ -80,12 +80,22 @@ public class Cube extends Box{
 		translateYProperty().set(y);
 		translateZProperty().set(z);
 	}
-	public boolean isColliding(Cube cube) {
-		return getBoundsInParent().getMaxX()-0.01 >= cube.getBoundsInParent().getMinX()
-				&& getBoundsInParent().getMinX()+0.01 <= cube.getBoundsInParent().getMaxX()
-				&& getBoundsInParent().getMaxY()-0.01	>= cube.getBoundsInParent().getMinY()
-				&& getBoundsInParent().getMinY()	+0.01<= cube.getBoundsInParent().getMaxY();
 
+
+//	public boolean isColliding(Cube cube) {
+//		return getBoundsInParent().getMaxX()-0.01 >= cube.getBoundsInParent().getMinX()
+//				&& getBoundsInParent().getMinX()+0.01 <= cube.getBoundsInParent().getMaxX()
+//				&& getBoundsInParent().getMaxY()-0.01 >= cube.getBoundsInParent().getMinY()
+//				&& getBoundsInParent().getMinY()+0.01<= cube.getBoundsInParent().getMaxY();
+//
+//	}
+
+	public boolean isColliding(Cube cube){
+		return ((getBoundsInParent().getMinX()+0.01 <= cube.getBoundsInParent().getMaxX() && getBoundsInParent().getMaxX() >= cube.getBoundsInParent().getMinX()+0.01)
+				&&
+				(getBoundsInParent().getMinY()+0.01 <= cube.getBoundsInParent().getMaxY() && getBoundsInParent().getMaxY() >= cube.getBoundsInParent().getMinY()+0.01)
+				&&
+				(getBoundsInParent().getMinZ()+0.01 <= cube.getBoundsInParent().getMaxZ() && getBoundsInParent().getMaxZ() >= cube.getBoundsInParent().getMinZ()+0.01));
 	}
 
 

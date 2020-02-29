@@ -57,21 +57,43 @@ public class SelectionModel {
 	}
 	
 	public void W() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
-//			****************
+			for(int j=1;j<group.getChildren().size();j++) {
+				if(!(selection.get(i).equals(group.getChildren().get(j)))){
+					tmp = (Cube)group.getChildren().get(j);
+					if(tmp.isColliding(selection.get(i))) {
+						selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
+						j=0;
+					}
+
+				}
+			}
 		}
 	}
 	public void S() {
+		Cube tmp;
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
+			for(int j=1;j<group.getChildren().size();j++) {
+				if(!(selection.get(i).equals(group.getChildren().get(j)))){
+					tmp = (Cube)group.getChildren().get(j);
+					if(tmp.isColliding(selection.get(i))) {
+						selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
+						j=0;
+					}
+
+				}
+			}
 		}
 	}
 	
 //	*****
 	public void A() {
 		Cube tmp;
-		for(int i=0;i<selection.size();i++) {		
+		int x = 0;
+		for(int i=0;i<selection.size();i++) {
 				selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
 				for(int j=1;j<group.getChildren().size();j++) {
 					if(!(selection.get(i).equals(group.getChildren().get(j)))){
@@ -80,7 +102,7 @@ public class SelectionModel {
 							selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
 							j=0;
 						}
-						
+
 					}
 				}
 		}
