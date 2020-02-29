@@ -1,4 +1,5 @@
 import javafx.scene.Group;
+import javafx.stage.FileChooser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -9,8 +10,7 @@ import java.util.LinkedList;
 
 public class Exporter {
 
-    public static void saveToFile(Group group) throws IOException {
-        File f = new File("Data/name"+".json");
+    public static void saveToFile(Group group, File f) throws IOException {
         FileWriter fw = new FileWriter(f);
         JSONArray construction = new JSONArray();
         for (int i = 1; i < group.getChildren().size(); i++){

@@ -253,8 +253,10 @@ public class Test extends Application{
 		// exporter la construction dans un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.S){
+				configureFileSave(fileChooser);
+				File file = fileChooser.showSaveDialog(primaryStage);
 				try {
-					Exporter.saveToFile(group);
+					Exporter.saveToFile(group,file);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -274,11 +276,19 @@ public class Test extends Application{
 		primaryStage.show();
 	}
 
+	// Filtre les fichiers importes sous le format .json
 	private static void configureFileChooser(final FileChooser fileChooser) {
 		fileChooser.setTitle("Import");
 		fileChooser.setInitialDirectory(new File("Data")
 		);
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter( "fichier json","*.json"));
+	}
+
+
+	// Filtre les fichiers de sauvegade sous le format .json
+	private static void configureFileSave(final FileChooser fileChooser){
+		fileChooser.setTitle("Save");
+		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
 	}
 
 //		*******SAVEMOVE
