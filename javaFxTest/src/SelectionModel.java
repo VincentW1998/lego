@@ -144,31 +144,49 @@ public class SelectionModel {
 				}
 		}
 	}
-	public void X() {
+
+	public void X(){
 		Cube tmp;
-		for(int i=0;i<selection.size();i++) {
-			if(selection.get(i).getTranslateY()<0 ) {
-				
-					selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-					for(int j=1;j<group.getChildren().size();j++) {
-						if(!(selection.get(i).equals(group.getChildren().get(j)))){
-							tmp = (Cube)group.getChildren().get(j);
-							if(tmp.isColliding(selection.get(i))) {
-								selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-								if(selection.get(i).getTranslateY()>-1)
-									selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-2);
-//								j=0; cree une boucle est infinie
-								
-								
-							}
-							
+		for(int i = 0; i < selection.size(); i++){
+			if(selection.get(i).getTranslateY() < 0){
+				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+				for (int j = 1; j< group.getChildren().size(); j++){
+					if(!(selection.get(i).equals(group.getChildren().get(j)))){
+						tmp = (Cube)group.getChildren().get(j);
+						if(tmp.isColliding(selection.get(i))) {
+							selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+							j=0;
 						}
+
 					}
+				}
 			}
-			
-			
 		}
 	}
+//	public void X() {
+//		Cube tmp;
+//		for(int i=0;i<selection.size();i++) {
+//			if(selection.get(i).getTranslateY()<0 ) {
+//					selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+//					for(int j=1;j<group.getChildren().size();j++) {
+//						if(!(selection.get(i).equals(group.getChildren().get(j)))){
+//							tmp = (Cube)group.getChildren().get(j);
+//							if(tmp.isColliding(selection.get(i))) {
+//								selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+//								if(selection.get(i).getTranslateY()>-1)
+//									selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-2);
+////								j=0; cree une boucle est infinie
+//
+//
+//							}
+//
+//						}
+//					}
+//			}
+//
+//
+//		}
+//	}
 	
 	
 //	****************ROTATION*****************
