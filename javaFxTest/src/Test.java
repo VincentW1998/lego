@@ -166,10 +166,8 @@ public class Test extends Application{
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
 				{
-					Random rand = new Random();
-					Color color  =Color.rgb(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255));
-					Cube c = new Cube(color);
-//					c.addRandomColor();
+					Cube c = new Cube();
+					c.addRandomColor();
 					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
 						if(!e.isShiftDown())
 							selection.clear();

@@ -53,6 +53,7 @@ public class Cube extends Box{
 		setColor(Color.rgb(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
 	}
 	public void setColor(Color c) {
+		this.color = c;
 		setMaterial(new PhongMaterial(c));
 	}
 
