@@ -146,47 +146,41 @@ public class SelectionModel {
 	}
 
 	public void X(){
-		Cube tmp;
 		for(int i = 0; i < selection.size(); i++){
-			if(selection.get(i).getTranslateY() < 0){
-				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-				for (int j = 1; j< group.getChildren().size(); j++){
-					if(!(selection.get(i).equals(group.getChildren().get(j)))){
-						tmp = (Cube)group.getChildren().get(j);
-						if(tmp.isColliding(selection.get(i))) {
-							selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-							j=0;
-						}
-
-					}
-				}
+			double x = selection.get(i).getTranslateX();
+			double y = selection.get(i).getTranslateY();
+			double z = selection.get(i).getTranslateZ();
+			int compteur  = 0;
+			while(hasCube(x,y+compteur + 1,z)){
+				compteur += 1;
+			}
+			System.out.println("y :"+ y);
+			System.out.println("compteur :"+ compteur);
+			if(y+compteur+1 <= 0 && y !=0){
+				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+compteur+1);
 			}
 		}
 	}
-//	public void X() {
+
+//	public void X(){
 //		Cube tmp;
-//		for(int i=0;i<selection.size();i++) {
-//			if(selection.get(i).getTranslateY()<0 ) {
-//					selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-//					for(int j=1;j<group.getChildren().size();j++) {
-//						if(!(selection.get(i).equals(group.getChildren().get(j)))){
-//							tmp = (Cube)group.getChildren().get(j);
-//							if(tmp.isColliding(selection.get(i))) {
-//								selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-//								if(selection.get(i).getTranslateY()>-1)
-//									selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-2);
-////								j=0; cree une boucle est infinie
-//
-//
-//							}
-//
+//		for(int i = 0; i < selection.size(); i++){
+//			if(selection.get(i).getTranslateY() < 0){
+//				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+//				for (int j = 1; j< group.getChildren().size(); j++){
+//					if(!(selection.get(i).equals(group.getChildren().get(j)))){
+//						tmp = (Cube)group.getChildren().get(j);
+//						if(tmp.isColliding(selection.get(i))) {
+//							selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+//							j=0;
 //						}
+//
 //					}
+//				}
 //			}
-//
-//
 //		}
 //	}
+
 	
 	
 //	****************ROTATION*****************
@@ -217,6 +211,15 @@ public class SelectionModel {
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).addRandomColor();
 		}
+	}
+
+	public boolean hasCube(double x, double y, double z){
+		for(int i = 1; i < group.getChildren().size(); i ++){
+			Cube tmp = (Cube) group.getChildren().get(i);
+			if(tmp.equalsPosition(x,y,z))
+				return true;
+		}
+		return false;
 	}
 	
 }
