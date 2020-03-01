@@ -42,3 +42,6 @@ LISTE DES COMMANDES :
 
       Exporter une construction :
         COMMAND + S
+
+      Affiche dans le terminal les cubes qui sont dans la fenetre :
+        G
