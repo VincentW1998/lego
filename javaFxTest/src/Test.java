@@ -154,10 +154,8 @@ public class Test extends Application{
 				case RIGHT:				
 					camera.translateXProperty().set(camera.getTranslateX()+1);
 					break;
-//				*****************TEST
-				case P:
-					selection.changeColor();
-					break;
+
+
 
 				}
 
