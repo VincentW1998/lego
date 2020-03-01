@@ -147,7 +147,12 @@ public class SelectionModel {
 			
 		}
 	}
-	
+
+	public void setColors(int x){
+		for(int i = 0;i<selection.size();i++){
+			selection.get(i).setRange(x);
+		}
+	}
 	
 //	****************ROTATION*****************
 	
