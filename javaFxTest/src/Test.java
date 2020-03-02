@@ -167,11 +167,11 @@ public class Test extends Application{
 				case RIGHT:				
 					camera.translateXProperty().set(camera.getTranslateX()+1);
 					break;
-//				*****************TEST
-				case P:
-					selection.changeColor();
-					break;
-				}	
+
+
+
+				}
+
 			}
 		});
 
@@ -191,7 +191,15 @@ public class Test extends Application{
 				}
 				save.saveMoves(event);
 			}
-		});	
+		});
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {//couleur Num
+			KeyCode [] kc = {KeyCode.DIGIT0,KeyCode.DIGIT1,KeyCode.DIGIT2,KeyCode.DIGIT3,KeyCode.DIGIT4,KeyCode.DIGIT5,
+					KeyCode.DIGIT6,KeyCode.DIGIT7,KeyCode.DIGIT8,KeyCode.DIGIT9};
+			for(int i=0;i<kc.length;i++){
+				if(e.getCode()==kc[i])
+					selection.setColors(i);
+			}
+		});
 		
 		//********Undo*********
 		
