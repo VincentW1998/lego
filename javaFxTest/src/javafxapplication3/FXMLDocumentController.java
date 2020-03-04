@@ -1,3 +1,5 @@
+package javafxapplication3;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
@@ -6,7 +8,7 @@ public class FXMLDocumentController extends Initializable {
     private Pane selected_color;
     @FXML
     private ColorPicker colorPicker;
-    @FXML
+    @FXMLs
     private TextField length_value;
     @FXML
     private TextField width_value;
