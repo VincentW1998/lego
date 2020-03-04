@@ -1,14 +1,29 @@
 package javafxapplication3;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
-public class FXMLDocumentController extends Initializable {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class FXMLDocumentController implements Initializable {
     @FXML
     private Pane selected_color;
     @FXML
     private ColorPicker colorPicker;
-    @FXMLs
+    @FXML
     private TextField length_value;
     @FXML
     private TextField width_value;
