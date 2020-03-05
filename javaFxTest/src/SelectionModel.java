@@ -128,6 +128,7 @@ public class SelectionModel {
 //	*****
 
 	public void Z(){
+		sortSelectionModel('Z');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
 			double y = selection.get(i).getTranslateY();
@@ -161,6 +162,7 @@ public class SelectionModel {
 //	}
 
 	public void X(){
+		sortSelectionModel('X');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
 			double y = selection.get(i).getTranslateY();
@@ -243,48 +245,48 @@ public class SelectionModel {
 		switch (command){
 			case 'X' :
 				for(int i = 1; i < selection.size(); i++)
-					for(int j = i; j > 0; i--)
-						if (selection.get(j-1).getTranslateY() < selection.get(i).getTranslateY()){
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateY() < selection.get(j).getTranslateY()){
 							Cube tmp = selection.get(j-1);
 							Collections.swap(selection,j-1,j);
 						}
 				break;
 			case 'Z' :
 				for(int i = 1; i < selection.size(); i++)
-					for(int j = i; j > 0; i--)
-						if (selection.get(j-1).getTranslateY() > selection.get(i).getTranslateY()){
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateY() > selection.get(j).getTranslateY()){
 							Cube tmp = selection.get(j-1);
 							Collections.swap(selection,j-1,j);
 						}
 				break;
 			case 'D' :
 				for(int i = 1; i < selection.size(); i++)
-					for(int j = i; j > 0; i--)
-						if (selection.get(j-1).getTranslateX() < selection.get(i).getTranslateX()){
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateX() < selection.get(j).getTranslateX()){
 							Cube tmp = selection.get(j-1);
 							Collections.swap(selection,j-1,j);
 						}
 				break;
 			case 'A' :
 				for(int i = 1; i < selection.size(); i++)
-					for(int j = i; j > 0; i--)
-						if (selection.get(j-1).getTranslateX() > selection.get(i).getTranslateX()){
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateX() > selection.get(j).getTranslateX()){
 							Cube tmp = selection.get(j-1);
 							Collections.swap(selection,j-1,j);
 						}
 				break;
 			case 'W' :
 				for(int i = 1; i < selection.size(); i++)
-					for(int j = i; j > 0; i--)
-						if (selection.get(j-1).getTranslateZ() < selection.get(i).getTranslateZ()){
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateZ() < selection.get(j).getTranslateZ()){
 							Cube tmp = selection.get(j-1);
 							Collections.swap(selection,j-1,j);
 						}
 				break;
 			case 'S' :
 				for(int i = 1; i < selection.size(); i++)
-					for(int j = i; j > 0; i--)
-						if (selection.get(j-1).getTranslateZ() > selection.get(i).getTranslateZ()){
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateZ() > selection.get(j).getTranslateZ()){
 							Cube tmp = selection.get(j-1);
 							Collections.swap(selection,j-1,j);
 						}
