@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.DrawMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -100,45 +101,57 @@ public class Test extends Application{
 					break;
 			//Cube	
 				case W:
-//					saveMove(save,group);
 					selection.W();// add 15 to the Z axis when the W key is pressed
+					save.saveRemote(selection.copy());
+					save.saveMoves((KeyEvent)event);
 					break;
-				case S: 
-//					saveMove(save,group);
+				case S:
 					selection.S(); // substract 15 to Z axis
+					save.saveRemote(selection.copy());
+					save.saveMoves((KeyEvent)event);
 					break;
 				case A:
-//					saveMove(save,group);
+
 					selection.A();// substract 10 to X axis
+					save.saveRemote(selection.copy());
+					save.saveMoves((KeyEvent)event);
 					break;
 				case D:
-//					saveMove(save,group);
 					selection.D(); // add 10 to X axis
+					save.saveRemote(selection.copy());
+					save.saveMoves((KeyEvent)event);
 					break;			
 				case Z:
 					selection.Z();
+					save.saveRemote(selection.copy());
+					save.saveMoves((KeyEvent)event);
 					break;		
 				case X:
 					selection.X();
+					save.saveRemote(selection.copy());
+					save.saveMoves((KeyEvent)event);
 					break;		
 				case Q:
+
 					selection.Q();
+					save.saveRemote(selection.copy());
+					save.saveMoves((KeyEvent)event);
 					break;
 				case E:
+
 					selection.E();
+					save.saveRemote(selection.copy());
+					save.saveMoves((KeyEvent)event);
 					break;
 				case BACK_SPACE:
 					if(!selection.empty()) {
-						save.add(selection.copy());
 						for(int i=0;i<selection.selection.size();i++) {
+							selection.selection.get(i).setDrawMode(DrawMode.FILL);
 							group.getChildren().remove(selection.selection.get(i));
 						}
-					selection.clear();
-//					saveMove(save,group);
-//					for(int i=0;i<selection.selection.size();i++) {
-//						group.getChildren().remove(selection.selection.get(i));
-//					}
-//					selection.clear();
+						save.saveRemote(selection.copy());
+						selection.clear();
+						save.saveMoves((KeyEvent)event);
 					}
 					break;
 			//Camera
@@ -154,11 +167,11 @@ public class Test extends Application{
 				case RIGHT:				
 					camera.translateXProperty().set(camera.getTranslateX()+1);
 					break;
-//				*****************TEST
-				case P:
-					selection.changeColor();
-					break;
-				}	
+
+
+
+				}
+
 			}
 		});
 
@@ -173,28 +186,35 @@ public class Test extends Application{
 							selection.clear();
 						selection.add((Cube) e.getSource());
 					});
-				group.getChildren().add(c); 
+				group.getChildren().add(c);
+				save.newCube(c);
 				}
+				save.saveMoves(event);
 			}
-		});	
+		});
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {//couleur Num
+			KeyCode [] kc = {KeyCode.DIGIT0,KeyCode.DIGIT1,KeyCode.DIGIT2,KeyCode.DIGIT3,KeyCode.DIGIT4,KeyCode.DIGIT5,
+					KeyCode.DIGIT6,KeyCode.DIGIT7,KeyCode.DIGIT8,KeyCode.DIGIT9};
+			for(int i=0;i<kc.length;i++){
+				if(e.getCode()==kc[i])
+					selection.setColors(i);
+			}
+		});
 		
 		//********Undo*********
 		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.isMetaDown() && event.getCode()== KeyCode.Z) {
-//				selection.clear();
-				SelectionModel m;
-				if(!save.Empty()) {
-//				for(int i=0;i<group.getChildren().size();i++) {
-//					group.getChildren().remove(i);
+//				SelectionModel m;
+//				if(!save.Empty()) {
+//					m = save.pop();
+//					for(int i=0;i<m.selection.size();i++) {
+//						group.getChildren().add(m.selection.get(i));
+//					}
+//
 //				}
-					m = save.pop();
-					for(int i=0;i<m.selection.size();i++) {
-						group.getChildren().add(m.selection.get(i));
-//						m.selection.get(i).giveLocation();
-					}
-			
-				}
+				selection.Undo(save);
+
 			}
 		});
 		//Zoom 
@@ -219,15 +239,14 @@ public class Test extends Application{
 		// importer un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
-				for (int i = 1; i < group.getChildren().size(); i++){
-					group.getChildren().remove(i);
-				}
 				configureFileChooser(fileChooser);
 
 				File file = fileChooser.showOpenDialog(primaryStage);
 				String path = "Data/";
 				if (file != null) {
 					path += file.getName();
+					group.getChildren().clear();
+					group.getChildren().add(sol);
 				}
 				try {
 					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
@@ -262,6 +281,14 @@ public class Test extends Application{
 					e.printStackTrace();
 				}
 
+			}
+		});
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+			if(event.getCode()== KeyCode.G) {
+				for(int i = 0; i < group.getChildren().size(); i ++){
+					System.out.println(group.getChildren().get(i));
+				}
 			}
 		});
 
