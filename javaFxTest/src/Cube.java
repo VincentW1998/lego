@@ -54,6 +54,8 @@ public class Cube extends Box{
 
 	public Cube() {
 		super(1,1,1);
+		numeroCube++;
+		identifiant = numeroCube;
 	}
 	
 	public void addRandomColor() {
@@ -88,14 +90,29 @@ public class Cube extends Box{
 		translateYProperty().set(y);
 		translateZProperty().set(z);
 	}
-	public boolean isColliding(Cube cube) {
-		return getBoundsInParent().getMaxX()-0.01 >= cube.getBoundsInParent().getMinX()
-				&& getBoundsInParent().getMinX()+0.01 <= cube.getBoundsInParent().getMaxX()
-				&& getBoundsInParent().getMaxY()-0.01	>= cube.getBoundsInParent().getMinY()
-				&& getBoundsInParent().getMinY()	+0.01<= cube.getBoundsInParent().getMaxY();
 
+
+//	public boolean isColliding(Cube cube) {
+//		return getBoundsInParent().getMaxX()-0.01 >= cube.getBoundsInParent().getMinX()
+//				&& getBoundsInParent().getMinX()+0.01 <= cube.getBoundsInParent().getMaxX()
+//				&& getBoundsInParent().getMaxY()-0.01 >= cube.getBoundsInParent().getMinY()
+//				&& getBoundsInParent().getMinY()+0.01<= cube.getBoundsInParent().getMaxY();
+//
+//	}
+
+
+	public boolean equalsPosition(double x, double y, double z){
+		return this.getTranslateX() == x && this.getTranslateY() == y && this.getTranslateZ() == z;
 	}
 
-
-
+	@Override
+	public String toString() {
+		return "Cube{" +
+				"color=" + color +
+				", identifiant=" + identifiant +
+				", x=" + this.getTranslateX() +
+				", y=" + this.getTranslateY() +
+				", z=" + this.getTranslateZ() +
+				'}';
+	}
 }

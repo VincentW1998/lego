@@ -239,15 +239,14 @@ public class Test extends Application{
 		// importer un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode() == KeyCode.I){
-				for (int i = 1; i < group.getChildren().size(); i++){
-					group.getChildren().remove(i);
-				}
 				configureFileChooser(fileChooser);
 
 				File file = fileChooser.showOpenDialog(primaryStage);
 				String path = "Data/";
 				if (file != null) {
 					path += file.getName();
+					group.getChildren().clear();
+					group.getChildren().add(sol);
 				}
 				try {
 					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
@@ -282,6 +281,14 @@ public class Test extends Application{
 					e.printStackTrace();
 				}
 
+			}
+		});
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+			if(event.getCode()== KeyCode.G) {
+				for(int i = 0; i < group.getChildren().size(); i ++){
+					System.out.println(group.getChildren().get(i));
+				}
 			}
 		});
 

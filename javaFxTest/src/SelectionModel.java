@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.LinkedList;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -57,104 +58,110 @@ public class SelectionModel {
 	public boolean contains(Cube b) {
 		return selection.contains(b);
 	}
-	
-	public void W() {
-		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
-//			****************
-		}
-	}
-	public void S() {
-		for(int i=0;i<selection.size();i++) {
-			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
-		}
-	}
-	
-//	*****
-	public void A() {
-		Cube tmp;
-		for(int i=0;i<selection.size();i++) {		
-				selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
-				for(int j=1;j<group.getChildren().size();j++) {
-					if(!(selection.get(i).equals(group.getChildren().get(j)))){
-						tmp = (Cube)group.getChildren().get(j);
-						if(tmp.isColliding(selection.get(i))) {
-							selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
-							j=0;
-						}
-						
-					}
-				}
-		}
-	}
-	public void D() {
-		Cube tmp;
-		for(int i=0;i<selection.size();i++) {
-				selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
-				for(int j=1;j<group.getChildren().size();j++) {
-					if(!(selection.get(i).equals(group.getChildren().get(j)))){
-						tmp = (Cube)group.getChildren().get(j);
-						if(tmp.isColliding(selection.get(i))) {
-							selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
-							j=0;
-						}
-						
-					}
-				}
-		}
-		
-	}
-//	*****
-	
 
-	public void Z() {
-		Cube tmp;
-		for(int i=0;i<selection.size();i++) {
-		
-				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
-				for(int j=1;j<group.getChildren().size();j++) {
-					if(!(selection.get(i).equals(group.getChildren().get(j)))){
-						tmp = (Cube)group.getChildren().get(j);
-						if(tmp.isColliding(selection.get(i))) {
-							selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
-							j=0;
-						}
-						
-					}
-				}
-		}
-	}
-	public void X() {
-		Cube tmp;
-		for(int i=0;i<selection.size();i++) {
-			if(selection.get(i).getTranslateY()<0 ) {
-				
-					selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-					for(int j=1;j<group.getChildren().size();j++) {
-						if(!(selection.get(i).equals(group.getChildren().get(j)))){
-							tmp = (Cube)group.getChildren().get(j);
-							if(tmp.isColliding(selection.get(i))) {
-								selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-								if(selection.get(i).getTranslateY()>-1)
-									selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-2);
-//								j=0; cree une boucle est infinie
-
-
-							}
-							
-						}
-					}
+	public void W(){
+		sortSelectionModel('W');
+		for(int i = 0; i < selection.size(); i++){
+			double x = selection.get(i).getTranslateX();
+			double y = selection.get(i).getTranslateY();
+			double z = selection.get(i).getTranslateZ();
+			int compteur  = 0;
+			while(hasCube(x, y, z+ compteur + 1)){
+				compteur += 1;
 			}
-			
-			
+//			System.out.println("y :"+ y);
+//			System.out.println("compteur :"+ compteur);
+			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+compteur+1);
 		}
 	}
 
-	public void setColors(int x){
-		for(int i = 0;i<selection.size();i++){
-			selection.get(i).setRange(x);
+	public void S(){
+		sortSelectionModel('S');
+		for(int i = 0; i < selection.size(); i++){
+			double x = selection.get(i).getTranslateX();
+			double y = selection.get(i).getTranslateY();
+			double z = selection.get(i).getTranslateZ();
+			int compteur  = 0;
+			while(hasCube(x, y, z-compteur-1)){
+				compteur += 1;
+			}
+//			System.out.println("y :"+ y);
+//			System.out.println("compteur :"+ compteur);
+			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-compteur-1);
 		}
 	}
+
+	
+	public void A(){
+		sortSelectionModel('A');
+		for(int i = 0; i < selection.size(); i++){
+			double x = selection.get(i).getTranslateX();
+			double y = selection.get(i).getTranslateY();
+			double z = selection.get(i).getTranslateZ();
+			int compteur  = 0;
+			while(hasCube(x - compteur - 1, y, z)){
+				compteur += 1;
+			}
+//			System.out.println("y :"+ y);
+//			System.out.println("compteur :"+ compteur);
+			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-compteur-1);
+		}
+	}
+
+	public void D(){
+		sortSelectionModel('D');
+		for(int i = 0; i < selection.size(); i++){
+			double x = selection.get(i).getTranslateX();
+			double y = selection.get(i).getTranslateY();
+			double z = selection.get(i).getTranslateZ();
+			int compteur  = 0;
+			while(hasCube(x + compteur + 1, y, z)){
+				compteur += 1;
+			}
+//			System.out.println("y :"+ y);
+//			System.out.println("compteur :"+ compteur);
+			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+compteur+1);
+		}
+	}
+
+
+	public void Z(){
+		sortSelectionModel('Z');
+		for(int i = 0; i < selection.size(); i++){
+			double x = selection.get(i).getTranslateX();
+			double y = selection.get(i).getTranslateY();
+			double z = selection.get(i).getTranslateZ();
+			int compteur  = 0;
+			while(hasCube(x,y- compteur - 1,z)){
+				compteur += 1;
+			}
+//			System.out.println("y :"+ y);
+//			System.out.println("compteur :"+ compteur);
+			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-compteur-1);
+		}
+	}
+
+
+	public void X(){
+		sortSelectionModel('X');
+		for(int i = 0; i < selection.size(); i++){
+			double x = selection.get(i).getTranslateX();
+			double y = selection.get(i).getTranslateY();
+			double z = selection.get(i).getTranslateZ();
+			int compteur  = 0;
+			while(hasCube(x,y+compteur + 1,z)){
+				compteur += 1;
+			}
+//			System.out.println("y :"+ y);
+//			System.out.println("compteur :"+ compteur);
+			if(y+compteur+1 <= 0 && y !=0){
+				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+compteur+1);
+			}
+		}
+	}
+
+
+	
 	
 //	****************ROTATION*****************
 	
@@ -256,5 +263,71 @@ public class SelectionModel {
 			selection.get(i).addRandomColor();
 		}
 	}
-	
+
+	public boolean hasCube(double x, double y, double z){
+		Cube tmp;
+		for(int i = 1; i < group.getChildren().size(); i ++){
+			tmp = (Cube) group.getChildren().get(i);
+//			System.out.println(group.getChildren().get(i));
+			if(tmp.equalsPosition(x,y,z))
+				return true;
+		}
+		return false;
+	}
+
+	public void sortSelectionModel(char command){
+		switch (command){
+			case 'X' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateY() < selection.get(j).getTranslateY()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'Z' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateY() > selection.get(j).getTranslateY()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'D' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateX() < selection.get(j).getTranslateX()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'A' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateX() > selection.get(j).getTranslateX()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'W' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateZ() < selection.get(j).getTranslateZ()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'S' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; j--)
+						if (selection.get(j-1).getTranslateZ() > selection.get(j).getTranslateZ()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+		}
+	}
+
+
+
 }
