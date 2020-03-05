@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.LinkedList;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
@@ -237,5 +238,60 @@ public class SelectionModel {
 		}
 		return false;
 	}
-	
+
+	public void sortSelectionModel(char command){
+		switch (command){
+			case 'X' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; i--)
+						if (selection.get(j-1).getTranslateY() < selection.get(i).getTranslateY()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'Z' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; i--)
+						if (selection.get(j-1).getTranslateY() > selection.get(i).getTranslateY()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'D' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; i--)
+						if (selection.get(j-1).getTranslateX() < selection.get(i).getTranslateX()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'A' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; i--)
+						if (selection.get(j-1).getTranslateX() > selection.get(i).getTranslateX()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'W' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; i--)
+						if (selection.get(j-1).getTranslateZ() < selection.get(i).getTranslateZ()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+			case 'S' :
+				for(int i = 1; i < selection.size(); i++)
+					for(int j = i; j > 0; i--)
+						if (selection.get(j-1).getTranslateZ() > selection.get(i).getTranslateZ()){
+							Cube tmp = selection.get(j-1);
+							Collections.swap(selection,j-1,j);
+						}
+				break;
+		}
+	}
+
+
+
 }
