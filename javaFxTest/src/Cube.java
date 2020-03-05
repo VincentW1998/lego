@@ -1,6 +1,8 @@
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
+
+import java.util.LinkedList;
 import java.util.Random;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
@@ -12,6 +14,8 @@ public class Cube extends Box{
 	double x;
 	double y;
 	double z;
+	Color [] colorRange = {Color.BLACK,Color.YELLOW,Color.ORANGE,Color.RED,Color.PINK,Color.PURPLE,
+			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
 
 	public void setId(int id){
 		this.identifiant = id;
@@ -21,6 +25,9 @@ public class Cube extends Box{
 		return identifiant;
 	}
 
+	public void setRange(int x){
+		setColor(colorRange[x]);
+	}
 
 	public Cube(Color c, double w, double h, double d) {
 		super(w,h,d);
@@ -28,6 +35,7 @@ public class Cube extends Box{
 		setMaterial(new PhongMaterial(c));
 		numeroCube++;
 		identifiant = numeroCube;
+
 	}
 
 	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z){
