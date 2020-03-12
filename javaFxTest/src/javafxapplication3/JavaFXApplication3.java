@@ -1,7 +1,6 @@
 package javafxapplication3;
 
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -20,6 +19,7 @@ public class JavaFXApplication3 extends Application {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
+        stage.setTitle("Lego");
         stage.show();
     }
 
