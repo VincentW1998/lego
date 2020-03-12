@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1700.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Test">
+   <children>
+      <MenuBar prefHeight="29.0" prefWidth="1700.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <SubScene height="800.0" layoutY="30.0" width="1400">
+        <root>
+          <Region />
+        </root>
+      </SubScene>
+      <AnchorPane layoutX="1400.0" layoutY="30.0" prefHeight="800.0" prefWidth="300.0">
+         <children>
+            <Pane layoutX="22.0" layoutY="24.0" prefHeight="140.0" prefWidth="98.0" />
+            <ColorPicker layoutX="129.0" layoutY="81.0" />
+         </children></AnchorPane>
+   </children>
+</AnchorPane>

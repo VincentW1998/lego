@@ -1,32 +1,89 @@
-
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.Camera;
-import javafx.scene.Group;
-
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.Scene;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.scene.*;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.DrawMode;
+import javafx.scene.transform.Rotate;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javafx.scene.transform.Rotate;
-
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.LinkedList;
-import java.util.Random;
+import java.util.ResourceBundle;
 
 
-public class Test extends Application{
+public class Test extends Application implements Initializable {
+
+	static Cube tmp;
+
+	@FXML
+	private Pane selected_color;
+	@FXML
+	private ColorPicker colorPicker;
+	@FXML
+	private TextField length_value;
+	@FXML
+	private TextField width_value;
+	@FXML
+	private TextField height_value;
+
+	@FXML
+	private void changeColor(ActionEvent event) {
+		Color choice = colorPicker.getValue();
+		selected_color.setBackground(new Background(new BackgroundFill(Paint.valueOf(choice.toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+	}
+
+	@FXML
+	private void showDIM(ActionEvent event) {
+		System.out.println("Color RED : " + colorPicker.getValue().getRed()*255);
+		System.out.println("Color GREEN : " + colorPicker.getValue().getGreen()*255);
+		System.out.println("Color BLUE : " + colorPicker.getValue().getBlue()*255);
+		System.out.println("Length : "+length_value.getText());
+		System.out.println("Width : "+width_value.getText());
+		System.out.println("Height : "+height_value.getText());
+	}
+
+	@FXML
+	void newWindow(ActionEvent event) {
+		try{
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hotkeys.fxml"));
+			Parent root = (Parent)fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("HotKeys");
+			stage.setScene(new Scene(root));
+			stage.show();
+		} catch (Exception e){
+			System.out.println("ERROR");
+		}
+	}
+
+	@FXML
+	public void createCube(){
+//		int red = (int) (colorPicker.getValue().getRed()*255);
+//		int green = (int) (colorPicker.getValue().getGreen()*255);
+//		int blue = (int) (colorPicker.getValue().getBlue()*255);
+		double w = Double.parseDouble(width_value.getText());
+		double h = Double.parseDouble(height_value.getText());
+		double d = Double.parseDouble(length_value.getText());
+		Color color = colorPicker.getValue();
+		tmp = new Cube(color,w,h,d);
+	}
 
 	private static final int HEIGHT = 800;
 	private static final int WIDTH = 1400;
@@ -68,7 +125,7 @@ public class Test extends Application{
 	
 	public void start(Stage primaryStage) throws Exception{
 
-	
+		Stage secondStage = new Stage();
 		Group group = new Group();
 		Scene scene = new Scene(group, WIDTH, HEIGHT, true);
 
@@ -181,8 +238,9 @@ public class Test extends Application{
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
 				{
-					Cube c = new Cube();
-					c.addRandomColor();
+//					Cube c = new Cube();
+//					c.addRandomColor();
+					Cube c = tmp;
 					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
 						if(!e.isShiftDown())
 							selection.clear();
@@ -305,7 +363,6 @@ public class Test extends Application{
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		Stage secondStage = new Stage();
 		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 		Scene secondScene = new Scene(secondRoot);
 		secondStage.setScene(secondScene);
@@ -326,6 +383,11 @@ public class Test extends Application{
 	private static void configureFileSave(final FileChooser fileChooser){
 		fileChooser.setTitle("Save");
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
+	}
+
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+
 	}
 
 //		*******SAVEMOVE

@@ -45,6 +45,9 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void showDIM(ActionEvent event) {
+        System.out.println("Color RED : " + colorPicker.getValue().getRed()*255);
+        System.out.println("Color GREEN : " + colorPicker.getValue().getGreen()*255);
+        System.out.println("Color BLUE : " + colorPicker.getValue().getBlue()*255);
         System.out.println("Length : "+length_value.getText());
         System.out.println("Width : "+width_value.getText());
         System.out.println("Height : "+height_value.getText());
@@ -63,4 +66,17 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("ERROR");
         }
     }
+
+    public Cube createCube(){
+        int red = (int) (colorPicker.getValue().getRed()*255);
+        int green = (int) (colorPicker.getValue().getGreen()*255);
+        int blue = (int) (colorPicker.getValue().getBlue()*255);
+        double w = Double.parseDouble(width_value.getText());
+        double h = Double.parseDouble(height_value.getText());
+        double d = Double.parseDouble(length_value.getText());
+        Color color = Color.rgb(red,green,blue);
+        Cube c = new Cube(color,w,h,d);
+        return c;
+    }
+
 }
