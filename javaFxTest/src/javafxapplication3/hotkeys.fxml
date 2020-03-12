@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication3.hotkeysController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="604.0" prefWidth="514.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxapplication3.hotkeysController">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="62.0" layoutX="30.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" width="180.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="62.0" layoutX="273.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="180.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="62.0" layoutX="273.0" layoutY="34.0" stroke="BLACK" strokeType="INSIDE" width="180.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="62.0" layoutX="30.0" layoutY="106.0" stroke="BLACK" strokeType="INSIDE" width="180.0" />
-      <Label layoutX="46.0" layoutY="57.0" text="Create new" />
-      <Button fx:id="closebutton" layoutX="219.0" layoutY="308.0" mnemonicParsing="false" onAction="#close" prefHeight="52.0" prefWidth="137.0" text="Close" />
+      <TextArea layoutX="25.0" layoutY="14.0" prefHeight="556.0" prefWidth="464.0" text="LISTE DES COMMANDES :&#10;&#10;      Mouvement du cube:&#10;        W = eloigne le cube (axe Z)&#10;        S = rapproche le cube (axe Z)&#10;        A = deplace le cube a gauche (axe X)&#10;        D = deplace le cube a droite (axe X)&#10;&#10;        Z = deplace le cube vers le haut (axe Y)&#10;        X = deplace le cube vers le bas (axe Y)&#10;        &#10;        E = rotation du cube sur l'axe Y dans le sens horaire &#10;        Q = rotation du cube sur l'axe Y dans le sens anti-horaire&#10;&#10;      Mouvement de la camera:&#10;        UP = haut&#10;        DOWN = bas&#10;        LEFT = gauche&#10;        RIGHT = droite&#10;&#10;        SCROLL UP = zoom&#10;        SCROLL DOWN = dezoom&#10;&#10;      (fonctionne avec les trackpads seulement a l'aide de 2 doigts)&#10;        SCROLL LEFT = gauche&#10;        SCROLL RIGHT = droit&#10;&#10;      Creation d'un cube:&#10;        COMMAND+N (ALT+N sur Windows)&#10;&#10;      Undo un cube supprime:&#10;        COMMAND+Z (ALT+Z sur Windows)undo&#10;&#10;      Edit d'un ou plusieurs cube(s):&#10;        LEFT CLICK = sélectionner d'un cube&#10;        SHIFT+CLICK = sélection de plusieurs cubes&#10;        ESCAPE = desélection&#10;        BACKSPACE = suppression du ou des cubes sélectionnés&#10;&#10;      Importer une construction :&#10;        COMMAND + I&#10;&#10;      Exporter une construction :&#10;        COMMAND + S&#10;&#10;" />
    </children>
 </AnchorPane>
