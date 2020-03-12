@@ -22,10 +22,7 @@
       <AnchorPane layoutY="398.0" prefHeight="200.0" prefWidth="310.0" style="-fx-border-color: black;">
          <children>
             <Button layoutX="77.0" layoutY="118.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="157.0" text="Create Pamphlet" textAlignment="CENTER" />
-            <Button layoutX="31.0" layoutY="21.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="115.0" text="Help?" />
-            <Button layoutX="177.0" layoutY="21.0" mnemonicParsing="false" onAction="#newWindow" prefHeight="27.0" prefWidth="115.0" text="Hotkeys" />
-            <Button layoutX="31.0" layoutY="73.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="115.0" text="Contact us" />
-            <Button layoutX="177.0" layoutY="73.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="115.0" text="Support us" />
+            <Button layoutX="77.0" layoutY="21.0" mnemonicParsing="false" onAction="#newWindow" prefHeight="60.0" prefWidth="157.0" text="Hotkeys" />
          </children>
       </AnchorPane>
       <Button layoutX="209.0" layoutY="246.0" mnemonicParsing="false" onAction="#showDIM" prefHeight="60.0" prefWidth="70.0" text="Create" />
