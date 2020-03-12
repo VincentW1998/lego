@@ -2,6 +2,7 @@
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.input.ScrollEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.Camera;
@@ -11,6 +12,7 @@ import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.DrawMode;
 import javafx.stage.FileChooser;
@@ -302,6 +304,13 @@ public class Test extends Application{
 		primaryStage.setTitle("Editeur LEGO"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+		Stage secondStage = new Stage();
+		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+		Scene secondScene = new Scene(secondRoot);
+		secondStage.setScene(secondScene);
+		secondStage.setTitle("Lego");
+		secondStage.show();
 	}
 
 	// Filtre les fichiers importes sous le format .json
