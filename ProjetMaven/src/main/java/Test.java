@@ -242,7 +242,7 @@ public class Test extends Application{
 				configureFileChooser(fileChooser);
 
 				File file = fileChooser.showOpenDialog(primaryStage);
-				String path = "Data/";
+				String path = "src/main/resources/Data/";
 				if (file != null) {
 					path += file.getName();
 					group.getChildren().clear();
@@ -307,7 +307,7 @@ public class Test extends Application{
 	// Filtre les fichiers importes sous le format .json
 	private static void configureFileChooser(final FileChooser fileChooser) {
 		fileChooser.setTitle("Import");
-		fileChooser.setInitialDirectory(new File("Data")
+		fileChooser.setInitialDirectory(new File("src/main/resources/Data/")
 		);
 		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter( "fichier json","*.json"));
 	}
