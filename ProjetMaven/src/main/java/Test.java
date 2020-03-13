@@ -363,7 +363,7 @@ public class Test extends Application implements Initializable {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("Fenetre.fxml"));
 		Scene secondScene = new Scene(secondRoot);
 		secondStage.setScene(secondScene);
 		secondStage.setTitle("Lego");

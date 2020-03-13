@@ -10,14 +10,33 @@
         <menus>
           <Menu mnemonicParsing="false" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" text="Open" />
+                  <MenuItem mnemonicParsing="false" text="Save" />
+                  <MenuItem mnemonicParsing="false" text="Print" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
+                  <MenuItem mnemonicParsing="false" text="Undo" />
               <MenuItem mnemonicParsing="false" text="Delete" />
+                  <MenuItem mnemonicParsing="false" text="Create Pamphlet" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Move">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="LEFT               A" />
+                <MenuItem mnemonicParsing="false" text="UP                   Z" />
+                  <MenuItem mnemonicParsing="false" text="DOWN            X" />
+                  <MenuItem mnemonicParsing="false" text="RIGHT            D" />
+                  <MenuItem mnemonicParsing="false" text="FORWARD     W" />
+                  <MenuItem mnemonicParsing="false" text="BACKWARD   S" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Camera">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+              </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
@@ -25,15 +44,15 @@
           </Menu>
         </menus>
       </MenuBar>
-      <SubScene height="800.0" layoutY="30.0" width="1400">
+      <AnchorPane layoutX="1400.0" layoutY="30.0" prefHeight="800.0" prefWidth="300.0" style="-fx-border-color: black;">
+         <children>
+            <ColorPicker layoutX="129.0" layoutY="81.0" />
+            <Pane layoutX="22.0" layoutY="24.0" prefHeight="140.0" prefWidth="98.0" style="-fx-border-color: black;" />
+         </children></AnchorPane>
+      <SubScene height="800.0" layoutY="30.0" width="1400" style="-fx-background-color: back;">
         <root>
           <Region />
         </root>
       </SubScene>
-      <AnchorPane layoutX="1400.0" layoutY="30.0" prefHeight="800.0" prefWidth="300.0">
-         <children>
-            <Pane layoutX="22.0" layoutY="24.0" prefHeight="140.0" prefWidth="98.0" />
-            <ColorPicker layoutX="129.0" layoutY="81.0" />
-         </children></AnchorPane>
    </children>
 </AnchorPane>
