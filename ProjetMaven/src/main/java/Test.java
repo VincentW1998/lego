@@ -76,9 +76,6 @@ public class Test extends Application implements Initializable {
 
 	@FXML
 	public void createCube(){
-//		int red = (int) (colorPicker.getValue().getRed()*255);
-//		int green = (int) (colorPicker.getValue().getGreen()*255);
-//		int blue = (int) (colorPicker.getValue().getBlue()*255);
 		double w = Double.parseDouble(width_value.getText());
 		double h = Double.parseDouble(height_value.getText());
 		double d = Double.parseDouble(length_value.getText());
@@ -239,10 +236,8 @@ public class Test extends Application implements Initializable {
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
 				{
-//					Cube c = new Cube();
-//					c.addRandomColor();
 					Cube c = tmp;
-					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {//ajout d'un bouton plus tard test pour creer nv lego
+					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 						if(!e.isShiftDown())
 							selection.clear();
 						selection.add((Cube) e.getSource());
@@ -253,6 +248,7 @@ public class Test extends Application implements Initializable {
 				save.saveMoves(event);
 			}
 		});
+
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {//couleur Num
 			KeyCode [] kc = {KeyCode.DIGIT0,KeyCode.DIGIT1,KeyCode.DIGIT2,KeyCode.DIGIT3,KeyCode.DIGIT4,KeyCode.DIGIT5,
 					KeyCode.DIGIT6,KeyCode.DIGIT7,KeyCode.DIGIT8,KeyCode.DIGIT9};
@@ -266,18 +262,11 @@ public class Test extends Application implements Initializable {
 		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.isMetaDown() && event.getCode()== KeyCode.Z) {
-//				SelectionModel m;
-//				if(!save.Empty()) {
-//					m = save.pop();
-//					for(int i=0;i<m.selection.size();i++) {
-//						group.getChildren().add(m.selection.get(i));
-//					}
-//
-//				}
 				selection.Undo(save);
 
 			}
 		});
+
 		//Zoom 
 		primaryStage.addEventHandler(ScrollEvent.SCROLL, event -> {
 			double zoomY = event.getDeltaY();
@@ -397,15 +386,6 @@ public class Test extends Application implements Initializable {
 
 	}
 
-//		*******SAVEMOVE
-//	public void saveMove(Save save, Group group) {
-//		SelectionModel tmp = new SelectionModel(group);
-//		for(int i=0; i<group.getChildren().size();i++) {
-//			tmp.add((Cube)group.getChildren().get(i));
-//		}
-//		save.add(tmp.copy());
-//		tmp.clear();
-//	}
 }
 
 
