@@ -18,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -311,6 +312,8 @@ public class Test extends Application implements Initializable {
 				try {
 					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
 					for(int i = 0; i < construction.size(); i++){
+						Rotate r;
+						Transform t = new Rotate();
 						construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 							if(!e.isShiftDown())
 								selection.clear();
@@ -320,6 +323,10 @@ public class Test extends Application implements Initializable {
 						construction.get(i).translateXProperty().set(construction.get(i).x);
 						construction.get(i).translateYProperty().set(construction.get(i).y);
 						construction.get(i).translateZProperty().set(construction.get(i).z);
+						System.out.println(construction.get(i).angle);
+						r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
+						t = t.createConcatenation(r);
+						construction.get(i).getTransforms().addAll(t);
 					}
 
 				} catch (IOException e) {
@@ -363,7 +370,7 @@ public class Test extends Application implements Initializable {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("Fenetre.fxml"));
+		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 		Scene secondScene = new Scene(secondRoot);
 		secondStage.setScene(secondScene);
 		secondStage.setTitle("Lego");
