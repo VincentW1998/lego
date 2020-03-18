@@ -16,6 +16,8 @@ public class Cube extends Box{
 	double y;
 	double z;
 	double angle;
+	boolean attacheUP;
+	boolean attacheDown;
 	Color [] colorRange = {Color.BLACK,Color.YELLOW,Color.ORANGE,Color.RED,Color.PINK,Color.PURPLE,
 			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
 
@@ -37,7 +39,6 @@ public class Cube extends Box{
 		setMaterial(new PhongMaterial(c));
 		numeroCube++;
 		identifiant = numeroCube;
-
 	}
 
 	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z, double a){
@@ -125,6 +126,8 @@ public class Cube extends Box{
 				", z=" + this.getTranslateZ() +
 
 				", rotate =" + this.angle +
+				", attacheUP =" + this.attacheUP +
+				", attacheDown =" + this.attacheDown +
 				'}';
 	}
 

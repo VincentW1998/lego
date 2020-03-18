@@ -66,6 +66,10 @@ public class SelectionModel {
 			double y = selection.get(i).getTranslateY();
 			double z = selection.get(i).getTranslateZ();
 			int compteur  = 0;
+			boolean up = hasCube(x,y - 1,z);
+			boolean down = hasCube(x, y + 1, z);
+			selection.get(i).attacheDown = down;
+			selection.get(i).attacheUP = up;
 			while(hasCube(x, y, z+ compteur + 1)){
 				compteur += 1;
 			}
@@ -82,6 +86,10 @@ public class SelectionModel {
 			double y = selection.get(i).getTranslateY();
 			double z = selection.get(i).getTranslateZ();
 			int compteur  = 0;
+			boolean up = hasCube(x,y - 1,z);
+			boolean down = hasCube(x, y + 1, z);
+			selection.get(i).attacheDown = down;
+			selection.get(i).attacheUP = up;
 			while(hasCube(x, y, z-compteur-1)){
 				compteur += 1;
 			}
@@ -99,6 +107,10 @@ public class SelectionModel {
 			double y = selection.get(i).getTranslateY();
 			double z = selection.get(i).getTranslateZ();
 			int compteur  = 0;
+			boolean up = hasCube(x,y - 1,z);
+			boolean down = hasCube(x, y + 1, z);
+			selection.get(i).attacheDown = down;
+			selection.get(i).attacheUP = up;
 			while(hasCube(x - compteur - 1, y, z)){
 				compteur += 1;
 			}
@@ -115,6 +127,10 @@ public class SelectionModel {
 			double y = selection.get(i).getTranslateY();
 			double z = selection.get(i).getTranslateZ();
 			int compteur  = 0;
+			boolean up = hasCube(x,y - 1,z);
+			boolean down = hasCube(x, y + 1, z);
+			selection.get(i).attacheDown = down;
+			selection.get(i).attacheUP = up;
 			while(hasCube(x + compteur + 1, y, z)){
 				compteur += 1;
 			}
@@ -132,6 +148,10 @@ public class SelectionModel {
 			double y = selection.get(i).getTranslateY();
 			double z = selection.get(i).getTranslateZ();
 			int compteur  = 0;
+			boolean up = hasCube(x,y - 1,z);
+			boolean down = hasCube(x, y + 1, z);
+			selection.get(i).attacheDown = down;
+			selection.get(i).attacheUP = up;
 			while(hasCube(x,y- compteur - 1,z)){
 				compteur += 1;
 			}
@@ -149,6 +169,10 @@ public class SelectionModel {
 			double y = selection.get(i).getTranslateY();
 			double z = selection.get(i).getTranslateZ();
 			int compteur  = 0;
+			boolean up = hasCube(x,y - 1,z);
+			boolean down = hasCube(x, y + 1, z);
+			selection.get(i).attacheDown = down;
+			selection.get(i).attacheUP = up;
 			while(hasCube(x,y+compteur + 1,z)){
 				compteur += 1;
 			}
