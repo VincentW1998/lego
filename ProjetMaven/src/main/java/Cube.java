@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Random;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.transform.Rotate;
 
 public class Cube extends Box{
 	Color color;
@@ -14,6 +15,7 @@ public class Cube extends Box{
 	double x;
 	double y;
 	double z;
+	double angle;
 	Color [] colorRange = {Color.BLACK,Color.YELLOW,Color.ORANGE,Color.RED,Color.PINK,Color.PURPLE,
 			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
 
@@ -38,7 +40,7 @@ public class Cube extends Box{
 
 	}
 
-	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z){
+	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z, double a){
 		super(w,h,d);
 		color = c;
 		setMaterial(new PhongMaterial(c));
@@ -46,6 +48,7 @@ public class Cube extends Box{
 		this.x = x;
 		this.y = y;
 		this.z = z;
+		this.angle = a;
 	}
 
 	public Cube(Color c) {
@@ -91,6 +94,13 @@ public class Cube extends Box{
 		translateZProperty().set(z);
 	}
 
+	public void angleChange(double a){
+		angle += a;
+		if(angle >=360)
+			angle -= 360;
+		else if(angle < 0)
+			angle += 360;
+	}
 
 //	public boolean isColliding(Cube cube) {
 //		return getBoundsInParent().getMaxX()-0.01 >= cube.getBoundsInParent().getMinX()
@@ -113,6 +123,11 @@ public class Cube extends Box{
 				", x=" + this.getTranslateX() +
 				", y=" + this.getTranslateY() +
 				", z=" + this.getTranslateZ() +
+
+				", rotate =" + this.angle +
 				'}';
 	}
+
+
+
 }
