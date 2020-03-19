@@ -126,27 +126,15 @@ public class Cube extends Box{
 
 	@Override
 	public String toString() {
-		if(this.getAttacheDown() == null){
-			return "Cube{" +
-					"color=" + color +
-					", identifiant=" + identifiant +
-					", x=" + this.getTranslateX() +
-					", y=" + this.getTranslateY() +
-					", z=" + this.getTranslateZ() +
-
-					", rotate =" + this.angle +
-					", Aucune piece en dessous(sauf le sol)"  +
-					'}';
-		}
+		String s = this.getAttacheDown() == null ? ", Aucune piece en dessous" : ", la piece qui est en dessous est" + this.getAttacheDown().getIdentifiant();
 		return "Cube{" +
 				"color=" + color +
 				", identifiant=" + identifiant +
 				", x=" + this.getTranslateX() +
 				", y=" + this.getTranslateY() +
 				", z=" + this.getTranslateZ() +
-
 				", rotate =" + this.angle +
-				", la piece qui est en dessous est =" + this.getAttacheDown().getIdentifiant() +
+				s +
 				'}';
 	}
 
