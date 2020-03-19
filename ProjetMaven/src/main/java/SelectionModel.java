@@ -171,15 +171,17 @@ public class SelectionModel {
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).getTransforms().clear();
 			selection.get(i).getTransforms().addAll(t);
+			selection.get(i).angleChange(90);
 		}
 	}
-	
+
 	public void E() {
 		r = new Rotate(-90, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
 			selection.get(i).getTransforms().clear();
 			selection.get(i).getTransforms().addAll(t);
+			selection.get(i).angleChange(-90);
 		}
 	}
 	

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="310.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXMLDocumentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="310.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Test">
    <children>
       <AnchorPane prefHeight="176.0" prefWidth="310.0" style="-fx-border-color: black;">
          <children>
@@ -25,6 +25,6 @@
             <Button layoutX="77.0" layoutY="21.0" mnemonicParsing="false" onAction="#newWindow" prefHeight="60.0" prefWidth="157.0" text="Hotkeys" />
          </children>
       </AnchorPane>
-      <Button layoutX="209.0" layoutY="246.0" mnemonicParsing="false" onAction="#showDIM" prefHeight="60.0" prefWidth="70.0" text="Create" />
+      <Button layoutX="209.0" layoutY="246.0" mnemonicParsing="false" onAction="#createCube" prefHeight="60.0" prefWidth="70.0" text="Create" />
    </children>
 </AnchorPane>

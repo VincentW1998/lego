@@ -23,12 +23,13 @@ public class Importer {
             double x = content.getDouble("x");
             double y = content.getDouble("y");
             double z = content.getDouble("z");
+            double a = content.getDouble("angle");
             JSONObject color = content.getJSONObject("color"); // une couleur est un objet contenant 3 int (red,green,blue)
             int red = color.getInt("red");
             int green = color.getInt("green");
             int blue = color.getInt("blue");
             Color color1 = Color.rgb(red,green,blue);
-            Cube cube = new Cube(color1,w,h,d,id,x,y,z); // creation du cube 3D
+            Cube cube = new Cube(color1,w,h,d,id,x,y,z,a); // creation du cube 3D
             figure.add(cube);
 
         }
