@@ -394,27 +394,17 @@ public class Test extends Application implements Initializable {
 			double y = c.getTranslateY();
 			double z = c.getTranslateZ();
 			c.setAttacheDown(hasDown(x,y+1,z,group));
-			c.setAttacheUP(hasUP(x,y-1,z,group));
 		}
 	}
 
-	public boolean hasUP(double x, double y, double z,Group group){
+	public Cube hasDown(double x, double y, double z,Group group){
 		Cube tmp;
 		for (int i = 1; i < group.getChildren().size(); i ++){
 			tmp = (Cube) group.getChildren().get(i);
 			if (tmp.equalsPosition(x,y,z))
-				return true;
+				return tmp;
 		}
-		return false;
-	}
-	public boolean hasDown(double x, double y, double z,Group group){
-		Cube tmp;
-		for (int i = 1; i < group.getChildren().size(); i ++){
-			tmp = (Cube) group.getChildren().get(i);
-			if (tmp.equalsPosition(x,y,z))
-				return true;
-		}
-		return false;
+		return null;
 	}
 
 }

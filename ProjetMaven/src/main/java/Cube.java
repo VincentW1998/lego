@@ -16,8 +16,7 @@ public class Cube extends Box{
 	double y;
 	double z;
 	double angle;
-	boolean attacheUP;
-	boolean attacheDown;
+	Cube attacheDown;
 	Color [] colorRange = {Color.BLACK,Color.YELLOW,Color.ORANGE,Color.RED,Color.PINK,Color.PURPLE,
 			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
 
@@ -25,11 +24,12 @@ public class Cube extends Box{
 		this.identifiant = id;
 	}
 
-	public void setAttacheUP(boolean b){
-		this.attacheUP = b;
+	public Cube getAttacheDown(){
+		return attacheDown;
 	}
-	public void setAttacheDown(boolean b){
-		this.attacheDown = b;
+
+	public void setAttacheDown(Cube c){
+		this.attacheDown = c;
 	}
 
 
@@ -126,6 +126,18 @@ public class Cube extends Box{
 
 	@Override
 	public String toString() {
+		if(this.getAttacheDown() == null){
+			return "Cube{" +
+					"color=" + color +
+					", identifiant=" + identifiant +
+					", x=" + this.getTranslateX() +
+					", y=" + this.getTranslateY() +
+					", z=" + this.getTranslateZ() +
+
+					", rotate =" + this.angle +
+					", Aucune piece en dessous(sauf le sol)"  +
+					'}';
+		}
 		return "Cube{" +
 				"color=" + color +
 				", identifiant=" + identifiant +
@@ -134,8 +146,7 @@ public class Cube extends Box{
 				", z=" + this.getTranslateZ() +
 
 				", rotate =" + this.angle +
-				", attacheUP =" + this.attacheUP +
-				", attacheDown =" + this.attacheDown +
+				", la piece qui est en dessous est =" + this.getAttacheDown().getIdentifiant() +
 				'}';
 	}
 
