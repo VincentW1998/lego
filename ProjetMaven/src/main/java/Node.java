@@ -18,8 +18,9 @@ public class Node {
 
     public void print(){
         for(int i = 0; i< arretes.size(); i++){
-            System.out.println(arretes.get(i).c.getIdentifiant());
+            System.out.print(arretes.get(i).c.getIdentifiant()+" / ");
         }
+        System.out.println();
     }
 
     public void addArretes(Node n){

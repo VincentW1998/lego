@@ -349,8 +349,15 @@ public class SelectionModel {
 	}
 
 	public void Print(){
-			grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
+		grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
 //		System.out.println(selection.get(0).getIdentifiant());
+	}
+
+	public void printAll(){
+		for(int i=0;i<grapheSelection.noeuds.length;i++){
+			System.out.print("\nCube n°"+i+": ");
+			grapheSelection.noeuds[i].print();
+		}
 	}
 
 
