@@ -350,21 +350,20 @@ public class SelectionModel {
 
 	public void  createGraph(){
 		Graph graph = new Graph(group.getChildren().size()-1);
-		Cube tmp;
-		for(int i=1;i<group.getChildren().size();i++){
 
-				tmp = (Cube) group.getChildren().get(i);
+		for(int i=1;i<group.getChildren().size();i++){
+			{
+				Cube tmp = (Cube) group.getChildren().get(i);
 				graph.add(tmp.copy());
 				attachedTo(graph, tmp);
-
+			}
 		}
 		graphe = graph;
 	}
 
 	public void Print(){
-		for(int i=0;i<graphe.nodes[selection.get(0).getIdentifiant()].adj.size();i++){
-			graphe.nodes[selection.get(0).getIdentifiant()-1].print();
-		}
+			graphe.nodes[selection.get(0).getIdentifiant()].print();
+//		System.out.println(selection.get(0).getIdentifiant());
 	}
 
 

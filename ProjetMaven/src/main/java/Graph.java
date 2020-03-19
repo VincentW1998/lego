@@ -13,13 +13,13 @@ public class Graph {
     }
 
    public void add(Cube c){
-        nodes[c.getIdentifiant()-2].addCube(c);
+        nodes[c.getIdentifiant()].addCube(c);
    }
 
 
 
    public void addAjd(Cube src, Cube dest ){ // ajoute une arrete
-        nodes[src.getIdentifiant()-2].addAdj(nodes[dest.getIdentifiant()-2]);
+        nodes[src.getIdentifiant()].addAdj(nodes[dest.getIdentifiant()-1]);
    }
 
 

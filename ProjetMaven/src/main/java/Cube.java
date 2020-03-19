@@ -9,7 +9,7 @@ import javafx.scene.shape.Box;
 
 public class Cube extends Box{
 	Color color;
-	static int numeroCube = 0;
+	static int numeroCube = -2;
 	private int identifiant;
 	double x;
 	double y;
@@ -103,8 +103,7 @@ public class Cube extends Box{
 		return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
 	}
 	public boolean checkXpos(Cube c){ // verifie si c.minX<= this.minX<=c.MaxX ou this.minX<= c.minX<=this.MaxX
-		return(inBounds(c.getBoundsInParent().getMinX(),c.getBoundsInParent().getMaxX(),getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
-		);
+		return(inBounds(c.getBoundsInParent().getMinX(),c.getBoundsInParent().getMaxX(),getBoundsInParent().getMinX(),getBoundsInParent().getMaxX()));
 	}
 
 	public boolean checkZpos(Cube c){
