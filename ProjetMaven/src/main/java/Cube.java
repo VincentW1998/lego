@@ -10,7 +10,7 @@ import javafx.scene.transform.Rotate;
 
 public class Cube extends Box{
 	Color color;
-	static int numeroCube = 0;
+	static int numeroCube = -2;
 	private int identifiant;
 	double x;
 	double y;

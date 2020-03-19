@@ -338,7 +338,7 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.G) {
-				for(int i = 0; i < group.getChildren().size(); i ++){
+				for(int i = 1; i < group.getChildren().size(); i ++){
 					System.out.println(group.getChildren().get(i));
 				}
 			}
