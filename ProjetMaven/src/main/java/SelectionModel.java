@@ -16,6 +16,7 @@ public class SelectionModel {
 	Rotate r;
 	Transform t;
 	Group group;
+	Graph graphe;
 	
 	public SelectionModel(Group g) {
 		selection = new LinkedList<Cube>();
@@ -335,21 +336,38 @@ public class SelectionModel {
 		}
 	}
 	//auxiliaire
-	public LinkedList<Cube> attachedTo(Graph g, Cube c){
-		LinkedList<Cube> list;
-		for(int i=1;i<group)
+	public void attachedTo(Graph g, Cube c){
+		for(int i=1;i<group.getChildren().size();i++){
+			{
+				Cube tmp = (Cube) group.getChildren().get(i);
+				if (!tmp.equals(c) && c.checkPos(tmp)) {
+					g.addAjd(c, tmp);
+				}
+			}
+		}
 	}
 
 
-	public Graph createGraph(){
+	public void  createGraph(){
 		Graph graph = new Graph(group.getChildren().size()-1);
 		Cube tmp;
 		for(int i=1;i<group.getChildren().size();i++){
-			tmp = (Cube)group.getChildren().get(i);
-			graph.add(tmp);
+
+				tmp = (Cube) group.getChildren().get(i);
+				graph.add(tmp.copy());
+				attachedTo(graph, tmp);
 
 		}
+		graphe = graph;
 	}
+
+	public void Print(){
+		for(int i=0;i<graphe.nodes[selection.get(0).getIdentifiant()].adj.size();i++){
+			graphe.nodes[selection.get(0).getIdentifiant()-1].print();
+		}
+	}
+
+
 
 
 

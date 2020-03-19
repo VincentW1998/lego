@@ -9,14 +9,17 @@ public class Graph {
         for(int i=0;i<l;i++){
             nodes[i] = new Node();
         }
+
     }
 
    public void add(Cube c){
-        nodes[c.getIdentifiant()-1].addCube(c);
+        nodes[c.getIdentifiant()-2].addCube(c);
    }
 
+
+
    public void addAjd(Cube src, Cube dest ){ // ajoute une arrete
-        nodes[src.getIdentifiant()-1].addAdj(nodes[dest.getIdentifiant()-1]);
+        nodes[src.getIdentifiant()-2].addAdj(nodes[dest.getIdentifiant()-2]);
    }
 
 

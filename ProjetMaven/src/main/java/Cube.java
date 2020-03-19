@@ -99,6 +99,33 @@ public class Cube extends Box{
 //				&& getBoundsInParent().getMinY()+0.01<= cube.getBoundsInParent().getMaxY();
 //
 //	}
+	public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
+		return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
+	}
+	public boolean checkXpos(Cube c){ // verifie si c.minX<= this.minX<=c.MaxX ou this.minX<= c.minX<=this.MaxX
+		return(inBounds(c.getBoundsInParent().getMinX(),c.getBoundsInParent().getMaxX(),getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
+		);
+	}
+
+	public boolean checkZpos(Cube c){
+		return(inBounds(c.getBoundsInParent().getMinZ(),c.getBoundsInParent().getMaxZ(),getBoundsInParent().getMinZ(),getBoundsInParent().getMaxZ())
+		);
+	}
+	public boolean checkYpos(Cube c){
+		return getBoundsInParent().getMaxY()==c.getBoundsInParent().getMinY();
+	}
+
+	public boolean checkPos(Cube c){
+		return (checkYpos(c)&&
+				((checkXpos(c)&&(
+						checkZpos(c)||c.checkZpos(this))
+				)||
+						(c.checkXpos(this)&&(
+								checkZpos(c)||c.checkZpos(this))
+						))
+		);
+	}
+
 
 
 	public boolean equalsPosition(double x, double y, double z){

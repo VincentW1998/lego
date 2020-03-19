@@ -23,7 +23,7 @@ import javafx.scene.transform.Rotate;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Random;
+
 
 
 public class Test extends Application{
@@ -89,6 +89,8 @@ public class Test extends Application{
 		scene.setFill(Color.WHITE);
 		
 		Save save = new Save();
+
+
 
 		final FileChooser fileChooser = new FileChooser();
 		
@@ -156,6 +158,7 @@ public class Test extends Application{
 						save.saveMoves((KeyEvent)event);
 					}
 					break;
+
 			//Camera
 				case UP:
 					camera.translateYProperty().set(camera.getTranslateY()-1);
@@ -288,11 +291,16 @@ public class Test extends Application{
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.G) {
-				for(int i = 0; i < group.getChildren().size(); i ++){
-					System.out.println(group.getChildren().get(i));
-				}
+				selection.Print();
 			}
 		});
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+			if(event.getCode()== KeyCode.ENTER) {
+				selection.createGraph();
+			}
+		});
+
 
 
 		

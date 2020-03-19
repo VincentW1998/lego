@@ -16,6 +16,12 @@ public class Node {
         c = cb;
     }
 
+    public void print(){
+        for(int i=0;i<adj.size();i++){
+            System.out.println(adj.get(i).c.getIdentifiant());
+        }
+    }
+
     public void addAdj(Node n){
         adj.add(n);
     }
