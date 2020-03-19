@@ -85,6 +85,7 @@ public class SelectionModel {
 			while(hasCube(x, y, z-compteur-1)){
 				compteur += 1;
 			}
+
 //			System.out.println("y :"+ y);
 //			System.out.println("compteur :"+ compteur);
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-compteur-1);
@@ -331,6 +332,22 @@ public class SelectionModel {
 							Collections.swap(selection,j-1,j);
 						}
 				break;
+		}
+	}
+	//auxiliaire
+	public LinkedList<Cube> attachedTo(Graph g, Cube c){
+		LinkedList<Cube> list;
+		for(int i=1;i<group)
+	}
+
+
+	public Graph createGraph(){
+		Graph graph = new Graph(group.getChildren().size()-1);
+		Cube tmp;
+		for(int i=1;i<group.getChildren().size();i++){
+			tmp = (Cube)group.getChildren().get(i);
+			graph.add(tmp);
+
 		}
 	}
 

@@ -328,15 +328,8 @@ public class Test extends Application{
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
 	}
 
-//		*******SAVEMOVE
-//	public void saveMove(Save save, Group group) {
-//		SelectionModel tmp = new SelectionModel(group);
-//		for(int i=0; i<group.getChildren().size();i++) {
-//			tmp.add((Cube)group.getChildren().get(i));
-//		}
-//		save.add(tmp.copy());
-//		tmp.clear();
-//	}
+
+
 }
 
 
