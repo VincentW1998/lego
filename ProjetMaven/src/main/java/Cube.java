@@ -25,6 +25,14 @@ public class Cube extends Box{
 		this.identifiant = id;
 	}
 
+	public void setAttacheUP(boolean b){
+		this.attacheUP = b;
+	}
+	public void setAttacheDown(boolean b){
+		this.attacheDown = b;
+	}
+
+
 	public int getIdentifiant() {
 		return identifiant;
 	}

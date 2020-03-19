@@ -224,9 +224,6 @@ public class Test extends Application implements Initializable {
 				case RIGHT:				
 					camera.translateXProperty().set(camera.getTranslateX()+1);
 					break;
-
-
-
 				}
 
 			}
@@ -312,7 +309,6 @@ public class Test extends Application implements Initializable {
 						construction.get(i).translateXProperty().set(construction.get(i).x);
 						construction.get(i).translateYProperty().set(construction.get(i).y);
 						construction.get(i).translateZProperty().set(construction.get(i).z);
-						System.out.println(construction.get(i).angle);
 						r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
 						t = t.createConcatenation(r);
 						construction.get(i).getTransforms().addAll(t);
@@ -348,7 +344,11 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode()==KeyCode.ENTER){
+				setAttache(group);
+			}
+		});
 		
 // *********************** MOUSE CONTROLS ****************************
 		
@@ -384,6 +384,37 @@ public class Test extends Application implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+	}
+
+	public void setAttache(Group group){
+		Cube c;
+		for (int i = 1; i < group.getChildren().size(); i ++){
+			c = (Cube) group.getChildren().get(i);
+			double x = c.getTranslateX();
+			double y = c.getTranslateY();
+			double z = c.getTranslateZ();
+			c.setAttacheDown(hasDown(x,y+1,z,group));
+			c.setAttacheUP(hasUP(x,y-1,z,group));
+		}
+	}
+
+	public boolean hasUP(double x, double y, double z,Group group){
+		Cube tmp;
+		for (int i = 1; i < group.getChildren().size(); i ++){
+			tmp = (Cube) group.getChildren().get(i);
+			if (tmp.equalsPosition(x,y,z))
+				return true;
+		}
+		return false;
+	}
+	public boolean hasDown(double x, double y, double z,Group group){
+		Cube tmp;
+		for (int i = 1; i < group.getChildren().size(); i ++){
+			tmp = (Cube) group.getChildren().get(i);
+			if (tmp.equalsPosition(x,y,z))
+				return true;
+		}
+		return false;
 	}
 
 }
