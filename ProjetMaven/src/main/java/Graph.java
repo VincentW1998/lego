@@ -17,7 +17,7 @@ public class Graph {
 
 
    public void addArretes(Cube src, Cube dest ){ // ajoute une arrete
-        noeuds[src.getIdentifiant()].addArretes(noeuds[dest.getIdentifiant()-1]);
+        noeuds[src.getIdentifiant()].addArretes(noeuds[dest.getIdentifiant()]);
    }
 
 
