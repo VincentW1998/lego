@@ -16,12 +16,22 @@ public class Cube extends Box{
 	double y;
 	double z;
 	double angle;
+	Cube attacheDown;
 	Color [] colorRange = {Color.BLACK,Color.YELLOW,Color.ORANGE,Color.RED,Color.PINK,Color.PURPLE,
 			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
 
 	public void setId(int id){
 		this.identifiant = id;
 	}
+
+	public Cube getAttacheDown(){
+		return attacheDown;
+	}
+
+	public void setAttacheDown(Cube c){
+		this.attacheDown = c;
+	}
+
 
 	public int getIdentifiant() {
 		return identifiant;
@@ -37,7 +47,6 @@ public class Cube extends Box{
 		setMaterial(new PhongMaterial(c));
 		numeroCube++;
 		identifiant = numeroCube;
-
 	}
 
 	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z, double a){
@@ -136,6 +145,27 @@ public class Cube extends Box{
 	}
 
 
+public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
+	return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
+}
+	public boolean checkXpos(Cube c){ // verifie si c.minX<= this.minX<=c.MaxX ou this.minX<= c.minX<=this.MaxX
+		return(inBounds(c.getBoundsInParent().getMinX(),c.getBoundsInParent().getMaxX(),getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
+		);
+	}
+
+	public boolean checkZpos(Cube c){
+		return(inBounds(c.getBoundsInParent().getMinZ(),c.getBoundsInParent().getMaxZ(),getBoundsInParent().getMinZ(),getBoundsInParent().getMaxZ())
+		);
+	}
+	public boolean checkYpos(Cube c){
+		return getBoundsInParent().getMaxY()==c.getBoundsInParent().getMinY();
+	}
+
+	public boolean checkPos(Cube c){
+		return (checkYpos(c)&& ((checkXpos(c)&&(checkZpos(c)||c.checkZpos(this)))|| (c.checkXpos(this)&&(checkZpos(c)||c.checkZpos(this)))));
+	}
+
+
 
 	public boolean equalsPosition(double x, double y, double z){
 		return this.getTranslateX() == x && this.getTranslateY() == y && this.getTranslateZ() == z;
@@ -143,14 +173,15 @@ public class Cube extends Box{
 
 	@Override
 	public String toString() {
+		String s = this.getAttacheDown() == null ? ", Aucune piece en dessous" : ", la piece qui est en dessous est " + this.getAttacheDown().getIdentifiant();
 		return "Cube{" +
 				"color=" + color +
 				", identifiant=" + identifiant +
 				", x=" + this.getTranslateX() +
 				", y=" + this.getTranslateY() +
 				", z=" + this.getTranslateZ() +
-
 				", rotate =" + this.angle +
+				s +
 				'}';
 	}
 

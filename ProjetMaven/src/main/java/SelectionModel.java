@@ -68,8 +68,6 @@ public class SelectionModel {
 			while(hasCube(x, y, z+ compteur + 1)){
 				compteur += 1;
 			}
-//			System.out.println("y :"+ y);
-//			System.out.println("compteur :"+ compteur);
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+compteur+1);
 		}
 	}
@@ -84,9 +82,6 @@ public class SelectionModel {
 			while(hasCube(x, y, z-compteur-1)){
 				compteur += 1;
 			}
-
-//			System.out.println("y :"+ y);
-//			System.out.println("compteur :"+ compteur);
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-compteur-1);
 		}
 	}
@@ -102,8 +97,6 @@ public class SelectionModel {
 			while(hasCube(x - compteur - 1, y, z)){
 				compteur += 1;
 			}
-//			System.out.println("y :"+ y);
-//			System.out.println("compteur :"+ compteur);
 			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-compteur-1);
 		}
 	}
@@ -118,8 +111,6 @@ public class SelectionModel {
 			while(hasCube(x + compteur + 1, y, z)){
 				compteur += 1;
 			}
-//			System.out.println("y :"+ y);
-//			System.out.println("compteur :"+ compteur);
 			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+compteur+1);
 		}
 	}
@@ -135,8 +126,6 @@ public class SelectionModel {
 			while(hasCube(x,y- compteur - 1,z)){
 				compteur += 1;
 			}
-//			System.out.println("y :"+ y);
-//			System.out.println("compteur :"+ compteur);
 			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-compteur-1);
 		}
 	}
@@ -152,8 +141,6 @@ public class SelectionModel {
 			while(hasCube(x,y+compteur + 1,z)){
 				compteur += 1;
 			}
-//			System.out.println("y :"+ y);
-//			System.out.println("compteur :"+ compteur);
 			if(y+compteur+1 <= 0 && y !=0){
 				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+compteur+1);
 			}
@@ -365,7 +352,6 @@ public class SelectionModel {
 			grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
 //		System.out.println(selection.get(0).getIdentifiant());
 	}
-
 
 
 

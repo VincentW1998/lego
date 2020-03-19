@@ -227,9 +227,6 @@ public class Test extends Application implements Initializable {
 				case RIGHT:				
 					camera.translateXProperty().set(camera.getTranslateX()+1);
 					break;
-
-
-
 				}
 
 			}
@@ -315,7 +312,6 @@ public class Test extends Application implements Initializable {
 						construction.get(i).translateXProperty().set(construction.get(i).x);
 						construction.get(i).translateYProperty().set(construction.get(i).y);
 						construction.get(i).translateZProperty().set(construction.get(i).z);
-						System.out.println(construction.get(i).angle);
 						r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
 						t = t.createConcatenation(r);
 						construction.get(i).getTransforms().addAll(t);
@@ -345,18 +341,17 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.G) {
-				selection.Print();
+				for(int i = 1; i < group.getChildren().size(); i ++){
+					System.out.println(group.getChildren().get(i));
+				}
 			}
 		});
 
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
-			if(event.getCode()== KeyCode.ENTER) {
-				selection.createGraph();
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode()==KeyCode.ENTER){
+				setAttache(group);
 			}
 		});
-
-
-
 		
 // *********************** MOUSE CONTROLS ****************************
 		
@@ -393,6 +388,23 @@ public class Test extends Application implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 	}
+
+	public void setAttache(Group group){
+		Cube bas;
+		Cube haut;
+		for (int i = 1; i < group.getChildren().size(); i ++){
+			 haut= (Cube) group.getChildren().get(i);
+			 haut.setAttacheDown(null);
+			for (int j = 1; j < group.getChildren().size(); j ++){
+				bas = (Cube) group.getChildren().get(j);
+				if(haut.checkPos(bas)){
+					haut.setAttacheDown(bas);
+				}
+			}
+		}
+	}
+
+
 
 }
 
