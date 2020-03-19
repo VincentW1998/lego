@@ -387,25 +387,20 @@ public class Test extends Application implements Initializable {
 	}
 
 	public void setAttache(Group group){
-		Cube c;
+		Cube bas;
+		Cube haut;
 		for (int i = 1; i < group.getChildren().size(); i ++){
-			c = (Cube) group.getChildren().get(i);
-			double x = c.getTranslateX();
-			double y = c.getTranslateY();
-			double z = c.getTranslateZ();
-			c.setAttacheDown(hasDown(x,y+1,z,group));
+			 haut= (Cube) group.getChildren().get(i);
+			 haut.setAttacheDown(null);
+			for (int j = 1; j < group.getChildren().size(); j ++){
+				bas = (Cube) group.getChildren().get(j);
+				if(haut.checkPos(bas)){
+					haut.setAttacheDown(bas);
+				}
+			}
 		}
 	}
 
-	public Cube hasDown(double x, double y, double z,Group group){
-		Cube tmp;
-		for (int i = 1; i < group.getChildren().size(); i ++){
-			tmp = (Cube) group.getChildren().get(i);
-			if (tmp.equalsPosition(x,y,z))
-				return tmp;
-		}
-		return null;
-	}
 
 }
 
