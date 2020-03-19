@@ -145,6 +145,8 @@ public class Test extends Application implements Initializable {
 		
 		Save save = new Save();
 
+
+
 		final FileChooser fileChooser = new FileChooser();
 		
 		
@@ -211,6 +213,7 @@ public class Test extends Application implements Initializable {
 						save.saveMoves((KeyEvent)event);
 					}
 					break;
+
 			//Camera
 				case UP:
 					camera.translateYProperty().set(camera.getTranslateY()-1);
