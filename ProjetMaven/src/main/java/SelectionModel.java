@@ -1,12 +1,10 @@
 import java.util.Collections;
 import java.util.LinkedList;
-import javafx.geometry.Bounds;
+
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
@@ -16,7 +14,7 @@ public class SelectionModel {
 	Rotate r;
 	Transform t;
 	Group group;
-	Graph graphe;
+	Graph grapheSelection;
 	
 	public SelectionModel(Group g) {
 		selection = new LinkedList<Cube>();
@@ -341,7 +339,7 @@ public class SelectionModel {
 			{
 				Cube tmp = (Cube) group.getChildren().get(i);
 				if (!tmp.equals(c) && c.checkPos(tmp)) {
-					g.addAjd(c, tmp);
+					g.addArretes(c, tmp);
 				}
 			}
 		}
@@ -349,7 +347,7 @@ public class SelectionModel {
 
 
 	public void  createGraph(){
-		Graph graph = new Graph(group.getChildren().size()-1);
+		Graph graph= new Graph(group.getChildren().size()-1);
 
 		for(int i=1;i<group.getChildren().size();i++){
 			{
@@ -358,11 +356,11 @@ public class SelectionModel {
 				attachedTo(graph, tmp);
 			}
 		}
-		graphe = graph;
+		grapheSelection = graph;
 	}
 
 	public void Print(){
-			graphe.nodes[selection.get(0).getIdentifiant()].print();
+			grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
 //		System.out.println(selection.get(0).getIdentifiant());
 	}
 

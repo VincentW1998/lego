@@ -1,25 +1,23 @@
-import java.util.LinkedList;
-
 public class Graph {
 
-   Node [] nodes;
+   Node [] noeuds;
 
     public Graph(int l){
-        nodes = new Node[l];
+        noeuds = new Node[l];
         for(int i=0;i<l;i++){
-            nodes[i] = new Node();
+            noeuds[i] = new Node();
         }
 
     }
 
    public void add(Cube c){
-        nodes[c.getIdentifiant()].addCube(c);
+        noeuds[c.getIdentifiant()].addCube(c);
    }
 
 
 
-   public void addAjd(Cube src, Cube dest ){ // ajoute une arrete
-        nodes[src.getIdentifiant()].addAdj(nodes[dest.getIdentifiant()-1]);
+   public void addArretes(Cube src, Cube dest ){ // ajoute une arrete
+        noeuds[src.getIdentifiant()].addArretes(noeuds[dest.getIdentifiant()-1]);
    }
 
 
