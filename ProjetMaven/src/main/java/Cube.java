@@ -22,6 +22,7 @@ public class Cube extends Box{
 
 	public void setId(int id){
 		this.identifiant = id;
+		
 	}
 
 	public Cube getAttacheDown(){
