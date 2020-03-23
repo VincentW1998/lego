@@ -352,6 +352,13 @@ public class Test extends Application implements Initializable {
 				setAttache(group);
 			}
 		});
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+			if(event.getCode()== KeyCode.P) {
+				selection.createGraph();
+				selection.printAll();
+			}
+		});
 		
 // *********************** MOUSE CONTROLS ****************************
 		
