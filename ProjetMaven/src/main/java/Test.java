@@ -341,7 +341,7 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.G) {
-				for(int i = 1; i < group.getChildren().size(); i ++){
+				for (int i = 1; i < group.getChildren().size(); i++) {
 					System.out.println(group.getChildren().get(i));
 				}
 			}
@@ -349,14 +349,26 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode()==KeyCode.ENTER){
-				setAttache(group);
+				if(event.isMetaDown()){
+					selection.separation();
+				}
+				else {
+					setAttache(group);
+					selection.createGraph();
+				}
 			}
 		});
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.P) {
-				selection.createGraph();
-				selection.printAll();
+				if(event.isMetaDown()){
+					selection.Print();
+				}
+				else {
+					selection.createGraph();
+					selection.printAll();
+				}
+
 			}
 		});
 		
