@@ -234,7 +234,7 @@ public class Test extends Application implements Initializable {
 
 		// Creation d'un nouveau cube
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if(event.isMetaDown() && event.getCode()== KeyCode.N) {
+			if(event.isControlDown() && event.getCode()== KeyCode.N) {
 				{
 					Cube c = tmp;
 					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
@@ -261,7 +261,7 @@ public class Test extends Application implements Initializable {
 		//********Undo*********
 		
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
-			if(event.isMetaDown() && event.getCode()== KeyCode.Z) {
+			if(event.isControlDown() && event.getCode()== KeyCode.Z) {
 				selection.Undo(save);
 
 			}
@@ -288,7 +288,7 @@ public class Test extends Application implements Initializable {
 
 		// importer un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if(event.isMetaDown() && event.getCode() == KeyCode.I){
+			if(event.isControlDown() && event.getCode() == KeyCode.I){
 				configureFileChooser(fileChooser);
 
 				File file = fileChooser.showOpenDialog(primaryStage);
@@ -327,7 +327,7 @@ public class Test extends Application implements Initializable {
 
 		// exporter la construction dans un fichier de sauvegarde
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if(event.isMetaDown() && event.getCode() == KeyCode.S){
+			if(event.isControlDown() && event.getCode() == KeyCode.S){
 				configureFileSave(fileChooser);
 				File file = fileChooser.showSaveDialog(primaryStage);
 				try {
@@ -349,7 +349,7 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode()==KeyCode.ENTER){
-				if(event.isMetaDown()){
+				if(event.isControlDown()){
 					selection.separation();
 				}
 				else {
@@ -361,7 +361,7 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.P) {
-				if(event.isMetaDown()){
+				if(event.isControlDown()){
 					selection.Print();
 				}
 				else {
