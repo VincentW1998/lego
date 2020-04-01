@@ -15,11 +15,13 @@ public class SelectionModel {
 	Transform t;
 	Group group;
 	Graph grapheSelection;
+	LinkedList <LinkedList<Node>> Parties;
 	
 	public SelectionModel(Group g) {
 		selection = new LinkedList<Cube>();
 		t = new Rotate();
 		group = g;
+		Parties = new LinkedList<LinkedList<Node>>();
 	}
 	
 	public SelectionModel copy() { 
@@ -341,6 +343,7 @@ public class SelectionModel {
 		for(int i=1;i<group.getChildren().size();i++){
 			{
 				Cube tmp = (Cube) group.getChildren().get(i);
+				tmp.setId(i-1);
 				graph.add(tmp.copy());
 				attachedTo(graph, tmp);
 			}
@@ -348,9 +351,22 @@ public class SelectionModel {
 		grapheSelection = graph;
 	}
 
+	public void getId(){
+		for(int i=0;i<selection.size();i++){
+			System.out.println(selection.get(i).getIdentifiant());
+		}
+	}
+
 	public void Print(){
-		grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
+//		grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
 //		System.out.println(selection.get(0).getIdentifiant());
+		for(int i=0;i<Parties.size();i++){
+			System.out.println("Partie "+i+":");
+			for(int y=0;y<Parties.get(i).size();y++) {
+				System.out.println("         " + "Cube"+Parties.get(i).get(y).c.getIdentifiant());
+			}
+		}
+		System.out.println();
 	}
 
 	public void printAll(){
@@ -360,6 +376,23 @@ public class SelectionModel {
 		}
 	}
 
+	public void check(LinkedList<Node> l){
+		for(int i=0;i<l.size();i++){
+
+		}
+	}
+
+
+	public void separation(){
+		LinkedList <Node> tmp = new LinkedList<Node>();
+		if(grapheSelection!=null && selection.size()!=0){
+			for(int i=0;i<selection.size();i++){
+				tmp.add(grapheSelection.noeuds[selection.get(i).getIdentifiant()]);
+				group.getChildren().remove(selection.get(i));
+			}
+			Parties.add(tmp);
+		}
+	}
 
 
 
