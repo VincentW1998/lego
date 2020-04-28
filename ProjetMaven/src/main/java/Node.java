@@ -3,9 +3,11 @@ import java.util.LinkedList;
 public class Node {
     Cube c;
     LinkedList<Node> arretes; // aretes
+    LinkedList<Node> arretesUp;
 
     public Node(){
         arretes = new LinkedList<Node>();
+        arretesUp = new LinkedList<Node>();
     }
     public Node(Cube cb){
         this();
@@ -25,5 +27,8 @@ public class Node {
 
     public void addArretes(Node n){
         arretes.add(n);
+    }
+    public void addArretesUp(Node n){
+        arretesUp.add(n);
     }
 }

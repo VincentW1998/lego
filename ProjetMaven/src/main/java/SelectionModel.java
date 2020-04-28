@@ -336,6 +336,16 @@ public class SelectionModel {
 		}
 	}
 
+	public void addAttacheUP(Graph g, Cube c){
+		for(int i=1;i<group.getChildren().size();i++){
+			{
+				Cube tmp = (Cube) group.getChildren().get(i);
+				if (!tmp.equals(c) && c.checkPosUp(tmp)) {
+					g.addArretesUp(c, tmp);
+				}
+			}
+		}
+	}
 
 	public void  createGraph(){
 		Graph graph= new Graph(group.getChildren().size()-1);
