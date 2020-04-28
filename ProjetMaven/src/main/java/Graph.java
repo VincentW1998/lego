@@ -11,7 +11,7 @@ public class Graph {
     }
 
    public void add(Cube c){
-        noeuds[c.getIdentifiant()].addCube(c);
+        noeuds[c.getIdentifiant()].addCube(c); //ajoute le cube dans le Node []
    }
 
    public void addArretes(Cube src, Cube dest ){ // ajoute une arrete
