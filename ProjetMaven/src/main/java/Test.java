@@ -349,9 +349,11 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode()==KeyCode.ENTER){
+				// valider une partie et supprime la partie selectionner dans l'editeur
 				if(event.isControlDown()){
 					selection.separation();
 				}
+				// validation de la construction et la creation du graphe
 				else {
 					setAttache(group);
 					selection.createGraph();
@@ -361,6 +363,7 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.P) {
+				//affiche les differentes parties apres separation dans le terminal
 				if(event.isControlDown()){
 					selection.Print();
 				}
@@ -412,7 +415,7 @@ public class Test extends Application implements Initializable {
 		Cube bas;
 		Cube haut;
 		for (int i = 1; i < group.getChildren().size(); i ++){
-			 haut= (Cube) group.getChildren().get(i);
+			 haut = (Cube) group.getChildren().get(i);
 			 haut.setAttacheDown(null);
 			for (int j = 1; j < group.getChildren().size(); j ++){
 				bas = (Cube) group.getChildren().get(j);

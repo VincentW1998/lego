@@ -340,7 +340,7 @@ public class SelectionModel {
 		for(int i=1;i<group.getChildren().size();i++){
 			{
 				Cube tmp = (Cube) group.getChildren().get(i);
-				if (!tmp.equals(c) && c.checkPosUp(tmp)) {
+				if (!tmp.equals(c) && tmp.checkPos(c)) {
 					g.addArretesUp(c, tmp);
 				}
 			}
@@ -385,13 +385,6 @@ public class SelectionModel {
 			grapheSelection.noeuds[i].print();
 		}
 	}
-
-	public void check(LinkedList<Node> l){
-		for(int i=0;i<l.size();i++){
-
-		}
-	}
-
 
 	public void separation(){
 		LinkedList <Node> tmp = new LinkedList<Node>();

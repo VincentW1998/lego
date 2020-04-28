@@ -2,8 +2,8 @@ import java.util.LinkedList;
 
 public class Node {
     Cube c;
-    LinkedList<Node> arretes; // aretes
-    LinkedList<Node> arretesUp;
+    LinkedList<Node> arretes; // arretes pieces en dessous
+    LinkedList<Node> arretesUp; // arretes pieces au dessus
 
     public Node(){
         arretes = new LinkedList<Node>();
