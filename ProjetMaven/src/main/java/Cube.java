@@ -112,15 +112,6 @@ public class Cube extends Box{
 			angle += 360;
 	}
 
-//	public boolean isColliding(Cube cube) {
-//		return getBoundsInParent().getMaxX()-0.01 >= cube.getBoundsInParent().getMinX()
-//				&& getBoundsInParent().getMinX()+0.01 <= cube.getBoundsInParent().getMaxX()
-//				&& getBoundsInParent().getMaxY()-0.01 >= cube.getBoundsInParent().getMinY()
-//				&& getBoundsInParent().getMinY()+0.01<= cube.getBoundsInParent().getMaxY();
-//
-//	}
-
-
 
 public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 	return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
@@ -138,16 +129,10 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		return getBoundsInParent().getMaxY()==c.getBoundsInParent().getMinY();
 	}
 
-//	public boolean checkYposUp(Cube c){
-//		return getBoundsInParent().getMinY()==c.getBoundsInParent().getMaxY();
-//	}
+
 	public boolean checkPos(Cube c){
 		return (checkYpos(c)&& ((checkXpos(c)&&(checkZpos(c)||c.checkZpos(this)))|| (c.checkXpos(this)&&(checkZpos(c)||c.checkZpos(this)))));
 	}
-
-//	public boolean checkPosUp(Cube c){
-//		return (checkYposUp(c)&& ((checkXpos(c)&&(checkZpos(c)||c.checkZpos(this)))|| (c.checkXpos(this)&&(checkZpos(c)||c.checkZpos(this)))));
-//	}
 
 
 

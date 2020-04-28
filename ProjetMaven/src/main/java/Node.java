@@ -1,9 +1,9 @@
 import java.util.LinkedList;
 
 public class Node {
-    Cube c;
-    LinkedList<Node> arretes; // arretes pieces en dessous
-    LinkedList<Node> arretesUp; // arretes pieces au dessus
+    Cube c; // noeud
+    LinkedList<Node> arretes; // arretes pieces en dessous (liens)
+    LinkedList<Node> arretesUp; // arretes pieces au dessus (liens)
 
     public Node(){
         arretes = new LinkedList<Node>();
@@ -15,19 +15,26 @@ public class Node {
         c = cb;
     }
 
-    // Pas sur de cette fonction ?
     public void addCube(Cube cb){ //intialise le cube
         c = cb;
     }
 
 
     public void print(){
-        System.out.print("[");
+        System.out.print("Liste des pieces en dessous : [");
         for(int i = 0; i< arretes.size() ; i++){
             if (i == 0)
                 System.out.print(arretes.get(i).c.getIdentifiant());
             else
-                System.out.print(", "+arretes.get(i).c.getIdentifiant());
+                System.out.print(", " + arretes.get(i).c.getIdentifiant());
+        }
+        System.out.println("]");
+        System.out.print("Liste des pieces au dessus : [");
+        for(int i = 0; i< arretesUp.size() ; i++){
+            if (i == 0)
+                System.out.print(arretesUp.get(i).c.getIdentifiant());
+            else
+                System.out.print(", " + arretesUp.get(i).c.getIdentifiant());
         }
         System.out.println("]");
     }

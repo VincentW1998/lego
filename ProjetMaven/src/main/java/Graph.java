@@ -1,6 +1,7 @@
 public class Graph {
 
-   Node [] noeuds;
+   Node [] noeuds; // liste des noeud de la construction
+
 
    // initialisation de chaque noeud du graphe
     public Graph(int l){
@@ -8,7 +9,6 @@ public class Graph {
         for(int i=0;i<l;i++){
             noeuds[i] = new Node();
         }
-
     }
 
    public void add(Cube c){

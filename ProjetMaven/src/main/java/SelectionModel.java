@@ -331,10 +331,10 @@ public class SelectionModel {
 		for(int i=1;i<group.getChildren().size();i++){
 			{
 				Cube tmp = (Cube) group.getChildren().get(i);
-				if (!tmp.equals(c) && c.checkPos(tmp)) {
+				if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
 					g.addArretes(c, tmp);
 				}
-				if (!tmp.equals(c) && tmp.checkPos(c)) {
+				if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
 					g.addArretesUp(c, tmp);
 				}
 			}
@@ -348,7 +348,7 @@ public class SelectionModel {
 		for(int i=1;i<group.getChildren().size();i++){
 			{
 				Cube tmp = (Cube) group.getChildren().get(i);
-				tmp.setId(i-1);
+				tmp.setId(i-1); // on ne prends pas en compte le sol
 				graph.add(tmp.copy()); // ajoute le cube dans le graph
 				attachedTo(graph, tmp);
 			}
@@ -379,7 +379,7 @@ public class SelectionModel {
 		System.out.println("----- Affichage -------");
 		System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
 		for(int i=0;i<grapheSelection.noeuds.length;i++){
-			System.out.print("\nPiece n°"+i+": ");
+			System.out.println("\nPiece n°"+i+": ");
 			grapheSelection.noeuds[i].print();
 		}
 	}
