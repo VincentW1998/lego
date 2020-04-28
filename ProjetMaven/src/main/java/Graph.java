@@ -2,6 +2,7 @@ public class Graph {
 
    Node [] noeuds;
 
+   // initialisation de chaque noeud du graphe
     public Graph(int l){
         noeuds = new Node[l];
         for(int i=0;i<l;i++){

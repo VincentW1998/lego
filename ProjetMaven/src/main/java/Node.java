@@ -21,11 +21,14 @@ public class Node {
 
 
     public void print(){
-        for(int i = 0; i< arretes.size(); i++){
-//            System.out.print(arretes.get(i).c.getIdentifiant()+" / ");
-            System.out.println(arretes);
+        System.out.print("[");
+        for(int i = 0; i< arretes.size() ; i++){
+            if (i == 0)
+                System.out.print(arretes.get(i).c.getIdentifiant());
+            else
+                System.out.print(", "+arretes.get(i).c.getIdentifiant());
         }
-        System.out.println();
+        System.out.println("]");
     }
 
     public void addArretes(Node n){

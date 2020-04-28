@@ -413,6 +413,7 @@ public class Test extends Application implements Initializable {
 	}
 
 
+	// Initialise les attaches bas de toutes les pieces du groupe
 	public void setAttache(Group group){
 		Cube bas;
 		Cube haut;
