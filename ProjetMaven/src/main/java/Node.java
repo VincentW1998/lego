@@ -23,6 +23,10 @@ public class Node {
             System.out.print(arretes.get(i).c.getIdentifiant()+" / ");
         }
         System.out.println();
+        for(int i = 0; i< arretesUp.size(); i++){
+            System.out.print(arretesUp.get(i).c.getIdentifiant()+" / ");
+        }
+        System.out.println();
     }
 
     public void addArretes(Node n){
