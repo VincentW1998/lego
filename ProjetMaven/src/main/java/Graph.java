@@ -19,5 +19,9 @@ public class Graph {
         noeuds[src.getIdentifiant()].addArretes(noeuds[dest.getIdentifiant()]);
    }
 
+   public  void addArretesUp(Cube src, Cube dest){
+       noeuds[src.getIdentifiant()].addArretesUp(noeuds[dest.getIdentifiant()]);
+   }
+
 
 }

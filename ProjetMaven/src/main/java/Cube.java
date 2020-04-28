@@ -138,9 +138,17 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		return getBoundsInParent().getMaxY()==c.getBoundsInParent().getMinY();
 	}
 
+//	public boolean checkYposUp(Cube c){
+//		return getBoundsInParent().getMinY()==c.getBoundsInParent().getMaxY();
+//	}
 	public boolean checkPos(Cube c){
 		return (checkYpos(c)&& ((checkXpos(c)&&(checkZpos(c)||c.checkZpos(this)))|| (c.checkXpos(this)&&(checkZpos(c)||c.checkZpos(this)))));
 	}
+
+//	public boolean checkPosUp(Cube c){
+//		return (checkYposUp(c)&& ((checkXpos(c)&&(checkZpos(c)||c.checkZpos(this)))|| (c.checkXpos(this)&&(checkZpos(c)||c.checkZpos(this)))));
+//	}
+
 
 
 
