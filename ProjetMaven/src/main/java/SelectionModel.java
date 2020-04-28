@@ -34,19 +34,17 @@ public class SelectionModel {
 	
 		return tmp;
 	}
-	
+	//ajoute un cube a la selection
 	public void add(Cube b) {
 		if(!contains(b)) {
-			Color c = b.getColor();
-			b.setDrawMode(DrawMode.LINE);
-		
+			b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
 			selection.add(b);
 		}
 	}
-	
+	//vide la selection
 	public void clear() {
 		while(!selection.isEmpty()) {
-			Color c = selection.getFirst().getColor();
+			// desactive le mode drawmode et redonne a un cube son apparence initial
 			selection.getFirst().setDrawMode(DrawMode.FILL);
 			selection.removeFirst();
 		}
@@ -55,12 +53,12 @@ public class SelectionModel {
 	public boolean empty() {
 		return selection.isEmpty();
 	}
-	
+	//verifie si un cube b appartient a la selection
 	public boolean contains(Cube b) {
 		return selection.contains(b);
 	}
 
-	public void W(){
+	public void W(){// incremente de 1 la position du de la selection dans l'axe y
 		sortSelectionModel('W');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -74,7 +72,7 @@ public class SelectionModel {
 		}
 	}
 
-	public void S(){
+	public void S(){ //decremente la position de la selection de 1 dans l'axe z
 		sortSelectionModel('S');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -89,7 +87,7 @@ public class SelectionModel {
 	}
 
 	
-	public void A(){
+	public void A(){ //decremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('A');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -103,7 +101,7 @@ public class SelectionModel {
 		}
 	}
 
-	public void D(){
+	public void D(){ // incremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('D');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -118,7 +116,7 @@ public class SelectionModel {
 	}
 
 
-	public void Z(){
+	public void Z(){//decremente la position d'un cube dans l'axe y
 		sortSelectionModel('Z');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -133,7 +131,7 @@ public class SelectionModel {
 	}
 
 
-	public void X(){
+	public void X(){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -154,7 +152,7 @@ public class SelectionModel {
 	
 //	****************ROTATION*****************
 	
-	public void Q() {
+	public void Q() {//tourne la selection dans l'axe x de -1
 		r = new Rotate(+90, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
@@ -164,7 +162,7 @@ public class SelectionModel {
 		}
 	}
 
-	public void E() {
+	public void E() {//tourne la selection dans l'axe x de -1
 		r = new Rotate(-90, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
@@ -175,7 +173,7 @@ public class SelectionModel {
 	}
 	
 //	*************UNDO***************
-	public void Undo(Save save){
+	public void Undo(Save save){ // annule le mouvement realiser
 		KeyEvent e ;
 		if(!save.moves.isEmpty()){
 			e = save.moves.pollLast();
@@ -238,13 +236,13 @@ public class SelectionModel {
 			}
 		}
 	}
-
+	// prend la couleur a la position x dans le tableau de couleur et l'affecte au cube this
 	public void setColors(int x){
 		for(int i = 0; i < selection.size(); i++){
 			selection.get(i).setRange(x);
 		}
 	}
-
+	// prend la selection du dernier mouvement realiser et l'ajoute a la selection actuelle
 	public void remote(Save save){
 		LinkedList <Cube> s;
 			selection.clear();
@@ -361,10 +359,8 @@ public class SelectionModel {
 			System.out.println(selection.get(i).getIdentifiant());
 		}
 	}
-
+//print les parties
 	public void Print(){
-//		grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
-//		System.out.println(selection.get(0).getIdentifiant());
 		System.out.println("Affichage des differentes parties selectionnees :");
 		for(int i = 0; i < Parties.size(); i++){
 			System.out.println("Partie " + i + ":");
@@ -374,7 +370,7 @@ public class SelectionModel {
 		}
 		System.out.println();
 	}
-
+//print les pieces et ses attaches
 	public void printAll(){
 		System.out.println("----- Affichage -------");
 		System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
@@ -383,7 +379,7 @@ public class SelectionModel {
 			grapheSelection.noeuds[i].print();
 		}
 	}
-
+//separe la selection de la structure (creation d'une partie) et la supprime
 	public void separation(){
 		LinkedList <Node> tmp = new LinkedList<Node>();
 		if(grapheSelection!=null && selection.size()!=0){

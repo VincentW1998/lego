@@ -15,12 +15,12 @@ public class Node {
         c = cb;
     }
 
-    // Pas sur de cette fonction ?
+
     public void addCube(Cube cb){ //intialise le cube
         c = cb;
     }
 
-
+// affiche les attaches d'un cube
     public void print(){
         System.out.print("[");
         for(int i = 0; i< arretes.size() ; i++){

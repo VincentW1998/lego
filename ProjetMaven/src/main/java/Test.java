@@ -161,7 +161,7 @@ public class Test extends Application implements Initializable {
 			//Cube	
 				case W:
 					selection.W();// add 15 to the Z axis when the W key is pressed
-					save.saveRemote(selection.copy());
+					save.saveRemote(selection.copy());// sauvegarde le dernier mouvement realiser
 					save.saveMoves((KeyEvent)event);
 					break;
 				case S:
@@ -370,11 +370,11 @@ public class Test extends Application implements Initializable {
 				if(event.isControlDown()){
 					selection.Print();
 				}
+				//creer le graph et affiche toutes les pieces avec leurs attaches
 				else {
 					selection.createGraph();
 					selection.printAll();
 				}
-
 			}
 		});
 		
