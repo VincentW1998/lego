@@ -9,24 +9,27 @@ public class Node {
         arretes = new LinkedList<Node>();
         arretesUp = new LinkedList<Node>();
     }
+
     public Node(Cube cb){
         this();
         c = cb;
     }
 
+    // Pas sur de cette fonction ?
     public void addCube(Cube cb){ //intialise le cube
         c = cb;
     }
 
+
     public void print(){
-        for(int i = 0; i< arretes.size(); i++){
-            System.out.print(arretes.get(i).c.getIdentifiant()+" / ");
+        System.out.print("[");
+        for(int i = 0; i< arretes.size() ; i++){
+            if (i == 0)
+                System.out.print(arretes.get(i).c.getIdentifiant());
+            else
+                System.out.print(", "+arretes.get(i).c.getIdentifiant());
         }
-        System.out.println();
-        for(int i = 0; i< arretesUp.size(); i++){
-            System.out.print(arretesUp.get(i).c.getIdentifiant()+" / ");
-        }
-        System.out.println();
+        System.out.println("]");
     }
 
     public void addArretes(Node n){

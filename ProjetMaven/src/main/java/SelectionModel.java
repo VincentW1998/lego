@@ -261,6 +261,7 @@ public class SelectionModel {
 		}
 	}
 
+	// a revoir car cela fonctionne qu'avec les cubes 1x1x1
 	public boolean hasCube(double x, double y, double z){
 		Cube tmp;
 		for(int i = 1; i < group.getChildren().size(); i ++){
@@ -272,6 +273,7 @@ public class SelectionModel {
 		return false;
 	}
 
+	// pareil a revoir
 	public void sortSelectionModel(char command){
 		switch (command){
 			case 'X' :
@@ -339,6 +341,7 @@ public class SelectionModel {
 		}
 	}
 
+	// creer le graphe
 	public void  createGraph(){
 		Graph graph= new Graph(group.getChildren().size()-1);
 
@@ -346,7 +349,7 @@ public class SelectionModel {
 			{
 				Cube tmp = (Cube) group.getChildren().get(i);
 				tmp.setId(i-1);
-				graph.add(tmp.copy());
+				graph.add(tmp.copy()); // ajoute le cube dans le graph
 				attachedTo(graph, tmp);
 			}
 		}
@@ -362,18 +365,21 @@ public class SelectionModel {
 	public void Print(){
 //		grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
 //		System.out.println(selection.get(0).getIdentifiant());
-		for(int i=0;i<Parties.size();i++){
-			System.out.println("Partie "+i+":");
-			for(int y=0;y<Parties.get(i).size();y++) {
-				System.out.println("         " + "Cube"+Parties.get(i).get(y).c.getIdentifiant());
+		System.out.println("Affichage des differentes parties selectionnees :");
+		for(int i = 0; i < Parties.size(); i++){
+			System.out.println("Partie " + i + ":");
+			for(int y = 0; y < Parties.get(i).size(); y++) {
+				System.out.println("         " + "Piece "+Parties.get(i).get(y).c.getIdentifiant());
 			}
 		}
 		System.out.println();
 	}
 
 	public void printAll(){
+		System.out.println("----- Affichage -------");
+		System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
 		for(int i=0;i<grapheSelection.noeuds.length;i++){
-			System.out.print("\nCube n°"+i+": ");
+			System.out.print("\nPiece n°"+i+": ");
 			grapheSelection.noeuds[i].print();
 		}
 	}

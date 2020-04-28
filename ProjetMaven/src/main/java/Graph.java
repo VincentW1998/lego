@@ -2,6 +2,7 @@ public class Graph {
 
    Node [] noeuds;
 
+   // initialisation de chaque noeud du graphe
     public Graph(int l){
         noeuds = new Node[l];
         for(int i=0;i<l;i++){
@@ -11,7 +12,7 @@ public class Graph {
     }
 
    public void add(Cube c){
-        noeuds[c.getIdentifiant()].addCube(c);
+        noeuds[c.getIdentifiant()].addCube(c); //ajoute le cube dans le Node []
    }
 
    public void addArretes(Cube src, Cube dest ){ // ajoute une arrete
