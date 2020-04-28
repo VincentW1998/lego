@@ -339,6 +339,7 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
+		// affiche la composition de la figure, avec les donnees de chaques cubes
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.G) {
 				for (int i = 1; i < group.getChildren().size(); i++) {
@@ -347,6 +348,7 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
+		// commentez
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode()==KeyCode.ENTER){
 				if(event.isControlDown()){
@@ -359,6 +361,7 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
+		// commentez
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.P) {
 				if(event.isControlDown()){
@@ -386,7 +389,8 @@ public class Test extends Application implements Initializable {
 		secondStage.setScene(secondScene);
 		secondStage.setTitle("Lego");
 		secondStage.show();
-	}
+	} // FIN de la fonction start ---------------------------------------------
+
 
 	// Filtre les fichiers importes sous le format .json
 	private static void configureFileChooser(final FileChooser fileChooser) {
@@ -408,6 +412,8 @@ public class Test extends Application implements Initializable {
 
 	}
 
+
+	// Initialise les attaches bas de toutes les pieces du groupe
 	public void setAttache(Group group){
 		Cube bas;
 		Cube haut;
