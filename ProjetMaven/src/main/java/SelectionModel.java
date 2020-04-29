@@ -14,7 +14,6 @@ public class SelectionModel {
 	Rotate r;
 	Transform t;
 	Group group;
-//	Graph grapheSelection;
 	LinkedList <LinkedList<Node>> Parties;
 	
 	public SelectionModel(Group g) {
@@ -326,21 +325,6 @@ public class SelectionModel {
 				break;
 		}
 	}
-	//ajout des arretes
-//	public void attachedTo(Graph g, Cube c){
-//		for(int i=1;i<group.getChildren().size();i++){
-//			{
-//				Cube tmp = (Cube) group.getChildren().get(i);
-//				if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
-//					g.addArretes(c, tmp);
-//				}
-//				if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
-//					g.addArretesUp(c, tmp);
-//				}
-//			}
-//		}
-//	}
-
 
 	public void getId(){
 		for(int i=0;i<selection.size();i++){
@@ -359,19 +343,6 @@ public class SelectionModel {
 		System.out.println();
 	}
 
-//	public void separation(){
-//		LinkedList <Node> tmp = new LinkedList<Node>();
-//		if(grapheSelection != null && selection.size() != 0){
-//			for(int i = 0; i < selection.size(); i++){
-//				int indice = selection.get(i).getIdentifiant();
-//				tmp.add(grapheSelection.noeuds[indice]);
-//				group.getChildren().remove(selection.get(i));
-//			}
-//			Parties.add(tmp);
-//		}
-//	}
-
-
 	public void separation(Graph grapheSelection){
 		LinkedList <Node> tmp = new LinkedList<Node>();
 		if(grapheSelection != null && selection.size() != 0){
@@ -383,7 +354,4 @@ public class SelectionModel {
 			Parties.add(tmp);
 		}
 	}
-
-
-
 }

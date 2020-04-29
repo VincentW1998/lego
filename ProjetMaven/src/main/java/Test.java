@@ -139,11 +139,10 @@ public class Test extends Application implements Initializable {
 		camera.setFarClip(1000);
 
 		SelectionModel selection = new SelectionModel(group);
+		final Graph[] graphConstruction = {new Graph(0)};
 		scene.setFill(Color.WHITE);
 		Save save = new Save();
-
-
-
+		
 		final FileChooser fileChooser = new FileChooser();
 		
 		
@@ -346,23 +345,21 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-		// Revoir cette partie, essaie de voir comment recuperer le graphe, et faire en sorte que
 		// printPartie fonctionne
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode()==KeyCode.ENTER){
-				reordonner(group);
-				Graph graph = new Graph (group.getChildren().size() - 1);
-				graph.createGraph(group);
 				// valider une partie et supprime la partie selectionner dans l'editeur
-
+				// transform graph construction into final one element array ([0]) a comprendre
 				if(event.isControlDown()){ // quand control n'est pas maintenu
-					selection.separation(graph);
+					selection.separation(graphConstruction[0]);
+				}
+				else {
+					reordonner(group);
+					graphConstruction[0] = new Graph(group.getChildren().size() - 1);
+					graphConstruction[0].createGraph(group);
 				}
 
 				// validation de la construction et la creation du graphe
-//				else {
-//					graph.createGraph(group);
-//				}
 			}
 		});
 
@@ -373,11 +370,8 @@ public class Test extends Application implements Initializable {
 					selection.printParties(); // afficher les parties qu'on a selectionnee a la main
 				}
 				else {
-					reordonner(group); // reordonne les identifiants des cubes
-					Graph graph = new Graph (group.getChildren().size() - 1); // initialisation du graphe
-					graph.createGraph(group); // creation du graphe
-
-					graph.printGraph(); // affiche chaque noeud du graphe
+					graphConstruction[0].createGraph(group); // creation(ou initialisation) du graphe
+					graphConstruction[0].printGraph(); // affiche chaque noeud du graphe
 				}
 
 			}
@@ -444,7 +438,6 @@ public class Test extends Application implements Initializable {
 			tmp.setId(i - 1);
 		}
 	}
-
 }
 
 
