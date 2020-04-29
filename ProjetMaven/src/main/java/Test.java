@@ -456,12 +456,6 @@ public class Test extends Application implements Initializable {
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
 	}
 
-	//...fichier .png
-	private static void configureFileSnapshot(final FileChooser fileChooser) {
-		fileChooser.setTitle("Brochure");
-		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier png", "*.png"));
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
