@@ -386,31 +386,40 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.U) {
-//				WritableImage snap = scene.snapshot(null);
-//				fileChooser.setInitialDirectory(new File("src/main/resources/Data/Brochures"));
-//				configureFileSnapshot(fileChooser);
-//				File file = fileChooser.showSaveDialog(primaryStage);
-//				try{
-//					ImageIO.write(SwingFXUtils.fromFXImage(snap,null),"png",file);
-//				} catch (IOException e){
-//					System.out.println("error PNG");
-//				}
-				fileChooser.setInitialDirectory(new File("src/main/resources/Data/Brochures"));
-				for (int i = 0; i < selection.PartiesSelection.size(); i++) {
-					while(group.getChildren().size() > 1)
+				File parties = new File("src/main/resources/Data/Brochures/Parties");
+				File assemblage = new File("src/main/resources/Data/Brochures/Assemblage");
+				//creation du dossier Parties et Assemblage
+				parties.mkdir();
+				assemblage.mkdir();
+
+				for (int i = 0; i < selection.PartiesSelection.size(); i++) {//crée les png des parties
+					while(group.getChildren().size() > 1)//vide le groupe en laissant le sol
 						group.getChildren().remove(1);
 					for (int y = 0; y < selection.PartiesSelection.get(i).selection.size(); y++) {
-						group.getChildren().add(selection.PartiesSelection.get(i).selection.get(y));
+						group.getChildren().add(selection.PartiesSelection.get(i).selection.get(y));//ajoute les pieces au groupe
+						selection.PartiesSelection.get(i).selection.get(y).setDrawMode(DrawMode.FILL);//desactive le mode Draw
 					}
-					selection.PartiesSelection.get(i).clear();
-					try {
-						ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("Partie " + i+".png"));
+					try {//creer l'image
+							ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Parties/Partie " + (i+1)+".png"));
 					} catch (IOException e) {
 						System.out.println("error PNG");
 					}
 				}
-				if (group.getChildren().size() > 1)
-					group.getChildren().remove(1, group.getChildren().size() - 1);
+				while(group.getChildren().size() > 1)
+					group.getChildren().remove(1);
+
+				for (int i = 0; i < selection.PartiesSelection.size(); i++) {// crée les png de l'assemblage des parties
+					for (int y = 0; y < selection.PartiesSelection.get(i).selection.size(); y++) {//ajoute les pieces au groupe
+						group.getChildren().add(selection.PartiesSelection.get(i).selection.get(y));
+					}
+					try {//creer l'image
+						ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Assemblage/Etape " + (i+1)+".png"));
+					} catch (IOException e) {
+						System.out.println("error PNG");
+					}
+				}
+				while(group.getChildren().size() > 1)
+					group.getChildren().remove(1);
 			}
 		});
 
