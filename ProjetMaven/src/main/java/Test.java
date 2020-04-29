@@ -385,8 +385,8 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.U) {
-//				File Brochure = new File("src/main/resources/Data/Brochures");
-//				Brochure.mkdir();
+				File Brochure = new File("src/main/resources/Data/Brochures");
+				Brochure.mkdir();
 				File parties = new File("src/main/resources/Data/Brochures/Parties");
 				File assemblage = new File("src/main/resources/Data/Brochures/Assemblage");
 				//creation du dossier Parties et Assemblage
