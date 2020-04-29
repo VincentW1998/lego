@@ -2,10 +2,10 @@ import java.util.LinkedList;
 
 public class Node {
     Cube c; // noeud
-    boolean poser = false;
     LinkedList<Node> arretes; // arretes pieces en dessous (liens)
     LinkedList<Node> arretesUp; // arretes pieces au dessus (liens)
-
+    int ordreConstruction;
+    boolean poser = false;
     public Node(){
         arretes = new LinkedList<Node>();
         arretesUp = new LinkedList<Node>();
@@ -16,7 +16,7 @@ public class Node {
         c = cb;
     }
 
-    public void addCube(Cube cb){ //intialise le cube
+    public void addCube(Cube cb){ //initialise le cube
         c = cb;
     }
 
@@ -45,5 +45,15 @@ public class Node {
     }
     public void addArretesUp(Node n){
         arretesUp.add(n);
+    }
+
+    public void put(){
+        poser = true;
+    }
+
+    public void parcoursNode(){
+        for (int i = 0; i < arretes.size(); i++) {
+
+        }
     }
 }

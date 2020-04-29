@@ -3,6 +3,8 @@ import javafx.scene.Group;
 public class Graph {
 
     Node [] noeuds; // liste des noeud de la construction
+
+
     Group group;
 
    // initialisation de chaque noeud du graphe
@@ -26,12 +28,6 @@ public class Graph {
    }
 
 
-//   public void parcoursGraphe() {
-//        for (int i = 0 ; i < noeuds.length; i ++) {
-//            if (noeuds[i].poser == false)
-//                System.out.println(i);
-//        }
-//   }
 
    public void createGraph(Group group){
         this.group = group;
@@ -65,6 +61,12 @@ public class Graph {
         for (int i = 0; i < noeuds.length; i ++){
             System.out.println("\nPiece n°" + i + ": ");
             noeuds[i].print();
+        }
+    }
+
+    public void parcoursGraph(){
+        for (int i = 0; i < noeuds.length; i++){
+            noeuds[i].parcoursNode();
         }
     }
 }

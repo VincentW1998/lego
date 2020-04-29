@@ -431,6 +431,7 @@ public class Test extends Application implements Initializable {
 		}
 	}
 
+	// reordonner les identifiants des pieces
 	public void reordonner(Group group){
 		Cube tmp;
 		for(int i = 1; i < group.getChildren().size(); i++){
