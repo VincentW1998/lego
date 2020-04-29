@@ -16,12 +16,13 @@ public class SelectionModel {
 	Group group;
 	Graph grapheSelection;
 	LinkedList <LinkedList<Node>> Parties;
-	
+	LinkedList <SelectionModel> PartiesSelection;
 	public SelectionModel(Group g) {
 		selection = new LinkedList<Cube>();
 		t = new Rotate();
 		group = g;
 		Parties = new LinkedList<LinkedList<Node>>();
+		PartiesSelection = new LinkedList<SelectionModel>();
 	}
 	
 	public SelectionModel copy() { 
@@ -382,6 +383,8 @@ public class SelectionModel {
 //separe la selection de la structure (creation d'une partie) et la supprime
 	public void separation(){
 		LinkedList <Node> tmp = new LinkedList<Node>();
+		if(selection.size()!=0)
+			PartiesSelection.add(this.copy());
 		if(grapheSelection!=null && selection.size()!=0){
 			for(int i=0;i<selection.size();i++){
 				tmp.add(grapheSelection.noeuds[selection.get(i).getIdentifiant()]);
@@ -390,6 +393,8 @@ public class SelectionModel {
 			Parties.add(tmp);
 		}
 	}
+
+
 
 
 
