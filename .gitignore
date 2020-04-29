@@ -2,8 +2,7 @@
 *.json
 *.idea/
 *.iml
-*.Parties/
-*.Assemblage/
+*Brochures/
 target/
 
 */out/
