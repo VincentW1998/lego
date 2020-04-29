@@ -2,7 +2,7 @@
 *.json
 *.idea/
 *.iml
-ProjetMaven/src/main/resources/Data/Brochures/*
+src/main/resources/Data/Brochures/*
 target/
 
 */out/
