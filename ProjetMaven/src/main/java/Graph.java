@@ -28,7 +28,7 @@ public class Graph {
    }
 
 
-
+    // creer le graphe
    public void createGraph(Group group){
         this.group = group;
         Cube tmp;
@@ -41,7 +41,7 @@ public class Graph {
 
 
 
-    public void attachedTo(Cube c){
+    public void attachedTo(Cube c){ // ajoute les cubes dans les arretes && arretesUP
         for(int i = 1; i < group.getChildren().size(); i ++){
             {
                 Cube tmp = (Cube) group.getChildren().get(i);
@@ -55,7 +55,7 @@ public class Graph {
         }
     }
 
-    public void printGraph(){
+    public void printGraph(){ // affiche le graphe
         System.out.println("----- Affichage -------");
         System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
         for (int i = 0; i < noeuds.length; i ++){
@@ -65,8 +65,18 @@ public class Graph {
     }
 
     public void parcoursGraph(){
+        int debut = findBegin();
+        noeuds[debut].ordreConstruction = 0; // 0 car c'est le premier
+        noeuds[debut].parcoursArreteUp(); // puis on parcours les arretes superieur
+
+    }
+
+    // return l'indice du premier noued qui n'a pas d'arrete vers le bas (peut importe lequel)
+    public int findBegin(){
         for (int i = 0; i < noeuds.length; i++){
-            noeuds[i].parcoursNode();
+            if(noeuds[i].hasHowManyDown(0)) // si le noeud n'a pas de liens vers le bas
+                return i;
         }
+        return -1;
     }
 }

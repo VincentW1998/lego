@@ -357,6 +357,7 @@ public class Test extends Application implements Initializable {
 					reordonner(group);
 					graphConstruction[0] = new Graph(group.getChildren().size() - 1);
 					graphConstruction[0].createGraph(group);
+					graphConstruction[0].printGraph();
 				}
 
 				// validation de la construction et la creation du graphe
@@ -369,11 +370,17 @@ public class Test extends Application implements Initializable {
 				if(event.isControlDown()){
 					selection.printParties(); // afficher les parties qu'on a selectionnee a la main
 				}
-				else {
-					graphConstruction[0].createGraph(group); // creation(ou initialisation) du graphe
-					graphConstruction[0].printGraph(); // affiche chaque noeud du graphe
-				}
+//				else {
+//					graphConstruction[0].createGraph(group); // creation(ou initialisation) du graphe
+//					graphConstruction[0].printGraph(); // affiche chaque noeud du graphe
+//				}
 
+			}
+		});
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode() == KeyCode.B){
+				System.out.println(graphConstruction[0].findBegin());
 			}
 		});
 		
