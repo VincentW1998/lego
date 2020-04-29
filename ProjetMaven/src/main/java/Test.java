@@ -138,10 +138,9 @@ public class Test extends Application implements Initializable {
 
 		camera.setNearClip(1);
 		camera.setFarClip(1000);
-		
+
 		SelectionModel selection = new SelectionModel(group);
 		scene.setFill(Color.WHITE);
-		
 		Save save = new Save();
 
 
@@ -352,16 +351,15 @@ public class Test extends Application implements Initializable {
 			if (event.getCode()==KeyCode.ENTER){
 				reordonner(group);
 				Graph graph = new Graph (group.getChildren().size() - 1);
-				graph.createGraph(group);
+//				graph.createGraph(group);
+				// validation de la construction et la creation du graphe
+				if(!event.isControlDown()){
+					graph.createGraph(group);
+				}
 				// valider une partie et supprime la partie selectionner dans l'editeur
-				if(event.isControlDown()){
+				else {
 					selection.separation(graph);
 				}
-				// validation de la construction et la creation du graphe
-//				else {
-//					graph.createGraph(group);
-//
-//				}
 			}
 		});
 

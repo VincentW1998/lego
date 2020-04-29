@@ -36,7 +36,6 @@ public class Graph {
    public void createGraph(Group group){
         this.group = group;
         Cube tmp;
-        System.out.println(group.getChildren().size());
         for (int i = 1; i < group.getChildren().size(); i ++){
             tmp = (Cube) group.getChildren().get(i);
             add(tmp);

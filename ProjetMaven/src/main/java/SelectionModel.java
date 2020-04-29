@@ -327,19 +327,19 @@ public class SelectionModel {
 		}
 	}
 	//ajout des arretes
-	public void attachedTo(Graph g, Cube c){
-		for(int i=1;i<group.getChildren().size();i++){
-			{
-				Cube tmp = (Cube) group.getChildren().get(i);
-				if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
-					g.addArretes(c, tmp);
-				}
-				if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
-					g.addArretesUp(c, tmp);
-				}
-			}
-		}
-	}
+//	public void attachedTo(Graph g, Cube c){
+//		for(int i=1;i<group.getChildren().size();i++){
+//			{
+//				Cube tmp = (Cube) group.getChildren().get(i);
+//				if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
+//					g.addArretes(c, tmp);
+//				}
+//				if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
+//					g.addArretesUp(c, tmp);
+//				}
+//			}
+//		}
+//	}
 
 
 	public void getId(){
@@ -353,7 +353,7 @@ public class SelectionModel {
 		for(int i = 0; i < Parties.size(); i++){
 			System.out.println("Partie " + i + ":");
 			for(int y = 0; y < Parties.get(i).size(); y++) {
-				System.out.println("         " + "Piece "+Parties.get(i).get(y).c);
+				System.out.println("         " + "Piece "+Parties.get(i).get(y).c.getIdentifiant());
 			}
 		}
 		System.out.println();
