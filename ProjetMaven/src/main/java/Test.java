@@ -369,7 +369,6 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-		// commentez
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.P) {
 				//affiche les differentes parties apres separation dans le terminal
@@ -386,6 +385,8 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.U) {
+//				File Brochure = new File("src/main/resources/Data/Brochures");
+//				Brochure.mkdir();
 				File parties = new File("src/main/resources/Data/Brochures/Parties");
 				File assemblage = new File("src/main/resources/Data/Brochures/Assemblage");
 				//creation du dossier Parties et Assemblage
@@ -393,25 +394,25 @@ public class Test extends Application implements Initializable {
 				assemblage.mkdir();
 
 				for (int i = 0; i < selection.PartiesSelection.size(); i++) {//crée les png des parties
+					{
+						File part = new File("src/main/resources/Data/Brochures/Parties/Partie"+(i+1));
+						part.mkdir();
+					}
 					while(group.getChildren().size() > 1)//vide le groupe en laissant le sol
 						group.getChildren().remove(1);
-					for (int y = 0; y < selection.PartiesSelection.get(i).selection.size(); y++) {
-						group.getChildren().add(selection.PartiesSelection.get(i).selection.get(y));//ajoute les pieces au groupe
-						selection.PartiesSelection.get(i).selection.get(y).setDrawMode(DrawMode.FILL);//desactive le mode Draw
-					}
-					try {//creer l'image
-							ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Parties/Partie " + (i+1)+".png"));
-					} catch (IOException e) {
-						System.out.println("error PNG");
-					}
+					selection.PartiesSelection.get(i).addToGroup(i+1);
+//					try {//creer l'image
+//							ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Parties/Partie " + (i+1)+".png"));
+//					} catch (IOException e) {
+//						System.out.println("error PNG");
+//					}
 				}
 				while(group.getChildren().size() > 1)
 					group.getChildren().remove(1);
 
 				for (int i = 0; i < selection.PartiesSelection.size(); i++) {// crée les png de l'assemblage des parties
-					for (int y = 0; y < selection.PartiesSelection.get(i).selection.size(); y++) {//ajoute les pieces au groupe
-						group.getChildren().add(selection.PartiesSelection.get(i).selection.get(y));
-					}
+
+					selection.PartiesSelection.get(i).addToGroup();
 					try {//creer l'image
 						ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Assemblage/Etape " + (i+1)+".png"));
 					} catch (IOException e) {
@@ -477,5 +478,6 @@ public class Test extends Application implements Initializable {
 			}
 		}
 	}
+
 }
 

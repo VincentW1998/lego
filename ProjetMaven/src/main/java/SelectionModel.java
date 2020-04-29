@@ -1,13 +1,19 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
+
+import javax.imageio.ImageIO;
 
 public class SelectionModel {
 	LinkedList <Cube> selection;
@@ -40,6 +46,25 @@ public class SelectionModel {
 		if(!contains(b)) {
 			b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
 			selection.add(b);
+		}
+	}
+
+	public void addToGroup(int part){
+		for(int i=0;i<selection.size();i++){
+			group.getChildren().add(selection.get(i));
+			selection.get(i).setDrawMode(DrawMode.FILL);
+			try {//creer l'image
+				ImageIO.write(SwingFXUtils.fromFXImage(group.getScene().snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Parties/Partie"+part+"/" + "etape "+(i+1)+".png"));
+			} catch (IOException e) {
+				System.out.println("error PNG");
+			}
+		}
+	}
+
+	public void addToGroup(){
+		for(int i=0;i<selection.size();i++){
+			group.getChildren().add(selection.get(i));
+			selection.get(i).setDrawMode(DrawMode.FILL);
 		}
 	}
 	//vide la selection
