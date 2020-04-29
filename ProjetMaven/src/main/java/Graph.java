@@ -58,13 +58,12 @@ public class Graph {
         }
     }
 
-    public void printAll(){
+    public void printGraph(){
         System.out.println("----- Affichage -------");
         System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
         for (int i = 0; i < noeuds.length; i ++){
             System.out.println("\nPiece n°" + i + ": ");
             noeuds[i].print();
-
         }
     }
 }

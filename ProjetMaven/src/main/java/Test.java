@@ -348,38 +348,34 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-		// commentez
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode()==KeyCode.ENTER){
+				reordonner(group);
+				Graph graph = new Graph (group.getChildren().size() - 1);
+				graph.createGraph(group);
 				// valider une partie et supprime la partie selectionner dans l'editeur
 				if(event.isControlDown()){
-					selection.separation();
+					selection.separation(graph);
 				}
 				// validation de la construction et la creation du graphe
-				else {
-					reordonner(group);
-					Graph graph = new Graph (group.getChildren().size() - 1);
-					graph.createGraph(group);
-//					selection.createGraph();
-
-				}
+//				else {
+//					graph.createGraph(group);
+//
+//				}
 			}
 		});
 
-		// commentez
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.P) {
 				//affiche les differentes parties apres separation dans le terminal
 				if(event.isControlDown()){
-					selection.Print();
+					selection.printParties(); // afficher les parties qu'on a selectionnee a la main
 				}
 				else {
 					reordonner(group); // reordonne les identifiants des cubes
-					Graph graph = new Graph (group.getChildren().size() - 1);
-					graph.createGraph(group);
-					graph.printAll();
-//					selection.createGraph();
-//					selection.printAll();
+					Graph graph = new Graph (group.getChildren().size() - 1); // initialisation du graphe
+					graph.createGraph(group); // creation du graphe
+					graph.printGraph(); // affiche chaque noeud du graphe
 				}
 
 			}

@@ -14,7 +14,7 @@ public class SelectionModel {
 	Rotate r;
 	Transform t;
 	Group group;
-	Graph grapheSelection;
+//	Graph grapheSelection;
 	LinkedList <LinkedList<Node>> Parties;
 	
 	public SelectionModel(Group g) {
@@ -341,19 +341,6 @@ public class SelectionModel {
 		}
 	}
 
-	// creer le graphe
-//	public void  createGraph(){
-//		Graph graph= new Graph(group.getChildren().size()-1);
-//
-//		for(int i=1;i<group.getChildren().size();i++){
-//			{
-//				Cube tmp = (Cube) group.getChildren().get(i);
-//				graph.add(tmp.copy()); // ajoute le cube dans le graph
-//				attachedTo(graph, tmp);
-//			}
-//		}
-//		grapheSelection = graph;
-//	}
 
 	public void getId(){
 		for(int i=0;i<selection.size();i++){
@@ -361,34 +348,24 @@ public class SelectionModel {
 		}
 	}
 
-	public void Print(){
-//		grapheSelection.noeuds[selection.get(0).getIdentifiant()].print();
-//		System.out.println(selection.get(0).getIdentifiant());
+	public void printParties(){
 		System.out.println("Affichage des differentes parties selectionnees :");
 		for(int i = 0; i < Parties.size(); i++){
 			System.out.println("Partie " + i + ":");
 			for(int y = 0; y < Parties.get(i).size(); y++) {
-				System.out.println("         " + "Piece "+Parties.get(i).get(y).c.getIdentifiant());
+				System.out.println("         " + "Piece "+Parties.get(i).get(y).c);
 			}
 		}
 		System.out.println();
 	}
 
-//	public void printAll(){
-//		System.out.println("----- Affichage -------");
-//		System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
-//		for(int i=0;i<grapheSelection.noeuds.length;i++){
-//			System.out.println("\nPiece n°"+i+": ");
-//			grapheSelection.noeuds[i].print();
-//
-//		}
-//	}
 
-	public void separation(){
+	public void separation(Graph grapheSelection){
 		LinkedList <Node> tmp = new LinkedList<Node>();
-		if(grapheSelection!=null && selection.size()!=0){
-			for(int i=0;i<selection.size();i++){
-				tmp.add(grapheSelection.noeuds[selection.get(i).getIdentifiant()]);
+		if(grapheSelection != null && selection.size() != 0){
+			for(int i = 0; i < selection.size(); i++){
+				int indice = selection.get(i).getIdentifiant();
+				tmp.add(grapheSelection.noeuds[indice]);
 				group.getChildren().remove(selection.get(i));
 			}
 			Parties.add(tmp);
