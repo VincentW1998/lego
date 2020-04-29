@@ -342,19 +342,18 @@ public class SelectionModel {
 	}
 
 	// creer le graphe
-	public void  createGraph(){
-		Graph graph= new Graph(group.getChildren().size()-1);
-
-		for(int i=1;i<group.getChildren().size();i++){
-			{
-				Cube tmp = (Cube) group.getChildren().get(i);
-				tmp.setId(i-1); // on ne prends pas en compte le sol
-				graph.add(tmp.copy()); // ajoute le cube dans le graph
-				attachedTo(graph, tmp);
-			}
-		}
-		grapheSelection = graph;
-	}
+//	public void  createGraph(){
+//		Graph graph= new Graph(group.getChildren().size()-1);
+//
+//		for(int i=1;i<group.getChildren().size();i++){
+//			{
+//				Cube tmp = (Cube) group.getChildren().get(i);
+//				graph.add(tmp.copy()); // ajoute le cube dans le graph
+//				attachedTo(graph, tmp);
+//			}
+//		}
+//		grapheSelection = graph;
+//	}
 
 	public void getId(){
 		for(int i=0;i<selection.size();i++){
@@ -375,14 +374,15 @@ public class SelectionModel {
 		System.out.println();
 	}
 
-	public void printAll(){
-		System.out.println("----- Affichage -------");
-		System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
-		for(int i=0;i<grapheSelection.noeuds.length;i++){
-			System.out.println("\nPiece n°"+i+": ");
-			grapheSelection.noeuds[i].print();
-		}
-	}
+//	public void printAll(){
+//		System.out.println("----- Affichage -------");
+//		System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
+//		for(int i=0;i<grapheSelection.noeuds.length;i++){
+//			System.out.println("\nPiece n°"+i+": ");
+//			grapheSelection.noeuds[i].print();
+//
+//		}
+//	}
 
 	public void separation(){
 		LinkedList <Node> tmp = new LinkedList<Node>();

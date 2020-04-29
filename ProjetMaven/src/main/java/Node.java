@@ -2,6 +2,7 @@ import java.util.LinkedList;
 
 public class Node {
     Cube c; // noeud
+    boolean poser = false;
     LinkedList<Node> arretes; // arretes pieces en dessous (liens)
     LinkedList<Node> arretesUp; // arretes pieces au dessus (liens)
 

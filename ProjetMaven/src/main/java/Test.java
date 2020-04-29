@@ -122,7 +122,6 @@ public class Test extends Application implements Initializable {
 		}
 	
 	public void start(Stage primaryStage) throws Exception{
-
 		Stage secondStage = new Stage();
 		Group group = new Group();
 		Scene scene = new Scene(group, WIDTH, HEIGHT, true);
@@ -162,45 +161,45 @@ public class Test extends Application implements Initializable {
 				case W:
 					selection.W();// add 15 to the Z axis when the W key is pressed
 					save.saveRemote(selection.copy());
-					save.saveMoves((KeyEvent)event);
+					save.saveMoves(event);
 					break;
 				case S:
 					selection.S(); // substract 15 to Z axis
 					save.saveRemote(selection.copy());
-					save.saveMoves((KeyEvent)event);
+					save.saveMoves(event);
 					break;
 				case A:
 
 					selection.A();// substract 10 to X axis
 					save.saveRemote(selection.copy());
-					save.saveMoves((KeyEvent)event);
+					save.saveMoves(event);
 					break;
 				case D:
 					selection.D(); // add 10 to X axis
 					save.saveRemote(selection.copy());
-					save.saveMoves((KeyEvent)event);
+					save.saveMoves(event);
 					break;			
 				case Z:
 					selection.Z();
 					save.saveRemote(selection.copy());
-					save.saveMoves((KeyEvent)event);
+					save.saveMoves(event);
 					break;		
 				case X:
 					selection.X();
 					save.saveRemote(selection.copy());
-					save.saveMoves((KeyEvent)event);
+					save.saveMoves(event);
 					break;		
 				case Q:
 
 					selection.Q();
 					save.saveRemote(selection.copy());
-					save.saveMoves((KeyEvent)event);
+					save.saveMoves(event);
 					break;
 				case E:
 
 					selection.E();
 					save.saveRemote(selection.copy());
-					save.saveMoves((KeyEvent)event);
+					save.saveMoves(event);
 					break;
 				case BACK_SPACE:
 					if(!selection.empty()) {
@@ -210,7 +209,7 @@ public class Test extends Application implements Initializable {
 						}
 						save.saveRemote(selection.copy());
 						selection.clear();
-						save.saveMoves((KeyEvent)event);
+						save.saveMoves(event);
 					}
 					break;
 
@@ -342,6 +341,7 @@ public class Test extends Application implements Initializable {
 		// affiche la composition de la figure, avec les donnees de chaques cubes
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
 			if(event.getCode()== KeyCode.G) {
+				setAttache(group);
 				for (int i = 1; i < group.getChildren().size(); i++) {
 					System.out.println(group.getChildren().get(i));
 				}
@@ -357,8 +357,11 @@ public class Test extends Application implements Initializable {
 				}
 				// validation de la construction et la creation du graphe
 				else {
-					setAttache(group);
-					selection.createGraph();
+					reordonner(group);
+					Graph graph = new Graph (group.getChildren().size() - 1);
+					graph.createGraph(group);
+//					selection.createGraph();
+
 				}
 			}
 		});
@@ -371,8 +374,12 @@ public class Test extends Application implements Initializable {
 					selection.Print();
 				}
 				else {
-					selection.createGraph();
-					selection.printAll();
+					reordonner(group); // reordonne les identifiants des cubes
+					Graph graph = new Graph (group.getChildren().size() - 1);
+					graph.createGraph(group);
+					graph.printAll();
+//					selection.createGraph();
+//					selection.printAll();
 				}
 
 			}
@@ -432,7 +439,13 @@ public class Test extends Application implements Initializable {
 		}
 	}
 
-
+	public void reordonner(Group group){
+		Cube tmp;
+		for(int i = 1; i < group.getChildren().size(); i++){
+			tmp = (Cube) group.getChildren().get(i);
+			tmp.setId(i - 1);
+		}
+	}
 
 }
 
