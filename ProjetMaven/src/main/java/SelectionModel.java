@@ -359,6 +359,18 @@ public class SelectionModel {
 		System.out.println();
 	}
 
+//	public void separation(){
+//		LinkedList <Node> tmp = new LinkedList<Node>();
+//		if(grapheSelection != null && selection.size() != 0){
+//			for(int i = 0; i < selection.size(); i++){
+//				int indice = selection.get(i).getIdentifiant();
+//				tmp.add(grapheSelection.noeuds[indice]);
+//				group.getChildren().remove(selection.get(i));
+//			}
+//			Parties.add(tmp);
+//		}
+//	}
+
 
 	public void separation(Graph grapheSelection){
 		LinkedList <Node> tmp = new LinkedList<Node>();

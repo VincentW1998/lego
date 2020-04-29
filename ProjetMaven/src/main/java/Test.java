@@ -92,7 +92,6 @@ public class Test extends Application implements Initializable {
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
 
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -347,19 +346,23 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
+		// Revoir cette partie, essaie de voir comment recuperer le graphe, et faire en sorte que
+		// printPartie fonctionne
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode()==KeyCode.ENTER){
 				reordonner(group);
 				Graph graph = new Graph (group.getChildren().size() - 1);
-//				graph.createGraph(group);
-				// validation de la construction et la creation du graphe
-				if(!event.isControlDown()){
-					graph.createGraph(group);
-				}
+				graph.createGraph(group);
 				// valider une partie et supprime la partie selectionner dans l'editeur
-				else {
+
+				if(event.isControlDown()){ // quand control n'est pas maintenu
 					selection.separation(graph);
 				}
+
+				// validation de la construction et la creation du graphe
+//				else {
+//					graph.createGraph(group);
+//				}
 			}
 		});
 
@@ -373,6 +376,7 @@ public class Test extends Application implements Initializable {
 					reordonner(group); // reordonne les identifiants des cubes
 					Graph graph = new Graph (group.getChildren().size() - 1); // initialisation du graphe
 					graph.createGraph(group); // creation du graphe
+
 					graph.printGraph(); // affiche chaque noeud du graphe
 				}
 
