@@ -4,8 +4,8 @@ public class Node {
     Cube c; // noeud
     LinkedList<Node> arretesDown; // arretes pieces en dessous (liens)
     LinkedList<Node> arretesUp; // arretes pieces au dessus (liens)
-    int ordreConstruction; // utilisation explicite
-    static int acc = 0;
+    int ordreConstruction = -1; // utilisation explicite
+    static int acc = -1;
     int numeroPartie;
 
 
@@ -17,7 +17,7 @@ public class Node {
     public Node(Cube cb){
         this();
         c = cb;
-        ordreConstruction = -1;
+
     }
 
     public void addCube(Cube cb){ //initialise le cube
@@ -75,19 +75,18 @@ public class Node {
     public void parcoursArreteUp(){
 
         for (int i = 0; i < arretesUp.size(); i++) { // parcours chaque node superieur
-            // si le Node n'a que 1 seul lien vers le bas
+            // si le Node n'a que 1 seul lien vers le bas ou si le Node a plusieurs arretes down, mais qu'ils ont deja ete tous visite
             // on lui attribut un numero
-            if (arretesUp.get(i).hasHowManyDown(1)) {
-                acc ++;
-                arretesUp.get(i).ordreConstruction = acc;
-                arretesUp.get(i).parcoursArreteUp();
-            }
-            // sinon on check ses nodes autres nodes inferieur
-            else {
-                if (arretesUp.get(i).fullUnderSee()){
+            if(!arretesUp.get(i).isAlreadySee()){
+                if (arretesUp.get(i).hasHowManyDown(1) || arretesUp.get(i).fullUnderSee()) {
                     acc ++;
                     arretesUp.get(i).ordreConstruction = acc;
                     arretesUp.get(i).parcoursArreteUp();
+                }
+                // sinon on check ses nodes autres nodes inferieur
+                else {
+                    arretesUp.get(i).parcoursArreteDown();
+                    break;
                 }
             }
 
@@ -95,19 +94,20 @@ public class Node {
     }
 
     public  void parcoursArreteDown(){
-        if (hasHowManyDown(0)){ // si il n'y a plus aucun cube en dessous
+        // si il n'y a plus aucun cube en dessous on lui donne un ordre ou si tout les noeds on ete vistes
+        if (hasHowManyDown(0) || fullUnderSee()){
+            acc ++;
             ordreConstruction = acc;
+            parcoursArreteUp();
+            return;
         }
-        int n = 0;
         for (int i = 0; i < arretesDown.size(); i++) {
-            if (arretesDown.get(i).isAlreadySee()){
-                n ++;
-            }
-            else {
+            // si le noeud n'a pas ete visite ou le visite et on parcours ses noeuds inf
+            if (!arretesDown.get(i).isAlreadySee()){
                 arretesDown.get(i).parcoursArreteDown();
             }
+
         }
-//        if (n == arretesDown.size()) // cela veut dire que le noeud à tout ses autres noeud inferieur deja visites.
 
     }
 
@@ -125,9 +125,12 @@ public class Node {
         return true;
     }
 
+    // affiche l'ordre de construction
     public void printNodeOrder(){
         System.out.println(ordreConstruction);
     }
+
+
 
 
 }

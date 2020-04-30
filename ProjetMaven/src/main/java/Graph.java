@@ -64,26 +64,39 @@ public class Graph {
         }
     }
 
-    public void parcoursGraph(){
-        int debut = findBegin();
-        noeuds[debut].ordreConstruction = 0; // 0 car c'est le premier
-        noeuds[debut].parcoursArreteUp(); // puis on parcours les arretes superieur du noeud du debut
+    public void parcoursGraph() {
+        while (!FullOrder()){ // tant que tout les noeuds n'ont pas ete vu
+            int debut = findBegin(); // on cherche un noeud de debut
+            if(debut == -1) break;
+            noeuds[debut].ordreConstruction = ++ Node.acc; // on lui donne un ordre
+            noeuds[debut].parcoursArreteUp(); // puis on parcours les arretes superieur du noeud du debut
+        }
 
     }
 
     // return l'indice du premier noued qui n'a pas d'arrete vers le bas (peut importe lequel)
-    public int findBegin(){
-        for (int i = 0; i < noeuds.length; i++){
-            if(noeuds[i].hasHowManyDown(0)) // si le noeud n'a pas de liens vers le bas
+    public int findBegin() {
+        for (int i = 0; i < noeuds.length; i++) {
+            if (noeuds[i].hasHowManyDown(0) && !noeuds[i].isAlreadySee()) // si le noeud n'a pas de liens vers le bas
                 return i;
         }
         return -1;
     }
 
+    // affiche l'ordre de consutrction
     public void printOrder() {
         for (int i = 0; i < noeuds.length; i ++){
             System.out.print(i);
             noeuds[i].printNodeOrder();
         }
+    }
+
+    // Renvoie true si tout les noueds ont ete visites et ordonner
+    public boolean FullOrder(){
+        for (int i = 0; i < noeuds.length; i++) {
+            if (!noeuds[i].isAlreadySee()) // si le noeud n'a pas ete visité
+                return false;
+        }
+        return true;
     }
 }
