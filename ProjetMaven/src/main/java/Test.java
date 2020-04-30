@@ -385,24 +385,24 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.U) {
-				File Brochure = new File("src/main/resources/Data/Brochures");
-				Brochure.mkdir();
-				File parties = new File("src/main/resources/Data/Brochures/Parties");
-				File assemblage = new File("src/main/resources/Data/Brochures/Assemblage");
+//				File Brochure = new File("src/main/resources/Brochures");
+//				Brochure.mkdir();
+				File parties = new File("src/main/resources/Brochures/Parties");
+				File assemblage = new File("src/main/resources/Brochures/Assemblage");
 				//creation du dossier Parties et Assemblage
 				parties.mkdir();
 				assemblage.mkdir();
 
 				for (int i = 0; i < selection.PartiesSelection.size(); i++) {//crée les png des parties
 					{
-						File part = new File("src/main/resources/Data/Brochures/Parties/Partie"+(i+1));
+						File part = new File("src/main/resources/Brochures/Parties/Partie"+(i+1));
 						part.mkdir();
 					}
 					while(group.getChildren().size() > 1)//vide le groupe en laissant le sol
 						group.getChildren().remove(1);
 					selection.PartiesSelection.get(i).addToGroup(i+1);
 //					try {//creer l'image
-//							ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Parties/Partie " + (i+1)+".png"));
+//							ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Brochures/Parties/Partie " + (i+1)+".png"));
 //					} catch (IOException e) {
 //						System.out.println("error PNG");
 //					}
@@ -414,7 +414,7 @@ public class Test extends Application implements Initializable {
 
 					selection.PartiesSelection.get(i).addToGroup();
 					try {//creer l'image
-						ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Assemblage/Etape " + (i+1)+".png"));
+						ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Brochures/Assemblage/Etape " + (i+1)+".png"));
 					} catch (IOException e) {
 						System.out.println("error PNG");
 					}

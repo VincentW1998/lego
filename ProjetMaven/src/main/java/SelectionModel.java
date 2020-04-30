@@ -54,7 +54,7 @@ public class SelectionModel {
 			group.getChildren().add(selection.get(i));
 			selection.get(i).setDrawMode(DrawMode.FILL);
 			try {//creer l'image
-				ImageIO.write(SwingFXUtils.fromFXImage(group.getScene().snapshot(null), null), "png", new File("src/main/resources/Data/Brochures/Parties/Partie"+part+"/" + "etape "+(i+1)+".png"));
+				ImageIO.write(SwingFXUtils.fromFXImage(group.getScene().snapshot(null), null), "png", new File("src/main/resources/Brochures/Parties/Partie"+part+"/" + "etape "+(i+1)+".png"));
 			} catch (IOException e) {
 				System.out.println("error PNG");
 			}
