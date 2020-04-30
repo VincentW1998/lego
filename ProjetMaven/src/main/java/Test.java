@@ -148,6 +148,7 @@ public class Test extends Application implements Initializable {
 		camera.setFarClip(1000);// definit la distance de vue de la camera
 
 		SelectionModel selection = new SelectionModel(group);
+		final Graph[] graphConstruction = {new Graph(0)};
 		scene.setFill(Color.WHITE);
 
 		Save save = new Save();
@@ -354,31 +355,30 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-		// commentez
+		// printPartie fonctionne
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if (event.getCode() == KeyCode.ENTER) {
+			if (event.getCode()==KeyCode.ENTER){
 				// valider une partie et supprime la partie selectionner dans l'editeur
-				if (event.isControlDown()) {
-					selection.separation();
+				// transform graph construction into final one element array ([0]) a comprendre
+				if(event.isControlDown()){ // quand control n'est pas maintenu
+					selection.separation(graphConstruction[0]);
 				}
-				// validation de la construction et la creation du graphe
 				else {
-					setAttache(group);
-					selection.createGraph();
+					reordonner(group);
+					graphConstruction[0] = new Graph(group.getChildren().size() - 1);
+					graphConstruction[0].createGraph(group);
+					graphConstruction[0].printGraph();
 				}
+
+				// validation de la construction et la creation du graphe
 			}
 		});
 
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if (event.getCode() == KeyCode.P) {
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
+			if(event.getCode()== KeyCode.P) {
 				//affiche les differentes parties apres separation dans le terminal
-				if (event.isControlDown()) {
-					selection.Print();
-				}
-				//creer le graph et affiche toutes les pieces avec leurs attaches
-				else {
-					selection.createGraph();
-					selection.printAll();
+				if(event.isControlDown()){
+					selection.printParties(); // afficher les parties qu'on a selectionnee a la main
 				}
 			}
 		});
@@ -470,6 +470,15 @@ public class Test extends Application implements Initializable {
 					haut.setAttacheDown(bas);
 				}
 			}
+		}
+	}
+
+	// reordonner les identifiants des pieces
+	public void reordonner(Group group){
+		Cube tmp;
+		for(int i = 1; i < group.getChildren().size(); i++){
+			tmp = (Cube) group.getChildren().get(i);
+			tmp.setId(i - 1);
 		}
 	}
 

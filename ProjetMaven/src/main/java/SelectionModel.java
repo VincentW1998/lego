@@ -20,7 +20,6 @@ public class SelectionModel {
 	Rotate r;
 	Transform t;
 	Group group;
-	Graph grapheSelection;
 	LinkedList <LinkedList<Node>> Parties;
 	LinkedList <SelectionModel> PartiesSelection;
 	public SelectionModel(Group g) {
@@ -350,35 +349,7 @@ public class SelectionModel {
 				break;
 		}
 	}
-	//ajout des arretes
-	public void attachedTo(Graph g, Cube c){
-		for(int i=1;i<group.getChildren().size();i++){
-			{
-				Cube tmp = (Cube) group.getChildren().get(i);
-				if (!tmp.equals(c) && c.checkPos(tmp)) {
-					g.addArretes(c, tmp);
-				}
-				if (!tmp.equals(c) && tmp.checkPos(c)) {
-					g.addArretesUp(c, tmp);
-				}
-			}
-		}
-	}
 
-	// creer le graphe
-	public void  createGraph(){
-		Graph graph= new Graph(group.getChildren().size()-1);
-
-		for(int i=1;i<group.getChildren().size();i++){
-			{
-				Cube tmp = (Cube) group.getChildren().get(i);
-				tmp.setId(i-1);
-				graph.add(tmp.copy()); // ajoute le cube dans le graph
-				attachedTo(graph, tmp);
-			}
-		}
-		grapheSelection = graph;
-	}
 
 	public void getId(){
 		for(int i=0;i<selection.size();i++){
@@ -386,7 +357,7 @@ public class SelectionModel {
 		}
 	}
 //print les parties
-	public void Print(){
+	public void printParties(){
 		System.out.println("Affichage des differentes parties selectionnees :");
 		for(int i = 0; i < Parties.size(); i++){
 			System.out.println("Partie " + i + ":");
@@ -396,17 +367,9 @@ public class SelectionModel {
 		}
 		System.out.println();
 	}
-//print les pieces et ses attaches
-	public void printAll(){
-		System.out.println("----- Affichage -------");
-		System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
-		for(int i=0;i<grapheSelection.noeuds.length;i++){
-			System.out.print("\nPiece n°"+i+": ");
-			grapheSelection.noeuds[i].print();
-		}
-	}
+
 //separe la selection de la structure (creation d'une partie) et la supprime
-	public void separation(){
+	public void separation(Graph grapheSelection){
 		LinkedList <Node> tmp = new LinkedList<Node>();
 		if(selection.size()!=0)
 			PartiesSelection.add(this.copy());
