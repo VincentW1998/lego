@@ -2,7 +2,9 @@
 *.json
 *.idea/
 *.iml
-src/main/resources/Brochures/*
+*.png
+Assemblage/
+Parties/
 target/
 
 */out/
