@@ -73,7 +73,6 @@ public class Node {
 
 
     public void parcoursArreteUp(){
-
         for (int i = 0; i < arretesUp.size(); i++) { // parcours chaque node superieur
             // si le Node n'a que 1 seul lien vers le bas ou si le Node a plusieurs arretes down, mais qu'ils ont deja ete tous visite
             // on lui attribut un numero
@@ -86,7 +85,6 @@ public class Node {
                 // sinon on check ses nodes autres nodes inferieur
                 else {
                     arretesUp.get(i).parcoursArreteDown();
-                    break;
                 }
             }
 
