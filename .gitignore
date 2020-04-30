@@ -2,7 +2,7 @@
 *.json
 *.idea/
 *.iml
-src/main/resources/Data/Brochures/*
+src/main/resources/Brochures/*
 target/
 
 */out/
