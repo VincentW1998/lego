@@ -5,6 +5,7 @@ public class Node {
     LinkedList<Node> arretesDown; // arretes pieces en dessous (liens)
     LinkedList<Node> arretesUp; // arretes pieces au dessus (liens)
     int ordreConstruction; // utilisation explicite
+    static int acc = 0;
     int numeroPartie;
 
 
@@ -72,27 +73,30 @@ public class Node {
 
 
     public void parcoursArreteUp(){
-        int oc = 1;
 
         for (int i = 0; i < arretesUp.size(); i++) { // parcours chaque node superieur
             // si le Node n'a que 1 seul lien vers le bas
             // on lui attribut un numero
             if (arretesUp.get(i).hasHowManyDown(1)) {
-                arretesUp.get(i).ordreConstruction = oc;
-                oc++;
+                acc ++;
+                arretesUp.get(i).ordreConstruction = acc;
+                arretesUp.get(i).parcoursArreteUp();
             }
             // sinon on check ses nodes autres nodes inferieur
             else {
-                parcoursArreteDown(oc);
+                if (arretesUp.get(i).fullUnderSee()){
+                    acc ++;
+                    arretesUp.get(i).ordreConstruction = acc;
+                    arretesUp.get(i).parcoursArreteUp();
+                }
             }
 
         }
     }
 
-    public  void parcoursArreteDown(int oc){
+    public  void parcoursArreteDown(){
         if (hasHowManyDown(0)){ // si il n'y a plus aucun cube en dessous
-            ordreConstruction = oc;
-//            return oc + 1;
+            ordreConstruction = acc;
         }
         int n = 0;
         for (int i = 0; i < arretesDown.size(); i++) {
@@ -100,7 +104,7 @@ public class Node {
                 n ++;
             }
             else {
-                arretesDown.get(i).parcoursArreteDown(oc);
+                arretesDown.get(i).parcoursArreteDown();
             }
         }
 //        if (n == arretesDown.size()) // cela veut dire que le noeud à tout ses autres noeud inferieur deja visites.
@@ -112,7 +116,18 @@ public class Node {
         return ordreConstruction != -1;
     }
 
+    // renvoie true si toutes les noeuds en dessous du this ont ete visites.
+    public boolean fullUnderSee(){
+        for(int i = 0; i < arretesDown.size(); i++){
+            if(!arretesDown.get(i).isAlreadySee())
+                return false;
+        }
+        return true;
+    }
 
+    public void printNodeOrder(){
+        System.out.println(ordreConstruction);
+    }
 
 
 }

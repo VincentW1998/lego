@@ -67,7 +67,7 @@ public class Graph {
     public void parcoursGraph(){
         int debut = findBegin();
         noeuds[debut].ordreConstruction = 0; // 0 car c'est le premier
-        noeuds[debut].parcoursArreteUp(); // puis on parcours les arretes superieur
+        noeuds[debut].parcoursArreteUp(); // puis on parcours les arretes superieur du noeud du debut
 
     }
 
@@ -78,5 +78,12 @@ public class Graph {
                 return i;
         }
         return -1;
+    }
+
+    public void printOrder() {
+        for (int i = 0; i < noeuds.length; i ++){
+            System.out.print(i);
+            noeuds[i].printNodeOrder();
+        }
     }
 }

@@ -370,17 +370,14 @@ public class Test extends Application implements Initializable {
 				if(event.isControlDown()){
 					selection.printParties(); // afficher les parties qu'on a selectionnee a la main
 				}
-//				else {
-//					graphConstruction[0].createGraph(group); // creation(ou initialisation) du graphe
-//					graphConstruction[0].printGraph(); // affiche chaque noeud du graphe
-//				}
-
 			}
 		});
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.B){
-				System.out.println(graphConstruction[0].findBegin());
+//				System.out.println(graphConstruction[0].findBegin());
+				graphConstruction[0].parcoursGraph();
+				graphConstruction[0].printOrder();
 			}
 		});
 		
