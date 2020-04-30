@@ -2,9 +2,9 @@
 *.json
 *.idea/
 *.iml
+src/main/resources/Brochures/*
 target/
 
 */out/
 
 *.class
-
