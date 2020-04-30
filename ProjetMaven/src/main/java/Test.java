@@ -145,7 +145,7 @@ public class Test extends Application implements Initializable {
 		camera.translateZProperty().set(-15);
 
 		camera.setNearClip(1);
-		camera.setFarClip(1000);
+		camera.setFarClip(1000);// definit la distance de vue de la camera
 
 		SelectionModel selection = new SelectionModel(group);
 		scene.setFill(Color.WHITE);
@@ -385,8 +385,8 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.U) {
-//				File Brochure = new File("src/main/resources/Brochures");
-//				Brochure.mkdir();
+				File Brochure = new File("src/main/resources/Brochures");
+				Brochure.mkdir();
 				File parties = new File("src/main/resources/Brochures/Parties");
 				File assemblage = new File("src/main/resources/Brochures/Assemblage");
 				//creation du dossier Parties et Assemblage
@@ -401,11 +401,7 @@ public class Test extends Application implements Initializable {
 					while(group.getChildren().size() > 1)//vide le groupe en laissant le sol
 						group.getChildren().remove(1);
 					selection.PartiesSelection.get(i).addToGroup(i+1);
-//					try {//creer l'image
-//							ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Brochures/Parties/Partie " + (i+1)+".png"));
-//					} catch (IOException e) {
-//						System.out.println("error PNG");
-//					}
+//
 				}
 				while(group.getChildren().size() > 1)
 					group.getChildren().remove(1);
