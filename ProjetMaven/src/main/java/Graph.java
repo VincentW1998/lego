@@ -7,7 +7,7 @@ public class Graph {
 
     Group group;
 
-    Group group;
+//    Group group;
 
    // initialisation de chaque noeud du graphe
     public Graph(int l){
@@ -39,42 +39,6 @@ public class Graph {
             attachedTo(tmp);
         }
     }
-
-
-
-    public void attachedTo(Cube c){ // ajoute les cubes dans les arretes && arretesUP
-        for(int i = 1; i < group.getChildren().size(); i ++){
-            {
-                Cube tmp = (Cube) group.getChildren().get(i);
-                if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
-                    addArretes(c, tmp);
-                }
-                if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
-                    addArretesUp(c, tmp);
-                }
-            }
-        }
-    }
-
-    public void printGraph(){ // affiche le graphe
-        System.out.println("----- Affichage -------");
-        System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
-        for (int i = 0; i < noeuds.length; i ++){
-            System.out.println("\nPiece n°" + i + ": ");
-            noeuds[i].print();
-        }
-    }
-
-    // creer le graphe
-   public void createGraph(Group group){
-        this.group = group;
-        Cube tmp;
-        for (int i = 1; i < group.getChildren().size(); i ++){
-            tmp = (Cube) group.getChildren().get(i);
-            add(tmp);
-            attachedTo(tmp);
-        }
-   }
 
 
 
