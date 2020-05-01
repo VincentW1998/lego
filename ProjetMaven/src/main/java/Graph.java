@@ -2,7 +2,10 @@ import javafx.scene.Group;
 
 public class Graph {
 
-   Node [] noeuds;
+    Node [] noeuds; // liste des noeud de la construction
+
+
+    Group group;
 
     Group group;
 
@@ -12,7 +15,6 @@ public class Graph {
         for(int i=0;i<l;i++){
             noeuds[i] = new Node();
         }
-
     }
 
    public void add(Cube c){
@@ -63,4 +65,75 @@ public class Graph {
         }
     }
 
+    // creer le graphe
+   public void createGraph(Group group){
+        this.group = group;
+        Cube tmp;
+        for (int i = 1; i < group.getChildren().size(); i ++){
+            tmp = (Cube) group.getChildren().get(i);
+            add(tmp);
+            attachedTo(tmp);
+        }
+   }
+
+
+
+    public void attachedTo(Cube c){ // ajoute les cubes dans les arretes && arretesUP
+        for(int i = 1; i < group.getChildren().size(); i ++){
+            {
+                Cube tmp = (Cube) group.getChildren().get(i);
+                if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
+                    addArretes(c, tmp);
+                }
+                if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
+                    addArretesUp(c, tmp);
+                }
+            }
+        }
+    }
+
+    public void printGraph(){ // affiche le graphe
+        System.out.println("----- Affichage -------");
+        System.out.println("Identifiant de la piece P : les autres pieces sur lesquels la piece P est posee");
+        for (int i = 0; i < noeuds.length; i ++){
+            System.out.println("\nPiece n°" + i + ": ");
+            noeuds[i].print();
+        }
+    }
+
+    public void parcoursGraph() {
+        while (!FullOrder()){ // tant que tout les noeuds n'ont pas ete vu
+            int debut = findBegin(); // on cherche un noeud de debut
+            if(debut == -1) break;
+            noeuds[debut].ordreConstruction = ++ Node.acc; // on lui donne un ordre
+            noeuds[debut].parcoursArreteUp(); // puis on parcours les arretes superieur du noeud du debut
+        }
+
+    }
+
+    // return l'indice du premier noued qui n'a pas d'arrete vers le bas (peut importe lequel)
+    public int findBegin() {
+        for (int i = 0; i < noeuds.length; i++) {
+            if (noeuds[i].hasHowManyDown(0) && !noeuds[i].isAlreadySee()) // si le noeud n'a pas de liens vers le bas
+                return i;
+        }
+        return -1;
+    }
+
+    // affiche l'ordre de consutrction
+    public void printOrder() {
+        for (int i = 0; i < noeuds.length; i ++){
+            System.out.print(i);
+            noeuds[i].printNodeOrder();
+        }
+    }
+
+    // Renvoie true si tout les noueds ont ete visites et ordonner
+    public boolean FullOrder(){
+        for (int i = 0; i < noeuds.length; i++) {
+            if (!noeuds[i].isAlreadySee()) // si le noeud n'a pas ete visité
+                return false;
+        }
+        return true;
+    }
 }

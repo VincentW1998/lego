@@ -136,7 +136,6 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 
 
 
-
 	public boolean equalsPosition(double x, double y, double z){
 		return this.getTranslateX() == x && this.getTranslateY() == y && this.getTranslateZ() == z;
 	}

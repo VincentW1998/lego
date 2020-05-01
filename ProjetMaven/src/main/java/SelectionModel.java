@@ -350,13 +350,12 @@ public class SelectionModel {
 		}
 	}
 
-
 	public void getId(){
 		for(int i=0;i<selection.size();i++){
 			System.out.println(selection.get(i).getIdentifiant());
 		}
 	}
-//print les parties
+
 	public void printParties(){
 		System.out.println("Affichage des differentes parties selectionnees :");
 		for(int i = 0; i < Parties.size(); i++){
@@ -381,9 +380,4 @@ public class SelectionModel {
 			Parties.add(tmp);
 		}
 	}
-
-
-
-
-
 }

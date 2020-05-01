@@ -99,7 +99,6 @@ public class Test extends Application implements Initializable {
 	private final DoubleProperty angleX = new SimpleDoubleProperty(0);
 	private final DoubleProperty angleY = new SimpleDoubleProperty(0);
 
-
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -126,10 +125,9 @@ public class Test extends Application implements Initializable {
 			angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
 			angleY.set(anchorAngleX + (anchorX - event.getSceneX()));
 		});
-	}
-
-	public void start(Stage primaryStage) throws Exception {
-
+		}
+	
+	public void start(Stage primaryStage) throws Exception{
 		Stage secondStage = new Stage();
 		Group group = new Group();
 		Scene scene = new Scene(group, WIDTH, HEIGHT, true);
@@ -150,10 +148,8 @@ public class Test extends Application implements Initializable {
 		SelectionModel selection = new SelectionModel(group);
 		final Graph[] graphConstruction = {new Graph(0)};
 		scene.setFill(Color.WHITE);
-
 		Save save = new Save();
-
-
+		
 		final FileChooser fileChooser = new FileChooser();
 
 
@@ -483,6 +479,5 @@ public class Test extends Application implements Initializable {
 			tmp.setId(i - 1);
 		}
 	}
-
 }
 
