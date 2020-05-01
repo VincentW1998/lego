@@ -48,7 +48,8 @@ public class SelectionModel {
 		}
 	}
 
-	public void addToGroup(int part){
+	// rajoute les parties dans le groupe
+	public void addPartiesToGroup(int part){
 		for(int i=0;i<selection.size();i++){
 			group.getChildren().add(selection.get(i));
 			selection.get(i).setDrawMode(DrawMode.FILL);
@@ -60,7 +61,8 @@ public class SelectionModel {
 		}
 	}
 
-	public void addToGroup(){
+	// rajoute les pieces de la selection dans le groupe
+	public void addPiecesToGroup(){
 		for(int i=0;i<selection.size();i++){
 			group.getChildren().add(selection.get(i));
 			selection.get(i).setDrawMode(DrawMode.FILL);
