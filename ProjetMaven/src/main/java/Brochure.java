@@ -6,8 +6,11 @@ import javafx.scene.shape.DrawMode;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
 
 public class Brochure {
+
+    static LinkedList <File> fichierPng = new LinkedList<File>();
 
     /* Creer une brochure à partir du decoupage manuel */
 
@@ -51,8 +54,10 @@ public class Brochure {
         for(int i = 0; i < selection.listeCubeSelectionne.size(); i++){
             selection.group.getChildren().add(selection.listeCubeSelectionne.get(i));
             selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+            File f = new File("src/main/resources/Brochures/Assemblage/" + "etape "+(i+1)+".png");
             try {//creer l'image
-                ImageIO.write(SwingFXUtils.fromFXImage(selection.group.getScene().snapshot(null), null), "png", new File("src/main/resources/Brochures/Assemblage/" + "etape "+(i+1)+".png"));
+                ImageIO.write(SwingFXUtils.fromFXImage(selection.group.getScene().snapshot(null), null), "png", f);
+                fichierPng.add(f);
             } catch (IOException e) {
                 System.out.println("error PNG");
             }
