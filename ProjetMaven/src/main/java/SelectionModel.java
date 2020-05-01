@@ -1,7 +1,11 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -9,18 +13,21 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 
+import javax.imageio.ImageIO;
+
 public class SelectionModel {
 	LinkedList <Cube> selection;
 	Rotate r;
 	Transform t;
 	Group group;
 	LinkedList <LinkedList<Node>> Parties;
-	
+	LinkedList <SelectionModel> PartiesSelection;
 	public SelectionModel(Group g) {
 		selection = new LinkedList<Cube>();
 		t = new Rotate();
 		group = g;
 		Parties = new LinkedList<LinkedList<Node>>();
+		PartiesSelection = new LinkedList<SelectionModel>();
 	}
 	
 	public SelectionModel copy() { 
@@ -33,19 +40,36 @@ public class SelectionModel {
 	
 		return tmp;
 	}
-	
+	//ajoute un cube a la selection
 	public void add(Cube b) {
 		if(!contains(b)) {
-			Color c = b.getColor();
-			b.setDrawMode(DrawMode.LINE);
-		
+			b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
 			selection.add(b);
 		}
 	}
-	
+
+	public void addToGroup(int part){
+		for(int i=0;i<selection.size();i++){
+			group.getChildren().add(selection.get(i));
+			selection.get(i).setDrawMode(DrawMode.FILL);
+			try {//creer l'image
+				ImageIO.write(SwingFXUtils.fromFXImage(group.getScene().snapshot(null), null), "png", new File("src/main/resources/Brochures/Parties/Partie"+part+"/" + "etape "+(i+1)+".png"));
+			} catch (IOException e) {
+				System.out.println("error PNG");
+			}
+		}
+	}
+
+	public void addToGroup(){
+		for(int i=0;i<selection.size();i++){
+			group.getChildren().add(selection.get(i));
+			selection.get(i).setDrawMode(DrawMode.FILL);
+		}
+	}
+	//vide la selection
 	public void clear() {
 		while(!selection.isEmpty()) {
-			Color c = selection.getFirst().getColor();
+			// desactive le mode drawmode et redonne a un cube son apparence initial
 			selection.getFirst().setDrawMode(DrawMode.FILL);
 			selection.removeFirst();
 		}
@@ -54,12 +78,12 @@ public class SelectionModel {
 	public boolean empty() {
 		return selection.isEmpty();
 	}
-	
+	//verifie si un cube b appartient a la selection
 	public boolean contains(Cube b) {
 		return selection.contains(b);
 	}
 
-	public void W(){
+	public void W(){// incremente de 1 la position du de la selection dans l'axe y
 		sortSelectionModel('W');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -73,7 +97,7 @@ public class SelectionModel {
 		}
 	}
 
-	public void S(){
+	public void S(){ //decremente la position de la selection de 1 dans l'axe z
 		sortSelectionModel('S');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -88,7 +112,7 @@ public class SelectionModel {
 	}
 
 	
-	public void A(){
+	public void A(){ //decremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('A');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -102,7 +126,7 @@ public class SelectionModel {
 		}
 	}
 
-	public void D(){
+	public void D(){ // incremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('D');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -117,7 +141,7 @@ public class SelectionModel {
 	}
 
 
-	public void Z(){
+	public void Z(){//decremente la position d'un cube dans l'axe y
 		sortSelectionModel('Z');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -132,7 +156,7 @@ public class SelectionModel {
 	}
 
 
-	public void X(){
+	public void X(){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
 		for(int i = 0; i < selection.size(); i++){
 			double x = selection.get(i).getTranslateX();
@@ -153,7 +177,7 @@ public class SelectionModel {
 	
 //	****************ROTATION*****************
 	
-	public void Q() {
+	public void Q() {//tourne la selection dans l'axe x de -1
 		r = new Rotate(+90, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
@@ -163,7 +187,7 @@ public class SelectionModel {
 		}
 	}
 
-	public void E() {
+	public void E() {//tourne la selection dans l'axe x de -1
 		r = new Rotate(-90, Rotate.Y_AXIS);
 		t = t.createConcatenation(r);
 		for(int i=0;i<selection.size();i++) {
@@ -174,7 +198,7 @@ public class SelectionModel {
 	}
 	
 //	*************UNDO***************
-	public void Undo(Save save){
+	public void Undo(Save save){ // annule le mouvement realiser
 		KeyEvent e ;
 		if(!save.moves.isEmpty()){
 			e = save.moves.pollLast();
@@ -237,13 +261,13 @@ public class SelectionModel {
 			}
 		}
 	}
-
+	// prend la couleur a la position x dans le tableau de couleur et l'affecte au cube this
 	public void setColors(int x){
 		for(int i = 0; i < selection.size(); i++){
 			selection.get(i).setRange(x);
 		}
 	}
-
+	// prend la selection du dernier mouvement realiser et l'ajoute a la selection actuelle
 	public void remote(Save save){
 		LinkedList <Cube> s;
 			selection.clear();
@@ -343,12 +367,14 @@ public class SelectionModel {
 		System.out.println();
 	}
 
+//separe la selection de la structure (creation d'une partie) et la supprime
 	public void separation(Graph grapheSelection){
 		LinkedList <Node> tmp = new LinkedList<Node>();
-		if(grapheSelection != null && selection.size() != 0){
-			for(int i = 0; i < selection.size(); i++){
-				int indice = selection.get(i).getIdentifiant();
-				tmp.add(grapheSelection.noeuds[indice]);
+		if(selection.size()!=0)
+			PartiesSelection.add(this.copy());
+		if(grapheSelection!=null && selection.size()!=0){
+			for(int i=0;i<selection.size();i++){
+				tmp.add(grapheSelection.noeuds[selection.get(i).getIdentifiant()]);
 				group.getChildren().remove(selection.get(i));
 			}
 			Parties.add(tmp);

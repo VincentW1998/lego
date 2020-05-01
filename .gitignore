@@ -2,9 +2,11 @@
 *.json
 *.idea/
 *.iml
+*.png
+Assemblage/
+Parties/
 target/
 
 */out/
 
 *.class
-

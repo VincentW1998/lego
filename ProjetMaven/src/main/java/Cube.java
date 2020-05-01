@@ -111,8 +111,7 @@ public class Cube extends Box{
 		else if(angle < 0)
 			angle += 360;
 	}
-
-
+	
 public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 	return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
 }
@@ -142,6 +141,7 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 	}
 
 	@Override
+	//a changer avec attache down + up avec graphe
 	public String toString() {
 		String s = this.getAttacheDown() == null ? ", Aucune piece en dessous" : ", la piece qui est en dessous est " + this.getAttacheDown().getIdentifiant();
 		return "Cube{" +
