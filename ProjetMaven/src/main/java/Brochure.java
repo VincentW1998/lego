@@ -1,3 +1,6 @@
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -5,6 +8,7 @@ import javafx.scene.shape.DrawMode;
 
 import javax.imageio.ImageIO;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -61,6 +65,25 @@ public class Brochure {
             } catch (IOException e) {
                 System.out.println("error PNG");
             }
+        }
+        pngToPdf();
+    }
+
+    public static void pngToPdf() {
+        Document document = new Document();
+        String input = fichierPng.get(0).getPath();
+        String output = "src/main/resources/Brochures/brochure.pdf";
+        try {
+            FileOutputStream fos = new FileOutputStream(output);
+            PdfWriter writer = PdfWriter.getInstance(document, fos);
+            writer.open();
+            document.open();
+            document.add(Image.getInstance(input));
+            document.close();
+            writer.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
