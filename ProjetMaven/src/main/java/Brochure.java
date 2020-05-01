@@ -1,6 +1,7 @@
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.shape.DrawMode;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -11,7 +12,7 @@ public class Brochure {
     /* Creer une brochure à partir du decoupage manuel */
 
     public static void creationBrochure(Scene scene, Group group, SelectionModel selection) {
-        File Brochure = new File("src/main/resources/Brochures");
+//        File Brochure = new File("src/main/resources/Brochures");
 //        Brochure.mkdir();
         File parties = new File("src/main/resources/Brochures/Parties");
         File assemblage = new File("src/main/resources/Brochures/Assemblage");
@@ -45,8 +46,18 @@ public class Brochure {
             group.getChildren().remove(1);
     }
 
-    public static void creationBrochureAlgo(Scene scene, Group group, Graph[] graphConstruction) {
-        File brochure =  new File("src/main/resources/Brochures");
-        File parties = new File ()
+    public static void creationBrochureAlgo(SelectionModel selection) {
+        File assemblage = new File ("src/main/resources/Brochures/Assemblage");
+        assemblage.mkdir();
+
+        for(int i = 0; i<selection.listeCubeSelectionne.size(); i++){
+            selection.group.getChildren().add(selection.listeCubeSelectionne.get(i));
+            selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+            try {//creer l'image
+                ImageIO.write(SwingFXUtils.fromFXImage(selection.group.getScene().snapshot(null), null), "png", new File("src/main/resources/Brochures/Assemblage/" + "etape "+(i+1)+".png"));
+            } catch (IOException e) {
+                System.out.println("error PNG");
+            }
+        }
     }
 }
