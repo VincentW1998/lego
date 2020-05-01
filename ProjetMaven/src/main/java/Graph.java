@@ -1,6 +1,5 @@
 import javafx.scene.Group;
 
-import java.util.Collections;
 
 public class Graph {
 
@@ -93,7 +92,6 @@ public class Graph {
         System.out.println("Ordre de construction de la figure : ");
         for (int i = 0; i < noeuds.length; i ++){
             System.out.println(i + " -- cube " + noeuds[i].c.getIdentifiant());
-//            noeuds[i].printNodeOrder();
         }
     }
 

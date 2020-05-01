@@ -12,8 +12,6 @@ public class Brochure {
     /* Creer une brochure à partir du decoupage manuel */
 
     public static void creationBrochure(Scene scene, Group group, SelectionModel selection) {
-//        File Brochure = new File("src/main/resources/Brochures");
-//        Brochure.mkdir();
         File parties = new File("src/main/resources/Brochures/Parties");
         File assemblage = new File("src/main/resources/Brochures/Assemblage");
         //creation du dossier Parties et Assemblage
@@ -50,7 +48,7 @@ public class Brochure {
         File assemblage = new File ("src/main/resources/Brochures/Assemblage");
         assemblage.mkdir();
 
-        for(int i = 0; i<selection.listeCubeSelectionne.size(); i++){
+        for(int i = 0; i < selection.listeCubeSelectionne.size(); i++){
             selection.group.getChildren().add(selection.listeCubeSelectionne.get(i));
             selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
             try {//creer l'image
