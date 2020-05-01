@@ -1,7 +1,6 @@
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -24,13 +22,8 @@ import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.WriteAbortedException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -207,9 +200,9 @@ public class Test extends Application implements Initializable {
 						break;
 					case BACK_SPACE:
 						if (!selection.empty()) {
-							for (int i = 0; i < selection.selection.size(); i++) {
-								selection.selection.get(i).setDrawMode(DrawMode.FILL);
-								group.getChildren().remove(selection.selection.get(i));
+							for (int i = 0; i < selection.listeCubeSelectionne.size(); i++) {
+								selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+								group.getChildren().remove(selection.listeCubeSelectionne.get(i));
 							}
 							save.saveRemote(selection.copy());
 							selection.clear();
@@ -360,10 +353,12 @@ public class Test extends Application implements Initializable {
 					selection.separation(graphConstruction[0]);
 				}
 				else {
-					reordonner(group);
-					graphConstruction[0] = new Graph(group.getChildren().size() - 1);
-					graphConstruction[0].createGraph(group);
-					graphConstruction[0].printGraph();
+					reordonner(group); // reordonner le groupe
+					graphConstruction[0] = new Graph(group.getChildren().size() - 1); // initialisation du graphe
+					graphConstruction[0].createGraph(group); // creation du graphe
+					graphConstruction[0].printGraph(); // affichage du graphe
+					graphConstruction[0].giveOrderToGraph(); // attribut un ordre de consutrction
+					graphConstruction[0].printOrder(); // affiche l'ordre de construction
 				}
 
 				// validation de la construction et la creation du graphe
@@ -381,7 +376,19 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.U) {
-				Brochure.creationBrochure(scene, group, selection);
+				if(selection.PartiesSelection.size() != 0)
+					Brochure.creationBrochure(scene, group, selection);
+
+				for (int i = 0 ; i < graphConstruction[0].noeuds.length; i ++) {
+					selection.add(graphConstruction[0].noeuds[i].c);
+				}
+				SelectionModel tmp = selection.copy();
+				//vide le groupe en laissant le sol
+				while(group.getChildren().size() > 1) {
+					group.getChildren().remove(1);
+				}
+
+				Brochure.creationBrochureAlgo(tmp);
 			}
 		});
 
