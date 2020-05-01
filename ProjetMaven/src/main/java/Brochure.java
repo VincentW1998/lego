@@ -12,7 +12,7 @@ public class Brochure {
 
     public static void creationBrochure(Scene scene, Group group, SelectionModel selection) {
         File Brochure = new File("src/main/resources/Brochures");
-        Brochure.mkdir();
+//        Brochure.mkdir();
         File parties = new File("src/main/resources/Brochures/Parties");
         File assemblage = new File("src/main/resources/Brochures/Assemblage");
         //creation du dossier Parties et Assemblage
@@ -43,5 +43,10 @@ public class Brochure {
         }
         while(group.getChildren().size() > 1)
             group.getChildren().remove(1);
+    }
+
+    public static void creationBrochureAlgo(Scene scene, Group group, Graph[] graphConstruction) {
+        File brochure =  new File("src/main/resources/Brochures");
+        File parties = new File ()
     }
 }
