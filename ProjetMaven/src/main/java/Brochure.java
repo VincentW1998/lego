@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.shape.DrawMode;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -71,14 +73,18 @@ public class Brochure {
 
     public static void pngToPdf() {
         Document document = new Document();
-        String input = fichierPng.get(0).getPath();
+
+       String input = null;
         String output = "src/main/resources/Brochures/brochure.pdf";
         try {
             FileOutputStream fos = new FileOutputStream(output);
             PdfWriter writer = PdfWriter.getInstance(document, fos);
             writer.open();
             document.open();
-            document.add(Image.getInstance(input));
+            for(int i = 0; i < fichierPng.size(); i++) {
+                input = fichierPng.get(i).getPath();
+                document.add(Image.getInstance(input));
+            }
             document.close();
             writer.close();
         }
