@@ -392,6 +392,13 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode() == KeyCode.B) {
+				SendEmail.sendFileEmail();
+
+			}
+		});
+
 
 // *********************** MOUSE CONTROLS ****************************
 
