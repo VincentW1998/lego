@@ -16,18 +16,18 @@ import java.util.LinkedList;
 public class Brochure {
 
     static LinkedList <Image> listeImages = new LinkedList<Image>();
-    /* Creer une brochure à partir du decoupage manuel */
 
+    /* Creer une brochure à partir du decoupage manuel */
     public static void creationBrochure(Scene scene, Group group, SelectionModel selection) {
-    LinkedList<LinkedList<File>> Parties = new LinkedList<LinkedList<File>>(); //contient l'assemblage de chaque partie
-    LinkedList<File> Assemblage = new LinkedList<File>();//contient l'assemblage la structure
+        LinkedList <Image> tmp  = new LinkedList<Image>();
         for(int i = 0;i<selection.PartiesSelection.size();i++){
-           { File part = new File("src/main/resources/Brochures/Partie"+(i+1));
-                part.mkdir();
-           }
             while(group.getChildren().size() > 1)//vide le groupe en laissant le sol
                 group.getChildren().remove(1);
-            Parties.add(selection.PartiesSelection.get(i).addPartiesToGroup(i+1));
+
+            tmp = selection.PartiesSelection.get(i).addPartiesToGroup(); // renvoie une liste d'image de l'assemblage de chaque partie
+
+            // ajoute chaque image a la liste d'image
+            listeImages.addAll(tmp);
         }
         while(group.getChildren().size() > 1)
             group.getChildren().remove(1);
@@ -35,14 +35,17 @@ public class Brochure {
         for (int i = 0; i < selection.PartiesSelection.size(); i++) {// crée les png de l'assemblage des parties
             selection.PartiesSelection.get(i).addPiecesToGroup(); // Pour chaque parties, on ajoute toutes les pieces de la parties dans le groupe
             try {//creer l'image
-                Assemblage.add(new File("src/main/resources/Brochures/Etape " + (i+1)+".png"));
-                ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", Assemblage.getLast());
-            } catch (IOException e) {
+                File f = new File("src/main/resources/Brochures/etape.png");
+                ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", f);
+                listeImages.add(Image.getInstance(f.getPath()));
+                f.delete();
+            } catch (IOException | BadElementException e) {
                 System.out.println("error PNG");
             }
         }
         while(group.getChildren().size() > 1)
             group.getChildren().remove(1);
+        imagesToPdf();
     }
 
 
