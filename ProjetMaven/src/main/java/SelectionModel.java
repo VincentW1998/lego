@@ -47,16 +47,19 @@ public class SelectionModel {
 	}
 
 	// rajoute les parties dans le groupe
-	public void addPartiesToGroup(int part){
+	public LinkedList<File> addPartiesToGroup(int part){
+		LinkedList <File> creationPartie = new LinkedList<File>();
 		for(int i = 0; i< listeCubeSelectionne.size(); i++){
 			group.getChildren().add(listeCubeSelectionne.get(i));
 			listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
 			try {//creer l'image
-				ImageIO.write(SwingFXUtils.fromFXImage(group.getScene().snapshot(null), null), "png", new File("src/main/resources/Brochures/Parties/Partie"+part+"/" + "etape "+(i+1)+".png"));
+				creationPartie.add(new File("src/main/resources/Brochures/Partie"+part+"/" + "etape "+(i+1)+".png"));//store png file into linkedlist
+				ImageIO.write(SwingFXUtils.fromFXImage(group.getScene().snapshot(null), null), "png", creationPartie.getLast());
 			} catch (IOException e) {
 				System.out.println("error PNG");
 			}
 		}
+		return creationPartie;
 	}
 
 	// rajoute les pieces de la selection dans le groupe
