@@ -21,8 +21,8 @@ public class Brochure {
     /* Creer une brochure à partir du decoupage manuel */
 
     public static void creationBrochure(Scene scene, Group group, SelectionModel selection) {
-    LinkedList<LinkedList<File>> Parties = new LinkedList<LinkedList<File>>();
-    LinkedList<File> Assemblage = new LinkedList<File>();
+    LinkedList<LinkedList<File>> Parties = new LinkedList<LinkedList<File>>(); //contient l'assemblage de chaque partie
+    LinkedList<File> Assemblage = new LinkedList<File>();//contient l'assemblage la structure
         for(int i = 0;i<selection.PartiesSelection.size();i++){
            { File part = new File("src/main/resources/Brochures/Partie"+(i+1));
                 part.mkdir();
