@@ -1,6 +1,4 @@
-import com.itextpdf.text.BadElementException;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Image;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
@@ -57,7 +55,7 @@ public class Brochure {
             selection.group.getChildren().add(selection.listeCubeSelectionne.get(i));
             selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
             // on initialise un fichier
-            File f = new File("src/main/resources/Brochures/" + "etape.png");
+            File f = new File("src/main/resources/Brochures/" + "piece-"+ selection.listeCubeSelectionne.get(i).getIdentifiant() +".png");
             //creer un fichier png à partir d'un screenshot de la scene
             try {
                 ImageIO.write(SwingFXUtils.fromFXImage(selection.group.getScene().snapshot(null), null), "png", f);
@@ -73,7 +71,7 @@ public class Brochure {
 
     // fonction qui permet de creer un document pdf
     public static void imagesToPdf() {
-        Document document = new Document();
+        Document document = new Document(PageSize.A4);
 
 //       String input = null;
         String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
@@ -82,12 +80,16 @@ public class Brochure {
             PdfWriter writer = PdfWriter.getInstance(document, fos);
             writer.open();
             document.open();
+            Paragraph p = new Paragraph("Voici votre Brochure Lego");
+            p.setAlignment(1);
+            document.add(p);
             // on parcout la liste de file, on creer une image et on l'ajoute au document pdf
             for(int i = 0; i < listeImages.size(); i++) {
                 // redimensionne l'image en fonction du document
                 float scaler = ((document.getPageSize().getWidth() - document.leftMargin()
                         - document.rightMargin()) / listeImages.get(i).getWidth()) * 100;
                 listeImages.get(i).scalePercent(scaler);
+                document.add(new Paragraph("Etape " + i));
                 document.add(Image.getInstance(listeImages.get(i)));
             }
             document.close();
