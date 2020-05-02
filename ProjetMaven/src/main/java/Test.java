@@ -10,7 +10,6 @@ import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
-import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -27,10 +26,6 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.io.WriteAbortedException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
@@ -90,7 +85,7 @@ public class Test extends Application implements Initializable {
 		tmp = new Cube(color, w, h, d);
 	}
 
-	private static final int HEIGHT = 800;
+	private static final int DEPTH = 800;
 	private static final int WIDTH = 1400;
 
 	private double anchorX, anchorY;
@@ -130,16 +125,16 @@ public class Test extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception{
 		Stage secondStage = new Stage();
 		Group group = new Group();
-		Scene scene = new Scene(group, WIDTH, HEIGHT, true);
+		Scene scene = new Scene(group, WIDTH, DEPTH, true);
 
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
-		Ground sol = new Ground(WIDTH, HEIGHT);
+		Ground sol = new Ground(WIDTH, DEPTH);
 		group.getChildren().add(sol);
-		sol.translateYProperty().set(+0.51);
-
+		sol.translateYProperty().set(0.004999999888241291);//deplacement du sol en dessous de 0
+		System.out.println(sol.getBoundsInParent().getMinY());
 		camera.translateXProperty().set(0);
-		camera.translateYProperty().set(0);
+		camera.translateYProperty().set(-1.5);
 		camera.translateZProperty().set(-15);
 
 		camera.setNearClip(1);
@@ -246,6 +241,7 @@ public class Test extends Application implements Initializable {
 						selection.add((Cube) e.getSource());
 					});
 					group.getChildren().add(c);
+					c.moveToOrigin();
 					save.newCube(c);
 				}
 				save.saveMoves(event);

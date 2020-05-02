@@ -85,29 +85,31 @@ public class SelectionModel {
 
 	public void W(){// incremente de 1 la position du de la selection dans l'axe y
 		sortSelectionModel('W');
+		Cube tmp;
+		double size;
 		for(int i = 0; i < selection.size(); i++){
-			double x = selection.get(i).getTranslateX();
-			double y = selection.get(i).getTranslateY();
-			double z = selection.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x, y, z+ compteur + 1)){
-				compteur += 1;
+			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
+			for(int y=1;y<group.getChildren().size();y++){
+				tmp = (Cube) group.getChildren().get(y);
+				size = tmp.getBoundsInParent().getMaxZ()-tmp.getBoundsInParent().getMinZ();
+				if(selection.get(i).isColliding(tmp))
+					selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+size);
 			}
-			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+compteur+1);
 		}
 	}
 
 	public void S(){ //decremente la position de la selection de 1 dans l'axe z
 		sortSelectionModel('S');
+		Cube tmp;
+		double size;
 		for(int i = 0; i < selection.size(); i++){
-			double x = selection.get(i).getTranslateX();
-			double y = selection.get(i).getTranslateY();
-			double z = selection.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x, y, z-compteur-1)){
-				compteur += 1;
+			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
+			for(int y=1;y<group.getChildren().size();y++){
+				tmp = (Cube) group.getChildren().get(y);
+				size = tmp.getBoundsInParent().getMaxZ()-tmp.getBoundsInParent().getMinZ();
+				if(selection.get(i).isColliding(tmp))
+					selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-size);
 			}
-			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-compteur-1);
 		}
 	}
 
@@ -115,59 +117,70 @@ public class SelectionModel {
 	public void A(){ //decremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('A');
 		for(int i = 0; i < selection.size(); i++){
-			double x = selection.get(i).getTranslateX();
-			double y = selection.get(i).getTranslateY();
-			double z = selection.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x - compteur - 1, y, z)){
-				compteur += 1;
+			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
+			for(int y=1;y<group.getChildren().size();y++){
+				if(isAboutToCollide(selection.get(i),'x')!=-1)
+					selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-isAboutToCollide(selection.get(i),'x'));
 			}
-			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-compteur-1);
 		}
 	}
 
 	public void D(){ // incremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('D');
 		for(int i = 0; i < selection.size(); i++){
-			double x = selection.get(i).getTranslateX();
-			double y = selection.get(i).getTranslateY();
-			double z = selection.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x + compteur + 1, y, z)){
-				compteur += 1;
+			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
+			for(int y=1;y<group.getChildren().size();y++){
+				if(isAboutToCollide(selection.get(i),'x')!=-1)
+					selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+isAboutToCollide(selection.get(i),'x'));
 			}
-			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+compteur+1);
 		}
 	}
 
+	public double isAboutToCollide(Cube c, char axe){
+		Cube tmp;
+		for(int i=1;i<group.getChildren().size();i++){
+				tmp = (Cube) group.getChildren().get(i);
+				if((!tmp.equals(c)) && c.isColliding(tmp)) {
+					System.out.println("Col");
+					if (axe == 'x')
+						return tmp.getBoundsInParent().getMaxX() - tmp.getBoundsInParent().getMinX();
+					if (axe == 'y')
+						return tmp.getBoundsInParent().getMinY() - tmp.getBoundsInParent().getMaxY();
+					if (axe == 'z')
+						return tmp.getBoundsInParent().getMaxZ() - tmp.getBoundsInParent().getMinZ();
+				}
+		}
+		return -1;
+	}
 
 	public void Z(){//decremente la position d'un cube dans l'axe y
 		sortSelectionModel('Z');
+		Cube tmp;
+		double size;
 		for(int i = 0; i < selection.size(); i++){
-			double x = selection.get(i).getTranslateX();
-			double y = selection.get(i).getTranslateY();
-			double z = selection.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x,y- compteur - 1,z)){
-				compteur += 1;
+			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
+			for(int y=1;y<group.getChildren().size();y++){
+				tmp = (Cube) group.getChildren().get(y);
+				size = tmp.getBoundsInParent().getMinY()-tmp.getBoundsInParent().getMaxY();
+				if(selection.get(i).isColliding(tmp))
+					selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-size);
 			}
-			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-compteur-1);
 		}
 	}
 
-
+//a finir
 	public void X(){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
+		Cube tmp;
+
 		for(int i = 0; i < selection.size(); i++){
-			double x = selection.get(i).getTranslateX();
-			double y = selection.get(i).getTranslateY();
-			double z = selection.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x,y+compteur + 1,z)){
-				compteur += 1;
-			}
-			if(y+compteur+1 <= 0 && y !=0){
-				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+compteur+1);
+			if(selection.get(i).getBoundsInParent().getMaxY()+1<=0 && selection.get(i).getBoundsInParent().getMaxY()!=0)
+				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+			for(int y=1;y<group.getChildren().size();y++){
+				tmp = (Cube) group.getChildren().get(y);
+				if(selection.get(i).isColliding(tmp))
+					if(selection.get(i).getBoundsInParent().getMaxY()+1<=0 && selection.get(i).getBoundsInParent().getMaxY()!=0)
+						selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
 			}
 		}
 	}
@@ -284,17 +297,22 @@ public class SelectionModel {
 		}
 	}
 
-	// a revoir car cela fonctionne qu'avec les cubes 1x1x1
-	public boolean hasCube(double x, double y, double z){
-		Cube tmp;
-		for(int i = 1; i < group.getChildren().size(); i ++){
-			tmp = (Cube) group.getChildren().get(i);
-//			System.out.println(group.getChildren().get(i));
-			if(tmp.equalsPosition(x,y,z))
-				return true;
-		}
-		return false;
-	}
+//	 a revoir car cela fonctionne qu'avec les cubes 1x1x1
+//	public double hasCube(double xmin, double xmax, double ymin, double ymax, double zmin, double zmax, char axe){
+//		Cube tmp;
+//		for(int i = 1; i < group.getChildren().size(); i ++){
+//			tmp = (Cube) group.getChildren().get(i);
+//			if (tmp.isColliding(xmin, xmax, ymin, ymax, zmin, zmax)) {
+//				if (axe == 'x')
+//					return tmp.getBoundsInParent().getMaxX() - tmp.getBoundsInParent().getMinX();
+//				if (axe == 'y')
+//					return tmp.getBoundsInParent().getMinY() - tmp.getBoundsInParent().getMaxY();
+//				if (axe == 'z')
+//					return tmp.getBoundsInParent().getMaxZ() - tmp.getBoundsInParent().getMinZ();
+//			}
+//		}
+//		return -1;
+//	}
 
 	// pareil a revoir
 	public void sortSelectionModel(char command){
