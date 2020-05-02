@@ -378,17 +378,17 @@ public class Test extends Application implements Initializable {
 			if (event.getCode() == KeyCode.U) {
 				if(selection.PartiesSelection.size() != 0)
 					Brochure.creationBrochure(scene, group, selection);
-
-				for (int i = 0 ; i < graphConstruction[0].noeuds.length; i ++) {
-					selection.add(graphConstruction[0].noeuds[i].c);
+				else {
+					for (int i = 0 ; i < graphConstruction[0].noeuds.length; i ++) {
+						selection.add(graphConstruction[0].noeuds[i].c);
+					}
+					SelectionModel tmp = selection.copy();
+					//vide le groupe en laissant le sol
+					while(group.getChildren().size() > 1) {
+						group.getChildren().remove(1);
+					}
+					Brochure.creationBrochureAlgo(tmp);
 				}
-				SelectionModel tmp = selection.copy();
-				//vide le groupe en laissant le sol
-				while(group.getChildren().size() > 1) {
-					group.getChildren().remove(1);
-				}
-
-				Brochure.creationBrochureAlgo(tmp);
 			}
 		});
 

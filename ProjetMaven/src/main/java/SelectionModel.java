@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Image;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.input.KeyCode;
@@ -47,16 +49,21 @@ public class SelectionModel {
 	}
 
 	// rajoute les parties dans le groupe
-	public void addPartiesToGroup(int part){
+	public LinkedList<Image> addPartiesToGroup(){
+		LinkedList <Image> creationPartie = new LinkedList<Image>();
 		for(int i = 0; i< listeCubeSelectionne.size(); i++){
 			group.getChildren().add(listeCubeSelectionne.get(i));
 			listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+			File f = new File("src/main/resources/Brochures/etape.png");
 			try {//creer l'image
-				ImageIO.write(SwingFXUtils.fromFXImage(group.getScene().snapshot(null), null), "png", new File("src/main/resources/Brochures/Parties/Partie"+part+"/" + "etape "+(i+1)+".png"));
-			} catch (IOException e) {
+				ImageIO.write(SwingFXUtils.fromFXImage(group.getScene().snapshot(null), null), "png", f);
+				creationPartie.add(Image.getInstance(f.getPath()));
+				f.delete();
+			} catch (IOException | BadElementException e) {
 				System.out.println("error PNG");
 			}
 		}
+		return creationPartie;
 	}
 
 	// rajoute les pieces de la selection dans le groupe
