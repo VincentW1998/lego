@@ -288,14 +288,16 @@ public class Test extends Application implements Initializable {
 				configureFileChooser(fileChooser);
 
 				File file = fileChooser.showOpenDialog(primaryStage);
-				String path = "src/main/resources/Data/";
+//				String path = "src/main/resources/Data/";
 				if (file != null) {
-					path += file.getName();
+//					path += file.getName();
 					group.getChildren().clear();
 					group.getChildren().add(sol);
 				}
 				try {
-					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
+//					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
+					LinkedList<Cube> construction = Importer.loadFrom(file);
+
 					for (int i = 0; i < construction.size(); i++) {
 						Rotate r;
 						Transform t = new Rotate();

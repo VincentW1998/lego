@@ -387,4 +387,12 @@ public class SelectionModel {
 			Parties.add(tmp);
 		}
 	}
+
+	public LinkedList<Integer> getIdParties() {
+		LinkedList <Integer> listeId = new LinkedList<Integer>();
+		for(int i = 0; i< listeCubeSelectionne.size(); i++){
+			listeId.add(listeCubeSelectionne.get(i).getIdentifiant());
+		}
+		return listeId;
+	}
 }
