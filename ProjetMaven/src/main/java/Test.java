@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -233,18 +234,29 @@ public class Test extends Application implements Initializable {
 		// Creation d'un nouveau cube
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.isControlDown() && event.getCode() == KeyCode.N) {
-				{
-					Cube c = tmp;
-					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-						if (!e.isShiftDown())
-							selection.clear();
-						selection.add((Cube) e.getSource());
-					});
-					group.getChildren().add(c);
-					c.moveToOrigin();
-					save.newCube(c);
+				if(!selection.isInCollision()) {
+					{
+						Cube c = tmp;
+						c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+							if (!e.isShiftDown())
+								selection.clear();
+							selection.add((Cube) e.getSource());
+						});
+						selection.clear();
+						selection.add(c);
+						group.getChildren().add(c);
+						c.moveToOrigin();
+						save.newCube(c);
+					}
+					save.saveMoves(event);
 				}
-				save.saveMoves(event);
+				else{
+					Alert alert = new Alert(Alert.AlertType.INFORMATION);
+					alert.setHeaderText("Vous etes en collision");
+					alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+					alert.showAndWait();
+				}
+
 			}
 		});
 

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -43,8 +44,16 @@ public class SelectionModel {
 	//ajoute un cube a la selection
 	public void add(Cube b) {
 		if(!contains(b)) {
-			b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
-			selection.add(b);
+			if(!isInCollision()) {
+				b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
+				selection.add(b);
+			}
+			else{
+				Alert alert = new Alert(Alert.AlertType.INFORMATION);
+				alert.setHeaderText("Vous etes en collision");
+				alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+				alert.showAndWait();
+			}
 		}
 	}
 
@@ -68,10 +77,17 @@ public class SelectionModel {
 	}
 	//vide la selection
 	public void clear() {
-		while(!selection.isEmpty()) {
-			// desactive le mode drawmode et redonne a un cube son apparence initial
-			selection.getFirst().setDrawMode(DrawMode.FILL);
-			selection.removeFirst();
+		if(!isInCollision())
+			while (!selection.isEmpty()) {
+				// desactive le mode drawmode et redonne a un cube son apparence initial
+				selection.getFirst().setDrawMode(DrawMode.FILL);
+				selection.removeFirst();
+			}
+		else{
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText("Vous etes en collision");
+			alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+			alert.showAndWait();
 		}
 	}
 	
@@ -85,31 +101,15 @@ public class SelectionModel {
 
 	public void W(){// incremente de 1 la position du de la selection dans l'axe y
 		sortSelectionModel('W');
-		Cube tmp;
-		double size;
 		for(int i = 0; i < selection.size(); i++){
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
-			for(int y=1;y<group.getChildren().size();y++){
-				tmp = (Cube) group.getChildren().get(y);
-				size = tmp.getBoundsInParent().getMaxZ()-tmp.getBoundsInParent().getMinZ();
-				if(selection.get(i).isColliding(tmp))
-					selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+size);
-			}
 		}
 	}
 
 	public void S(){ //decremente la position de la selection de 1 dans l'axe z
 		sortSelectionModel('S');
-		Cube tmp;
-		double size;
 		for(int i = 0; i < selection.size(); i++){
 			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
-			for(int y=1;y<group.getChildren().size();y++){
-				tmp = (Cube) group.getChildren().get(y);
-				size = tmp.getBoundsInParent().getMaxZ()-tmp.getBoundsInParent().getMinZ();
-				if(selection.get(i).isColliding(tmp))
-					selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-size);
-			}
 		}
 	}
 
@@ -118,10 +118,6 @@ public class SelectionModel {
 		sortSelectionModel('A');
 		for(int i = 0; i < selection.size(); i++){
 			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
-			for(int y=1;y<group.getChildren().size();y++){
-				if(isAboutToCollide(selection.get(i),'x')!=-1)
-					selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-isAboutToCollide(selection.get(i),'x'));
-			}
 		}
 	}
 
@@ -129,62 +125,37 @@ public class SelectionModel {
 		sortSelectionModel('D');
 		for(int i = 0; i < selection.size(); i++){
 			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
-			for(int y=1;y<group.getChildren().size();y++){
-				if(isAboutToCollide(selection.get(i),'x')!=-1)
-					selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+isAboutToCollide(selection.get(i),'x'));
-			}
 		}
-	}
-
-	public double isAboutToCollide(Cube c, char axe){
-		Cube tmp;
-		for(int i=1;i<group.getChildren().size();i++){
-				tmp = (Cube) group.getChildren().get(i);
-				if((!tmp.equals(c)) && c.isColliding(tmp)) {
-					System.out.println("Col");
-					if (axe == 'x')
-						return tmp.getBoundsInParent().getMaxX() - tmp.getBoundsInParent().getMinX();
-					if (axe == 'y')
-						return tmp.getBoundsInParent().getMinY() - tmp.getBoundsInParent().getMaxY();
-					if (axe == 'z')
-						return tmp.getBoundsInParent().getMaxZ() - tmp.getBoundsInParent().getMinZ();
-				}
-		}
-		return -1;
 	}
 
 	public void Z(){//decremente la position d'un cube dans l'axe y
 		sortSelectionModel('Z');
-		Cube tmp;
-		double size;
 		for(int i = 0; i < selection.size(); i++){
 			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
-			for(int y=1;y<group.getChildren().size();y++){
-				tmp = (Cube) group.getChildren().get(y);
-				size = tmp.getBoundsInParent().getMinY()-tmp.getBoundsInParent().getMaxY();
-				if(selection.get(i).isColliding(tmp))
-					selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-size);
-			}
 		}
 	}
 
 //a finir
 	public void X(){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
-		Cube tmp;
-
-		for(int i = 0; i < selection.size(); i++){
-			if(selection.get(i).getBoundsInParent().getMaxY()+1<=0 && selection.get(i).getBoundsInParent().getMaxY()!=0)
+		if(selection.get(0).getBoundsInParent().getMaxY()+1<=0)
+			for(int i = 0; i < selection.size(); i++){
 				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
-			for(int y=1;y<group.getChildren().size();y++){
-				tmp = (Cube) group.getChildren().get(y);
-				if(selection.get(i).isColliding(tmp))
-					if(selection.get(i).getBoundsInParent().getMaxY()+1<=0 && selection.get(i).getBoundsInParent().getMaxY()!=0)
-						selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
 			}
-		}
 	}
 
+	public boolean isInCollision(){
+		Cube tmp;
+		for(int i=0;i<selection.size();i++) {
+			for (int y = 1; y < group.getChildren().size(); y++) {
+				tmp = (Cube) group.getChildren().get(y);
+				if ((!tmp.equals(selection.get(i))) && selection.get(i).isColliding(tmp)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	
 	
@@ -296,23 +267,6 @@ public class SelectionModel {
 			selection.get(i).addRandomColor();
 		}
 	}
-
-//	 a revoir car cela fonctionne qu'avec les cubes 1x1x1
-//	public double hasCube(double xmin, double xmax, double ymin, double ymax, double zmin, double zmax, char axe){
-//		Cube tmp;
-//		for(int i = 1; i < group.getChildren().size(); i ++){
-//			tmp = (Cube) group.getChildren().get(i);
-//			if (tmp.isColliding(xmin, xmax, ymin, ymax, zmin, zmax)) {
-//				if (axe == 'x')
-//					return tmp.getBoundsInParent().getMaxX() - tmp.getBoundsInParent().getMinX();
-//				if (axe == 'y')
-//					return tmp.getBoundsInParent().getMinY() - tmp.getBoundsInParent().getMaxY();
-//				if (axe == 'z')
-//					return tmp.getBoundsInParent().getMaxZ() - tmp.getBoundsInParent().getMinZ();
-//			}
-//		}
-//		return -1;
-//	}
 
 	// pareil a revoir
 	public void sortSelectionModel(char command){

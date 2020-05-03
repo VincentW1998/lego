@@ -139,7 +139,7 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		if (checkXpos(c) && IsCollidingInY(c) && checkZpos(c)){
 			System.out.println("isColliding");
 			return true;
-		};
+		}
 		return false;
 	}
 
