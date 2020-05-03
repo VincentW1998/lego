@@ -1,5 +1,6 @@
 import javafx.scene.Group;
 
+
 public class Graph {
 
     Node [] noeuds; // liste des noeud de la construction
@@ -65,7 +66,8 @@ public class Graph {
         }
     }
 
-    public void parcoursGraph() {
+    // attribut un ordre au graphe
+    public void giveOrderToGraph() {
         while (!FullOrder()){ // tant que tout les noeuds n'ont pas ete vu
             int debut = findBegin(); // on cherche un noeud de debut
             if(debut == -1) break;
@@ -86,9 +88,10 @@ public class Graph {
 
     // affiche l'ordre de consutrction
     public void printOrder() {
+        sortOrder();
+        System.out.println("Ordre de construction de la figure : ");
         for (int i = 0; i < noeuds.length; i ++){
-            System.out.print(i);
-            noeuds[i].printNodeOrder();
+            System.out.println(i + " -- cube " + noeuds[i].c.getIdentifiant());
         }
     }
 
@@ -100,4 +103,18 @@ public class Graph {
         }
         return true;
     }
+
+    // trie par selection en fonction de l'ordre de construction
+    public void sortOrder(){
+        for (int i = 1; i < noeuds.length; i ++) {
+            for (int j = i; j > 0; j --) {
+                if(noeuds[j - 1].ordreConstruction > noeuds[j].ordreConstruction){
+                    Node tmp = noeuds[j - 1];
+                    noeuds[j - 1] = noeuds[j];
+                    noeuds[j] = tmp;
+                }
+            }
+        }
+    }
+
 }

@@ -1,7 +1,6 @@
 import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,6 @@ import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -203,9 +201,9 @@ public class Test extends Application implements Initializable {
 						break;
 					case BACK_SPACE:
 						if (!selection.empty()) {
-							for (int i = 0; i < selection.selection.size(); i++) {
-								selection.selection.get(i).setDrawMode(DrawMode.FILL);
-								group.getChildren().remove(selection.selection.get(i));
+							for (int i = 0; i < selection.listeCubeSelectionne.size(); i++) {
+								selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+								group.getChildren().remove(selection.listeCubeSelectionne.get(i));
 							}
 							save.saveRemote(selection.copy());
 							selection.clear();
@@ -309,14 +307,16 @@ public class Test extends Application implements Initializable {
 				configureFileChooser(fileChooser);
 
 				File file = fileChooser.showOpenDialog(primaryStage);
-				String path = "src/main/resources/Data/";
+//				String path = "src/main/resources/Data/";
 				if (file != null) {
-					path += file.getName();
+//					path += file.getName();
 					group.getChildren().clear();
 					group.getChildren().add(sol);
 				}
 				try {
-					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
+//					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
+					LinkedList<Cube> construction = Importer.loadFrom(file);
+
 					for (int i = 0; i < construction.size(); i++) {
 						Rotate r;
 						Transform t = new Rotate();
@@ -374,10 +374,12 @@ public class Test extends Application implements Initializable {
 					selection.separation(graphConstruction[0]);
 				}
 				else {
-					reordonner(group);
-					graphConstruction[0] = new Graph(group.getChildren().size() - 1);
-					graphConstruction[0].createGraph(group);
-					graphConstruction[0].printGraph();
+					reordonner(group); // reordonner le groupe
+					graphConstruction[0] = new Graph(group.getChildren().size() - 1); // initialisation du graphe
+					graphConstruction[0].createGraph(group); // creation du graphe
+					graphConstruction[0].printGraph(); // affichage du graphe
+					graphConstruction[0].giveOrderToGraph(); // attribut un ordre de consutrction
+					graphConstruction[0].printOrder(); // affiche l'ordre de construction
 				}
 
 				// validation de la construction et la creation du graphe
@@ -395,38 +397,26 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.U) {
-				File Brochure = new File("src/main/resources/Brochures");
-				Brochure.mkdir();
-				File parties = new File("src/main/resources/Brochures/Parties");
-				File assemblage = new File("src/main/resources/Brochures/Assemblage");
-				//creation du dossier Parties et Assemblage
-				parties.mkdir();
-				assemblage.mkdir();
-
-				for (int i = 0; i < selection.PartiesSelection.size(); i++) {//crée les png des parties
-					{
-						File part = new File("src/main/resources/Brochures/Parties/Partie"+(i+1));
-						part.mkdir();
+				if(selection.PartiesSelection.size() != 0)
+					Brochure.creationBrochure(scene, group, selection);
+				else {
+					for (int i = 0 ; i < graphConstruction[0].noeuds.length; i ++) {
+						selection.add(graphConstruction[0].noeuds[i].c);
 					}
-					while(group.getChildren().size() > 1)//vide le groupe en laissant le sol
+					SelectionModel tmp = selection.copy();
+					//vide le groupe en laissant le sol
+					while(group.getChildren().size() > 1) {
 						group.getChildren().remove(1);
-					selection.PartiesSelection.get(i).addToGroup(i+1);
-//
-				}
-				while(group.getChildren().size() > 1)
-					group.getChildren().remove(1);
-
-				for (int i = 0; i < selection.PartiesSelection.size(); i++) {// crée les png de l'assemblage des parties
-
-					selection.PartiesSelection.get(i).addToGroup();
-					try {//creer l'image
-						ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", new File("src/main/resources/Brochures/Assemblage/Etape " + (i+1)+".png"));
-					} catch (IOException e) {
-						System.out.println("error PNG");
 					}
+					Brochure.creationBrochureAlgo(tmp);
 				}
-				while(group.getChildren().size() > 1)
-					group.getChildren().remove(1);
+			}
+		});
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode() == KeyCode.B) {
+				SendEmail.sendFileEmail();
+
 			}
 		});
 

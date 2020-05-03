@@ -6,7 +6,7 @@
 Assemblage/
 Parties/
 target/
-
+*.pdf
 */out/
 
 *.class
