@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -22,18 +23,20 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 
 
 public class Test extends Application implements Initializable {
 
 	static Cube tmp;
+
+	public TextField email_value;
 
 	@FXML
 	private Pane selected_color;
@@ -46,21 +49,13 @@ public class Test extends Application implements Initializable {
 	@FXML
 	private TextField height_value;
 
+
 	@FXML
 	private void changeColor(ActionEvent event) {
 		Color choice = colorPicker.getValue();
 		selected_color.setBackground(new Background(new BackgroundFill(Paint.valueOf(choice.toString()), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-	@FXML
-	private void showDIM(ActionEvent event) {
-		System.out.println("Color RED : " + colorPicker.getValue().getRed() * 255);
-		System.out.println("Color GREEN : " + colorPicker.getValue().getGreen() * 255);
-		System.out.println("Color BLUE : " + colorPicker.getValue().getBlue() * 255);
-		System.out.println("Length : " + length_value.getText());
-		System.out.println("Width : " + width_value.getText());
-		System.out.println("Height : " + height_value.getText());
-	}
 
 	@FXML
 	void newWindow(ActionEvent event) {
@@ -421,12 +416,15 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if (event.getCode() == KeyCode.B) {
-				SendEmail.sendFileEmail();
-
-			}
-		});
+//		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+//			if (event.getCode() == KeyCode.B) {
+//				System.out.println("Quel est votre mail ? ");
+//				Scanner sc = new Scanner(System.in);
+//				String to = sc.nextLine();
+//				SendEmail.sendFileEmail(to);
+//
+//			}
+//		});
 
 
 // *********************** MOUSE CONTROLS ****************************
@@ -438,11 +436,14 @@ public class Test extends Application implements Initializable {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+
+		AnchorPane secondRoot = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 		Scene secondScene = new Scene(secondRoot);
 		secondStage.setScene(secondScene);
 		secondStage.setTitle("Lego");
 		secondStage.show();
+		primaryStage.setOnHidden(e -> Platform.exit());
+
 	} // FIN de la fonction start ---------------------------------------------
 
 
@@ -490,6 +491,21 @@ public class Test extends Application implements Initializable {
 			tmp = (Cube) group.getChildren().get(i);
 			tmp.setId(i - 1);
 		}
+	}
+
+	public void Exporter(ActionEvent actionEvent) {
+	}
+
+	public void Importer(ActionEvent actionEvent) {
+	}
+
+	public void creationBrochure(ActionEvent actionEvent) {
+
+	}
+
+	public void sendEmail(ActionEvent actionEvent) {
+		String to = email_value.getText();
+		SendEmail.sendFileEmail(to);
 	}
 }
 
