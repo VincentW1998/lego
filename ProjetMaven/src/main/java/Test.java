@@ -30,6 +30,7 @@ import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 
+
 public class Test extends Application implements Initializable {
 
 	static Cube tmp;
@@ -160,32 +161,38 @@ public class Test extends Application implements Initializable {
 						selection.W();// add 15 to the Z axis when the W key is pressed
 						save.saveRemote(selection.copy());// sauvegarde le dernier mouvement realiser
 						save.saveMoves((KeyEvent) event);
+						Audio.soundMove();
 						break;
 					case S:
 						selection.S(); // substract 15 to Z axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
+						Audio.soundMove();
 						break;
 					case A:
 
 						selection.A();// substract 10 to X axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
+						Audio.soundMove();
 						break;
 					case D:
 						selection.D(); // add 10 to X axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
+						Audio.soundMove();
 						break;
 					case Z:
 						selection.Z();
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
+						Audio.soundMove();
 						break;
 					case X:
 						selection.X();
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
+						Audio.soundMove();
 						break;
 					case Q:
 
@@ -205,6 +212,7 @@ public class Test extends Application implements Initializable {
 								selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
 								group.getChildren().remove(selection.listeCubeSelectionne.get(i));
 							}
+							Audio.soundDelete();
 							save.saveRemote(selection.copy());
 							selection.clear();
 							save.saveMoves((KeyEvent) event);
