@@ -9,7 +9,7 @@ public class SendEmail {
 
     public static void sendFileEmail() {
         // Recipient's email ID needs to be mentioned.
-        String to = "felix7051@gmail.com";
+        String to = "vincentwei.98@yahoo.com";
 
         // Sender's email ID needs to be mentioned
         String from = "LegoPI4.2019@gmail.com";
