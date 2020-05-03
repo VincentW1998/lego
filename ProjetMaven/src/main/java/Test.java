@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
@@ -27,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 
 public class Test extends Application implements Initializable {
@@ -396,7 +398,10 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.B) {
-				SendEmail.sendFileEmail();
+				System.out.println("Quel est votre mail ? ");
+				Scanner sc = new Scanner(System.in);
+				String to = sc.nextLine();
+				SendEmail.sendFileEmail(to);
 
 			}
 		});
@@ -410,12 +415,15 @@ public class Test extends Application implements Initializable {
 		primaryStage.setTitle("Editeur LEGO"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
+		primaryStage.setOnHidden(e -> Platform.exit());
 
 		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 		Scene secondScene = new Scene(secondRoot);
 		secondStage.setScene(secondScene);
 		secondStage.setTitle("Lego");
 		secondStage.show();
+		secondStage.setOnHidden(e -> Platform.exit());
+
 	} // FIN de la fonction start ---------------------------------------------
 
 
