@@ -238,9 +238,15 @@ public class Test extends Application implements Initializable {
 					{
 						Cube c = tmp;
 						c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-							if (!e.isShiftDown())
-								selection.clear();
-							selection.add((Cube) e.getSource());
+							if(selection.isInCollision()){
+								Alert alert = new Alert(Alert.AlertType.INFORMATION);
+								alert.setHeaderText("Vous etes en collision");
+								alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+								alert.showAndWait();
+							}
+							else if (!e.isShiftDown())
+									selection.clear();
+								selection.add((Cube) e.getSource());
 						});
 						selection.clear();
 						selection.add(c);

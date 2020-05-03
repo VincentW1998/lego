@@ -48,12 +48,6 @@ public class SelectionModel {
 				b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
 				selection.add(b);
 			}
-			else{
-				Alert alert = new Alert(Alert.AlertType.INFORMATION);
-				alert.setHeaderText("Vous etes en collision");
-				alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
-				alert.showAndWait();
-			}
 		}
 	}
 
