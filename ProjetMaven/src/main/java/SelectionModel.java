@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
@@ -79,14 +80,22 @@ public class SelectionModel {
 	}
 	//vide la selection
 	public void clear() {
-		if(!isInCollision())
-			while (!listeCubeSelectionne.isEmpty()) {
-				// desactive le mode drawmode et redonne a un cube son apparence initial
-				listeCubeSelectionne.getFirst().setDrawMode(DrawMode.FILL);
-				listeCubeSelectionne.removeFirst();
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		if(!isInCollision()){
+			if(isFlying()){
+				alert.setHeaderText("Placement incorect");
+				alert.setContentText("Au moins un de vos cubes vole");
+				alert.showAndWait();
 			}
+			else {
+				while (!listeCubeSelectionne.isEmpty()) {
+					// desactive le mode drawmode et redonne a un cube son apparence initial
+					listeCubeSelectionne.getFirst().setDrawMode(DrawMode.FILL);
+					listeCubeSelectionne.removeFirst();
+				}
+			}
+		}
 		else{
-			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Vous etes en collision");
 			alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
 			alert.showAndWait();
@@ -362,4 +371,16 @@ public class SelectionModel {
 		}
 		return listeId;
 	}
+
+	public boolean isFlying(){
+		Graph graph= new Graph(group.getChildren().size()-1);
+		graph.createGraph(group);
+		for(int i=0;i<listeCubeSelectionne.size();i++){
+			if(graph.noeuds[listeCubeSelectionne.get(i).getIdentifiant()].arretesUp.isEmpty() && graph.noeuds[listeCubeSelectionne.get(i).getIdentifiant()].arretesDown.isEmpty()){
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

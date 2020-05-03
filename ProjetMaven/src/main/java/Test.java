@@ -233,26 +233,41 @@ public class Test extends Application implements Initializable {
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.isControlDown() && event.getCode() == KeyCode.N) {
 				if(!selection.isInCollision()) {
-					{
-						Cube c = tmp;
-						c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-							if(selection.isInCollision()){
-								Alert alert = new Alert(Alert.AlertType.INFORMATION);
-								alert.setHeaderText("Vous etes en collision");
-								alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
-								alert.showAndWait();
-							}
-							else if (!e.isShiftDown())
-									selection.clear();
-								selection.add((Cube) e.getSource());
-						});
-						selection.clear();
-						selection.add(c);
-						group.getChildren().add(c);
-						c.moveToOrigin();
-						save.newCube(c);
-					}
-					save.saveMoves(event);
+						if (!selection.isFlying()) {
+							Cube c = tmp;
+							c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+								if (selection.isInCollision()) {
+									Alert alert = new Alert(Alert.AlertType.INFORMATION);
+									alert.setHeaderText("Vous etes en collision");
+									alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+									alert.showAndWait();
+								} else {
+									if (selection.isFlying()) {
+										Alert alert = new Alert(Alert.AlertType.INFORMATION);
+										alert.setHeaderText("Placement incorect");
+										alert.setContentText("Au moins un de vos cubes vole");
+										alert.showAndWait();
+									} else if (!e.isShiftDown()) {
+										selection.clear();
+										selection.add((Cube) e.getSource());
+									} else
+										selection.add((Cube) e.getSource());
+								}
+
+							});
+							selection.clear();
+							selection.add(c);
+							group.getChildren().add(c);
+							c.moveToOrigin();
+							save.newCube(c);
+							save.saveMoves(event);
+						}
+						else{
+							Alert alert = new Alert(Alert.AlertType.INFORMATION);
+							alert.setHeaderText("Placement incorect");
+							alert.setContentText("Au moins un de vos cubes vole");
+							alert.showAndWait();
+						}
 				}
 				else{
 					Alert alert = new Alert(Alert.AlertType.INFORMATION);
