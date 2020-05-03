@@ -14,7 +14,8 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                    <MenuItem mnemonicParsing="false" onAction="#Exporter" text="Sauvegarder" />
+                        <MenuItem mnemonicParsing="false" onAction="#Importer" text="Importer" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
@@ -36,10 +37,10 @@
       <TextField fx:id="height_value" alignment="CENTER" layoutX="80.0" layoutY="286.0" prefHeight="27.0" prefWidth="150.0" promptText="Height" />
       <AnchorPane layoutY="398.0" prefHeight="200.0" prefWidth="310.0" style="-fx-border-color: black;">
          <children>
-            <Button layoutX="164.0" layoutY="14.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="132.0" text="Création Brochure" textAlignment="CENTER" />
+            <Button layoutX="164.0" layoutY="14.0" mnemonicParsing="false" onAction="#creationBrochure" prefHeight="39.0" prefWidth="132.0" text="Création Brochure" textAlignment="CENTER" />
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#newWindow" prefHeight="39.0" prefWidth="106.0" text="Raccourcis" />
-            <TextField alignment="CENTER" layoutX="77.0" layoutY="73.0" promptText="Votre e-mail" />
-            <Button layoutX="77.0" layoutY="131.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="160.0" text="Envoyer la brochure" />
+            <TextField fx:id="email_value" alignment="CENTER" layoutX="77.0" layoutY="73.0" promptText="Votre e-mail" />
+            <Button layoutX="77.0" layoutY="131.0" mnemonicParsing="false" onAction="#sendEmail" prefHeight="27.0" prefWidth="160.0" text="Envoyer la brochure" />
          </children>
       </AnchorPane>
       <Button layoutX="16.0" layoutY="326.0" mnemonicParsing="false" onAction="#createCube" prefHeight="60.0" prefWidth="278.0" text="Création de la Pièce" />
