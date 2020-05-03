@@ -22,7 +22,6 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -415,14 +414,14 @@ public class Test extends Application implements Initializable {
 		primaryStage.setTitle("Editeur LEGO"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		primaryStage.setOnHidden(e -> Platform.exit());
+
 
 		AnchorPane secondRoot = (AnchorPane) FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
 		Scene secondScene = new Scene(secondRoot);
 		secondStage.setScene(secondScene);
 		secondStage.setTitle("Lego");
 		secondStage.show();
-		secondStage.setOnHidden(e -> Platform.exit());
+		primaryStage.setOnHidden(e -> Platform.exit());
 
 	} // FIN de la fonction start ---------------------------------------------
 
