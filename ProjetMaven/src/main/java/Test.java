@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.*;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -83,7 +84,7 @@ public class Test extends Application implements Initializable {
 		tmp = new Cube(color, w, h, d);
 	}
 
-	private static final int HEIGHT = 800;
+	private static final int DEPTH = 800;
 	private static final int WIDTH = 1400;
 
 	private double anchorX, anchorY;
@@ -123,16 +124,16 @@ public class Test extends Application implements Initializable {
 	public void start(Stage primaryStage) throws Exception{
 		Stage secondStage = new Stage();
 		Group group = new Group();
-		Scene scene = new Scene(group, WIDTH, HEIGHT, true);
+		Scene scene = new Scene(group, WIDTH, DEPTH, true);
 
 		Camera camera = new PerspectiveCamera(true);
 		scene.setCamera(camera);
-		Ground sol = new Ground(WIDTH, HEIGHT);
+		Ground sol = new Ground(WIDTH, DEPTH);
 		group.getChildren().add(sol);
-		sol.translateYProperty().set(+0.51);
-
+		sol.translateYProperty().set(0.004999999888241291);//deplacement du sol en dessous de 0
+		System.out.println(sol.getBoundsInParent().getMinY());
 		camera.translateXProperty().set(0);
-		camera.translateYProperty().set(0);
+		camera.translateYProperty().set(-1.5);
 		camera.translateZProperty().set(-15);
 
 		camera.setNearClip(1);
@@ -231,17 +232,35 @@ public class Test extends Application implements Initializable {
 		// Creation d'un nouveau cube
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.isControlDown() && event.getCode() == KeyCode.N) {
-				{
-					Cube c = tmp;
-					c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-						if (!e.isShiftDown())
-							selection.clear();
-						selection.add((Cube) e.getSource());
-					});
-					group.getChildren().add(c);
-					save.newCube(c);
+				if(!selection.isInCollision()) {
+					{
+						Cube c = tmp;
+						c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+							if(selection.isInCollision()){
+								Alert alert = new Alert(Alert.AlertType.INFORMATION);
+								alert.setHeaderText("Vous etes en collision");
+								alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+								alert.showAndWait();
+							}
+							else if (!e.isShiftDown())
+									selection.clear();
+								selection.add((Cube) e.getSource());
+						});
+						selection.clear();
+						selection.add(c);
+						group.getChildren().add(c);
+						c.moveToOrigin();
+						save.newCube(c);
+					}
+					save.saveMoves(event);
 				}
-				save.saveMoves(event);
+				else{
+					Alert alert = new Alert(Alert.AlertType.INFORMATION);
+					alert.setHeaderText("Vous etes en collision");
+					alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+					alert.showAndWait();
+				}
+
 			}
 		});
 

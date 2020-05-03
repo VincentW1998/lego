@@ -7,6 +7,8 @@ import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.DrawMode;
@@ -43,8 +45,10 @@ public class SelectionModel {
 	//ajoute un cube a la selection
 	public void add(Cube b) {
 		if(!contains(b)) {
-			b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
-			listeCubeSelectionne.add(b);
+			if(!isInCollision()) {
+				b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
+				selection.add(b);
+			}
 		}
 	}
 
@@ -75,10 +79,17 @@ public class SelectionModel {
 	}
 	//vide la selection
 	public void clear() {
-		while(!listeCubeSelectionne.isEmpty()) {
-			// desactive le mode drawmode et redonne a un cube son apparence initial
-			listeCubeSelectionne.getFirst().setDrawMode(DrawMode.FILL);
-			listeCubeSelectionne.removeFirst();
+		if(!isInCollision())
+			while (!selection.isEmpty()) {
+				// desactive le mode drawmode et redonne a un cube son apparence initial
+				selection.getFirst().setDrawMode(DrawMode.FILL);
+				selection.removeFirst();
+			}
+		else{
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText("Vous etes en collision");
+			alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+			alert.showAndWait();
 		}
 	}
 	
@@ -92,93 +103,61 @@ public class SelectionModel {
 
 	public void W(){// incremente de 1 la position du de la selection dans l'axe y
 		sortSelectionModel('W');
-		for(int i = 0; i < listeCubeSelectionne.size(); i++){
-			double x = listeCubeSelectionne.get(i).getTranslateX();
-			double y = listeCubeSelectionne.get(i).getTranslateY();
-			double z = listeCubeSelectionne.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x, y, z+ compteur + 1)){
-				compteur += 1;
-			}
-			listeCubeSelectionne.get(i).translateZProperty().set(listeCubeSelectionne.get(i).getTranslateZ()+compteur+1);
+		for(int i = 0; i < selection.size(); i++){
+			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
 		}
 	}
 
 	public void S(){ //decremente la position de la selection de 1 dans l'axe z
 		sortSelectionModel('S');
-		for(int i = 0; i < listeCubeSelectionne.size(); i++){
-			double x = listeCubeSelectionne.get(i).getTranslateX();
-			double y = listeCubeSelectionne.get(i).getTranslateY();
-			double z = listeCubeSelectionne.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x, y, z-compteur-1)){
-				compteur += 1;
-			}
-			listeCubeSelectionne.get(i).translateZProperty().set(listeCubeSelectionne.get(i).getTranslateZ()-compteur-1);
+		for(int i = 0; i < selection.size(); i++){
+			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
 		}
 	}
 
 	
 	public void A(){ //decremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('A');
-		for(int i = 0; i < listeCubeSelectionne.size(); i++){
-			double x = listeCubeSelectionne.get(i).getTranslateX();
-			double y = listeCubeSelectionne.get(i).getTranslateY();
-			double z = listeCubeSelectionne.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x - compteur - 1, y, z)){
-				compteur += 1;
-			}
-			listeCubeSelectionne.get(i).translateXProperty().set(listeCubeSelectionne.get(i).getTranslateX()-compteur-1);
+		for(int i = 0; i < selection.size(); i++){
+			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
 		}
 	}
 
 	public void D(){ // incremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('D');
-		for(int i = 0; i < listeCubeSelectionne.size(); i++){
-			double x = listeCubeSelectionne.get(i).getTranslateX();
-			double y = listeCubeSelectionne.get(i).getTranslateY();
-			double z = listeCubeSelectionne.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x + compteur + 1, y, z)){
-				compteur += 1;
-			}
-			listeCubeSelectionne.get(i).translateXProperty().set(listeCubeSelectionne.get(i).getTranslateX()+compteur+1);
+		for(int i = 0; i < selection.size(); i++){
+			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
 		}
 	}
-
 
 	public void Z(){//decremente la position d'un cube dans l'axe y
 		sortSelectionModel('Z');
-		for(int i = 0; i < listeCubeSelectionne.size(); i++){
-			double x = listeCubeSelectionne.get(i).getTranslateX();
-			double y = listeCubeSelectionne.get(i).getTranslateY();
-			double z = listeCubeSelectionne.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x,y- compteur - 1,z)){
-				compteur += 1;
-			}
-			listeCubeSelectionne.get(i).translateYProperty().set(listeCubeSelectionne.get(i).getTranslateY()-compteur-1);
+		for(int i = 0; i < selection.size(); i++){
+			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
 		}
 	}
 
-
+//a finir
 	public void X(){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
-		for(int i = 0; i < listeCubeSelectionne.size(); i++){
-			double x = listeCubeSelectionne.get(i).getTranslateX();
-			double y = listeCubeSelectionne.get(i).getTranslateY();
-			double z = listeCubeSelectionne.get(i).getTranslateZ();
-			int compteur  = 0;
-			while(hasCube(x,y+compteur + 1,z)){
-				compteur += 1;
+		if(selection.get(0).getBoundsInParent().getMaxY()+1<=0)
+			for(int i = 0; i < selection.size(); i++){
+				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
 			}
-			if(y+compteur+1 <= 0 && y !=0){
-				listeCubeSelectionne.get(i).translateYProperty().set(listeCubeSelectionne.get(i).getTranslateY()+compteur+1);
-			}
-		}
 	}
 
+	public boolean isInCollision(){
+		Cube tmp;
+		for(int i=0;i<selection.size();i++) {
+			for (int y = 1; y < group.getChildren().size(); y++) {
+				tmp = (Cube) group.getChildren().get(y);
+				if ((!tmp.equals(selection.get(i))) && selection.get(i).isColliding(tmp)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 
 	
 	
@@ -289,18 +268,6 @@ public class SelectionModel {
 		for(int i = 0; i< listeCubeSelectionne.size(); i++) {
 			listeCubeSelectionne.get(i).addRandomColor();
 		}
-	}
-
-	// a revoir car cela fonctionne qu'avec les cubes 1x1x1
-	public boolean hasCube(double x, double y, double z){
-		Cube tmp;
-		for(int i = 1; i < group.getChildren().size(); i ++){
-			tmp = (Cube) group.getChildren().get(i);
-//			System.out.println(group.getChildren().get(i));
-			if(tmp.equalsPosition(x,y,z))
-				return true;
-		}
-		return false;
 	}
 
 	// pareil a revoir

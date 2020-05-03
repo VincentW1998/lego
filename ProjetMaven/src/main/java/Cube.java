@@ -128,11 +128,36 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		return getBoundsInParent().getMaxY()==c.getBoundsInParent().getMinY();
 	}
 
-
+	public boolean IsCollidingInY(Cube c){
+		return(inBounds(c.getBoundsInParent().getMinY(),c.getBoundsInParent().getMaxY(),getBoundsInParent().getMinY(),getBoundsInParent().getMaxY()));
+	}
 	public boolean checkPos(Cube c){
 		return (checkYpos(c)&& ((checkXpos(c)&&(checkZpos(c)||c.checkZpos(this)))|| (c.checkXpos(this)&&(checkZpos(c)||c.checkZpos(this)))));
 	}
+	//verifie si le cube this est en collision avec le cube c
+	public boolean isColliding(Cube c){
+		if (checkXpos(c) && IsCollidingInY(c) && checkZpos(c)){
+			System.out.println("isColliding");
+			return true;
+		}
+		return false;
+	}
 
+//	public boolean isColliding(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax){
+//		return (inBounds(xMin,xMax,getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
+//				&& inBounds(yMax,yMin,getBoundsInParent().getMaxY(),getBoundsInParent().getMinY()))
+//				&& inBounds(zMin,zMax,getBoundsInParent().getMinZ(),getBoundsInParent().getMaxZ());
+//	}
+
+	//deplace le cube vers le point d'origine de la scene
+	public void moveToOrigin(){
+		double w = this.getWidth()/2;
+		double h = (this.getHeight()/2);
+		double d = this.getDepth()/2;
+		this.translateXProperty().set(w);
+		this.translateYProperty().set(-h);
+		this.translateZProperty().set(d);
+	}
 
 
 
