@@ -47,7 +47,7 @@ public class SelectionModel {
 		if(!contains(b)) {
 			if(!isInCollision()) {
 				b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
-				selection.add(b);
+				listeCubeSelectionne.add(b);
 			}
 		}
 	}
@@ -80,10 +80,10 @@ public class SelectionModel {
 	//vide la selection
 	public void clear() {
 		if(!isInCollision())
-			while (!selection.isEmpty()) {
+			while (!listeCubeSelectionne.isEmpty()) {
 				// desactive le mode drawmode et redonne a un cube son apparence initial
-				selection.getFirst().setDrawMode(DrawMode.FILL);
-				selection.removeFirst();
+				listeCubeSelectionne.getFirst().setDrawMode(DrawMode.FILL);
+				listeCubeSelectionne.removeFirst();
 			}
 		else{
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -103,55 +103,55 @@ public class SelectionModel {
 
 	public void W(){// incremente de 1 la position du de la selection dans l'axe y
 		sortSelectionModel('W');
-		for(int i = 0; i < selection.size(); i++){
-			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()+1);
+		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			listeCubeSelectionne.get(i).translateZProperty().set(listeCubeSelectionne.get(i).getTranslateZ()+1);
 		}
 	}
 
 	public void S(){ //decremente la position de la selection de 1 dans l'axe z
 		sortSelectionModel('S');
-		for(int i = 0; i < selection.size(); i++){
-			selection.get(i).translateZProperty().set(selection.get(i).getTranslateZ()-1);
+		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			listeCubeSelectionne.get(i).translateZProperty().set(listeCubeSelectionne.get(i).getTranslateZ()-1);
 		}
 	}
 
 	
 	public void A(){ //decremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('A');
-		for(int i = 0; i < selection.size(); i++){
-			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()-1);
+		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			listeCubeSelectionne.get(i).translateXProperty().set(listeCubeSelectionne.get(i).getTranslateX()-1);
 		}
 	}
 
 	public void D(){ // incremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('D');
-		for(int i = 0; i < selection.size(); i++){
-			selection.get(i).translateXProperty().set(selection.get(i).getTranslateX()+1);
+		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			listeCubeSelectionne.get(i).translateXProperty().set(listeCubeSelectionne.get(i).getTranslateX()+1);
 		}
 	}
 
 	public void Z(){//decremente la position d'un cube dans l'axe y
 		sortSelectionModel('Z');
-		for(int i = 0; i < selection.size(); i++){
-			selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()-1);
+		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			listeCubeSelectionne.get(i).translateYProperty().set(listeCubeSelectionne.get(i).getTranslateY()-1);
 		}
 	}
 
 //a finir
 	public void X(){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
-		if(selection.get(0).getBoundsInParent().getMaxY()+1<=0)
-			for(int i = 0; i < selection.size(); i++){
-				selection.get(i).translateYProperty().set(selection.get(i).getTranslateY()+1);
+		if(listeCubeSelectionne.get(0).getBoundsInParent().getMaxY()+1<=0)
+			for(int i = 0; i < listeCubeSelectionne.size(); i++){
+				listeCubeSelectionne.get(i).translateYProperty().set(listeCubeSelectionne.get(i).getTranslateY()+1);
 			}
 	}
 
 	public boolean isInCollision(){
 		Cube tmp;
-		for(int i=0;i<selection.size();i++) {
+		for(int i=0;i<listeCubeSelectionne.size();i++) {
 			for (int y = 1; y < group.getChildren().size(); y++) {
 				tmp = (Cube) group.getChildren().get(y);
-				if ((!tmp.equals(selection.get(i))) && selection.get(i).isColliding(tmp)) {
+				if ((!tmp.equals(listeCubeSelectionne.get(i))) && listeCubeSelectionne.get(i).isColliding(tmp)) {
 					return true;
 				}
 			}
