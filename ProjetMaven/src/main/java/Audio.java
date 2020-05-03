@@ -6,8 +6,15 @@ import java.io.File;
 public class Audio {
 
 
-    public static void playPOPMove() {
-        String bip = "./src/main/resources/pop.mp3";
+    public static void soundMove() {
+        String bip = "./src/main/resources/moves.mp3";
+        Media hit = new Media(new File(bip).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(hit);
+        mediaPlayer.play();
+    }
+
+    public static void soundDelete() {
+        String bip = "./src/main/resources/effacement.mp3";
         Media hit = new Media(new File(bip).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(hit);
         mediaPlayer.play();
