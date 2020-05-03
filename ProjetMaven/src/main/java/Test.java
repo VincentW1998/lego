@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+
 
 
 public class Test extends Application implements Initializable {
@@ -95,7 +98,12 @@ public class Test extends Application implements Initializable {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	public static void playPOP() {
+		String bip = "./src/main/resources/pop.mp3";
+		Media hit = new Media(new File(bip).toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(hit);
+		mediaPlayer.play();
+	}
 	public void initMouseControl(Group group, Scene scene) {
 		Rotate xRotate;
 		Rotate yRotate;
@@ -159,22 +167,26 @@ public class Test extends Application implements Initializable {
 						selection.W();// add 15 to the Z axis when the W key is pressed
 						save.saveRemote(selection.copy());// sauvegarde le dernier mouvement realiser
 						save.saveMoves((KeyEvent) event);
+						playPOP();
 						break;
 					case S:
 						selection.S(); // substract 15 to Z axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
+						playPOP();
 						break;
 					case A:
 
 						selection.A();// substract 10 to X axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
+						playPOP();
 						break;
 					case D:
 						selection.D(); // add 10 to X axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
+						playPOP();
 						break;
 					case Z:
 						selection.Z();
