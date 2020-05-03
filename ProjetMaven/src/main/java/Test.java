@@ -54,15 +54,6 @@ public class Test extends Application implements Initializable {
 		selected_color.setBackground(new Background(new BackgroundFill(Paint.valueOf(choice.toString()), CornerRadii.EMPTY, Insets.EMPTY)));
 	}
 
-//	@FXML
-//	private void showDIM(ActionEvent event) {
-//		System.out.println("Color RED : " + colorPicker.getValue().getRed() * 255);
-//		System.out.println("Color GREEN : " + colorPicker.getValue().getGreen() * 255);
-//		System.out.println("Color BLUE : " + colorPicker.getValue().getBlue() * 255);
-//		System.out.println("Length : " + length_value.getText());
-//		System.out.println("Width : " + width_value.getText());
-//		System.out.println("Height : " + height_value.getText());
-//	}
 
 	@FXML
 	void newWindow(ActionEvent event) {
@@ -482,6 +473,7 @@ public class Test extends Application implements Initializable {
 	}
 
 	public void creationBrochure(ActionEvent actionEvent) {
+
 	}
 
 	public void sendEmail(ActionEvent actionEvent) {
