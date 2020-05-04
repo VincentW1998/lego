@@ -7,9 +7,8 @@ import javax.activation.*;
 
 public class SendEmail {
 
-    public static void sendFileEmail() {
+    public static void sendFileEmail(String to) {
         // Recipient's email ID needs to be mentioned.
-        String to = "vincentwei.98@yahoo.com";
 
         // Sender's email ID needs to be mentioned
         String from = "LegoPI4.2019@gmail.com";
@@ -70,8 +69,6 @@ public class SendEmail {
                 e.printStackTrace();
             }
             message.setContent(multipart);
-            // Now set the actual message
-//            message.setText("Allez au boulot, il te reste les collisions a faire");
 
             System.out.println("sending...");
             // Send message
