@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.*;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
@@ -29,7 +28,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 
 
@@ -125,8 +123,8 @@ public class Test extends Application implements Initializable {
 			angleX.set(anchorAngleX - (anchorY - event.getSceneY()));
 			angleY.set(anchorAngleX + (anchorX - event.getSceneX()));
 		});
-		}
-	
+	}
+
 	public void start(Stage primaryStage) throws Exception{
 		Stage secondStage = new Stage();
 		Group group = new Group();
@@ -149,7 +147,7 @@ public class Test extends Application implements Initializable {
 		final Graph[] graphConstruction = {new Graph(0)};
 		scene.setFill(Color.WHITE);
 		Save save = new Save();
-		
+
 		final FileChooser fileChooser = new FileChooser();
 
 
@@ -409,6 +407,21 @@ public class Test extends Application implements Initializable {
 		primaryStage.setTitle("Editeur LEGO"); // frame
 		primaryStage.setScene(scene);
 		primaryStage.show();
+
+		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+			if (event.getCode() == KeyCode.Y) {
+				AnchorPane secondRoot = null;
+				try {
+					secondRoot = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				Scene secondScene = new Scene(secondRoot);
+				secondStage.setScene(secondScene);
+				secondStage.setTitle("Lego");
+				secondStage.show();
+			}
+		});
 
 
 		AnchorPane secondRoot = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
