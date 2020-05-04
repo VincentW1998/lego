@@ -7,7 +7,6 @@ import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -262,12 +261,6 @@ public class SelectionModel {
 				this.add(s.get(i));
 			}
 
-	}
-	//****************TEST
-	public void changeColor() {
-		for(int i = 0; i< listeCubeSelectionne.size(); i++) {
-			listeCubeSelectionne.get(i).addRandomColor();
-		}
 	}
 
 	// pareil a revoir

@@ -1,16 +1,16 @@
 LISTE DES COMMANDES :
 
-      Mouvement du cube:
-        W = eloigne le cube (axe Z)
-        S = rapproche le cube (axe Z)
-        A = deplace le cube a gauche (axe X)
-        D = deplace le cube a droite (axe X)
+      Mouvement de la pièce:
+        W = éloigne le pièce (axe Z)
+        S = rapproche le pièce (axe Z)
+        A = déplace le pièce a gauche (axe X)
+        D = déplace le pièce a droite (axe X)
 
-        Z = deplace le cube vers le haut (axe Y)
-        X = deplace le cube vers le bas (axe Y)
+        Z = déplace le pièce vers le haut (axe Y)
+        X = déplace le pièce vers le bas (axe Y)
         
-        E = rotation du cube sur l'axe Y dans le sens horaire 
-        Q = rotation du cube sur l'axe Y dans le sens anti-horaire
+        E = rotation du pièce sur l'axe Y dans le sens horaire 
+        Q = rotation du pièce sur l'axe Y dans le sens anti-horaire
 
       Mouvement de la camera:
         UP = haut
@@ -18,30 +18,38 @@ LISTE DES COMMANDES :
         LEFT = gauche
         RIGHT = droite
 
-        SCROLL UP = zoom
-        SCROLL DOWN = dezoom
+        SCROLL UP = zoom molette de la souris
+        SCROLL DOWN = dezoom molette de la souris
 
       (fonctionne avec les trackpads seulement a l'aide de 2 doigts)
         SCROLL LEFT = gauche
         SCROLL RIGHT = droit
 
-      Creation d'un cube:
-        COMMAND+N (ALT+N sur Windows)
+      Creation d'une pièce:
+        CONTROL + N
 
-      Undo un cube supprime:
-        COMMAND+Z (ALT+Z sur Windows)undo
+      Undo une pièce supprimé ou les déplacements :
+        CONTROL + Z 
 
-      Edit d'un ou plusieurs cube(s):
-        LEFT CLICK = sélectionner d'un cube
-        SHIFT+CLICK = sélection de plusieurs cubes
-        ESCAPE = desélection
-        BACKSPACE = suppression du ou des cubes sélectionnés
+      Edit d'une ou plusieurs pièces:
+        LEFT CLICK = sélectionner d'une pièce
+        SHIFT+CLICK = sélection de plusieurs pièces
+        ESCAPE = désélectioner
+        BACKSPACE = suppression de la ou des pièces sélectionnées
+	0 - 9 = changer la couleur de votre pièce
 
       Importer une construction :
-        COMMAND + I
+        CONTROL + I
 
       Exporter une construction :
-        COMMAND + S
+        CONTROL + S
 
-      Affiche dans le terminal les cubes qui sont dans la fenetre :
-        G
+      Valider une construction (une fois finie) :
+	ENTER
+
+      Couper manuellement une figure :
+	Après avoir valider la construction, sélectionner vos parties
+	une à une et faites CONTROL + ENTER pour valider les parties
+
+      Création de votre brochure :
+	Appuyez sur U

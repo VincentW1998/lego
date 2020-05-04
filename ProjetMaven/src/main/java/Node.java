@@ -6,7 +6,6 @@ public class Node {
     LinkedList<Node> arretesUp; // arretes pieces au dessus (liens)
     int ordreConstruction = -1; // utilisation explicite
     static int acc = -1;
-    int numeroPartie;
 
 
     public Node(){
@@ -14,11 +13,6 @@ public class Node {
         arretesUp = new LinkedList<Node>();
     }
 
-    public Node(Cube cb){
-        this();
-        c = cb;
-
-    }
 
     public void addCube(Cube cb){ //initialise le cube
         c = cb;
@@ -122,13 +116,5 @@ public class Node {
         }
         return true;
     }
-
-    // affiche l'ordre de construction
-    public void printNodeOrder(){
-        System.out.println(ordreConstruction);
-    }
-
-
-
 
 }

@@ -23,16 +23,12 @@ public class Brochure {
 
     /* Creer une brochure à partir du decoupage manuel */
     public static void creationBrochure(Scene scene, Group group, SelectionModel selection) {
-//        LinkedList <Image> tmp  = new LinkedList<Image>();
         for(int i = 0;i<selection.PartiesSelection.size();i++){
             while(group.getChildren().size() > 1)//vide le groupe en laissant le sol
                 group.getChildren().remove(1);
 
-//            tmp = selection.PartiesSelection.get(i).addPartiesToGroup(); // renvoie une liste d'image de l'assemblage de chaque partie
             listeIdentifiantPartie.add(selection.PartiesSelection.get(i).getIdParties());
             listeImagesPartie.add(selection.PartiesSelection.get(i).addPartiesToGroup());
-            // ajoute chaque image a la liste d'image
-//            listeImagesPartie.addAll(tmp);
         }
         while(group.getChildren().size() > 1)
             group.getChildren().remove(1);
@@ -81,7 +77,6 @@ public class Brochure {
     public static void imagesToPdfAlgo() {
         Document document = new Document(PageSize.A4);
 
-//       String input = null;
         String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
         try {
             FileOutputStream fos = new FileOutputStream(output);
@@ -126,7 +121,6 @@ public class Brochure {
     public static void imagesToPdfManuel() {
         Document document = new Document(PageSize.A4);
 
-//       String input = null;
         String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
         try {
             FileOutputStream fos = new FileOutputStream(output);

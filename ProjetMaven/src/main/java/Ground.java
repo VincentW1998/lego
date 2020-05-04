@@ -1,8 +1,4 @@
-import javafx.application.Application;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
-import javafx.scene.shape.Box;
-import javafx.scene.shape.DrawMode;
 
 public class Ground extends Cube{
 	public Ground(int w, int d) {
