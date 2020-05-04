@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.*;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -48,7 +49,8 @@ public class Test extends Application implements Initializable {
 	private TextField width_value;
 	@FXML
 	private TextField height_value;
-
+	@FXML
+	private CheckBox mute_value;
 
 	@FXML
 	private void changeColor(ActionEvent event) {
