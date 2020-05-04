@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 
 
@@ -316,6 +317,7 @@ public class Test extends Application implements Initializable {
 					group.getChildren().add(sol);
 				}
 				try {
+//					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
 					LinkedList<Cube> construction = Importer.loadFrom(file);
 
 					for (int i = 0; i < construction.size(); i++) {
@@ -414,7 +416,15 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-
+//		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+//			if (event.getCode() == KeyCode.B) {
+//				System.out.println("Quel est votre mail ? ");
+//				Scanner sc = new Scanner(System.in);
+//				String to = sc.nextLine();
+//				SendEmail.sendFileEmail(to);
+//
+//			}
+//		});
 
 
 // *********************** MOUSE CONTROLS ****************************

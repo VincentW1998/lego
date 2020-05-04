@@ -32,15 +32,15 @@ public class Save {
 	}
 
 
-//	public void saveRemove(SelectionModel m) {
-//		lastElements.add(m);
-//	}
-//
-//	public SelectionModel pop() {
-//		return lastElements.pollLast();
-//	}
-//
-//	public boolean Empty() {
-//		return lastElements.isEmpty();
-//	}
+	public void saveRemove(SelectionModel m) {
+		lastElements.add(m);
+	}
+	
+	public SelectionModel pop() {
+		return lastElements.pollLast();
+	}
+	
+	public boolean Empty() {
+		return lastElements.isEmpty();
+	}
 }

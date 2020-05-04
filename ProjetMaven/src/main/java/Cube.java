@@ -1,8 +1,12 @@
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
 
+import java.util.LinkedList;
 import java.util.Random;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.transform.Rotate;
 
 public class Cube extends Box{
 	Color color;
@@ -139,6 +143,11 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		return false;
 	}
 
+//	public boolean isColliding(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax){
+//		return (inBounds(xMin,xMax,getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
+//				&& inBounds(yMax,yMin,getBoundsInParent().getMaxY(),getBoundsInParent().getMinY()))
+//				&& inBounds(zMin,zMax,getBoundsInParent().getMinZ(),getBoundsInParent().getMaxZ());
+//	}
 
 	//deplace le cube vers le point d'origine de la scene
 	public void moveToOrigin(){
@@ -152,7 +161,9 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 
 
 
-
+	public boolean equalsPosition(double x, double y, double z){
+		return this.getTranslateX() == x && this.getTranslateY() == y && this.getTranslateZ() == z;
+	}
 
 	@Override
 	//a changer avec attache down + up avec graphe
