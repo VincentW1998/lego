@@ -100,7 +100,6 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 	//verifie si le cube this est en collision avec le cube c
 	public boolean isColliding(Cube c){
 		if (checkXpos(c) && IsCollidingInY(c) && checkZpos(c)){
-			System.out.println("isColliding");
 			return true;
 		}
 		return false;
