@@ -37,6 +37,8 @@ public class Test extends Application implements Initializable {
 
 	static Cube tmp;
 
+	static boolean mute;
+
 	public TextField email_value;
 
 	@FXML
@@ -80,6 +82,12 @@ public class Test extends Application implements Initializable {
 		double d = Double.parseDouble(length_value.getText());
 		Color color = colorPicker.getValue();
 		tmp = new Cube(color, w, h, d);
+	}
+
+	@FXML
+	public void handleMuteBox(){
+		if(mute_value.isSelected())mute = true;
+		else mute = false;
 	}
 
 	private static final int DEPTH = 800;
@@ -159,38 +167,38 @@ public class Test extends Application implements Initializable {
 						selection.W();// add 15 to the Z axis when the W key is pressed
 						save.saveRemote(selection.copy());// sauvegarde le dernier mouvement realiser
 						save.saveMoves((KeyEvent) event);
-						Audio.soundMove();
+						if(mute == false)Audio.soundMove();
 						break;
 					case S:
 						selection.S(); // substract 15 to Z axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						Audio.soundMove();
+						if(mute == false)Audio.soundMove();
 						break;
 					case A:
 
 						selection.A();// substract 10 to X axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						Audio.soundMove();
+						if(mute == false)Audio.soundMove();
 						break;
 					case D:
 						selection.D(); // add 10 to X axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						Audio.soundMove();
+						if(mute == false)Audio.soundMove();
 						break;
 					case Z:
 						selection.Z();
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						Audio.soundMove();
+						if(mute == false)Audio.soundMove();
 						break;
 					case X:
 						selection.X();
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						Audio.soundMove();
+						if(mute == false)Audio.soundMove();
 						break;
 					case Q:
 
@@ -210,7 +218,7 @@ public class Test extends Application implements Initializable {
 								selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
 								group.getChildren().remove(selection.listeCubeSelectionne.get(i));
 							}
-							Audio.soundDelete();
+							if(mute == false)Audio.soundDelete();
 							save.saveRemote(selection.copy());
 							selection.clear();
 							save.saveMoves((KeyEvent) event);
