@@ -137,17 +137,12 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 	//verifie si le cube this est en collision avec le cube c
 	public boolean isColliding(Cube c){
 		if (checkXpos(c) && IsCollidingInY(c) && checkZpos(c)){
-			System.out.println("isColliding");
 			return true;
 		}
 		return false;
 	}
 
-//	public boolean isColliding(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax){
-//		return (inBounds(xMin,xMax,getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
-//				&& inBounds(yMax,yMin,getBoundsInParent().getMaxY(),getBoundsInParent().getMinY()))
-//				&& inBounds(zMin,zMax,getBoundsInParent().getMinZ(),getBoundsInParent().getMaxZ());
-//	}
+
 
 	//deplace le cube vers le point d'origine de la scene
 	public void moveToOrigin(){

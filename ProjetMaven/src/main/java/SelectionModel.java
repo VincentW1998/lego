@@ -38,7 +38,6 @@ public class SelectionModel {
 		SelectionModel tmp = new SelectionModel(group);
 		for(int i = 0; i< listeCubeSelectionne.size(); i++) {
 			tmp.add(listeCubeSelectionne.get(i));
-
 		}
 	
 		return tmp;
@@ -376,11 +375,54 @@ public class SelectionModel {
 		Graph graph= new Graph(group.getChildren().size()-1);
 		graph.createGraph(group);
 		for(int i=0;i<listeCubeSelectionne.size();i++){
-			if(graph.noeuds[listeCubeSelectionne.get(i).getIdentifiant()].arretesUp.isEmpty() && graph.noeuds[listeCubeSelectionne.get(i).getIdentifiant()].arretesDown.isEmpty()){
+			if(graph.noeuds[listeCubeSelectionne.get(i).getIdentifiant()].arretesUp.isEmpty()
+					&& graph.noeuds[listeCubeSelectionne.get(i).getIdentifiant()].arretesDown.isEmpty()
+					&& listeCubeSelectionne.get(i).getBoundsInParent().getMaxY()!=0)
 				return true;
+		}
+//		Cube tmp;
+//		for(int i=0;i<listeCubeSelectionne.size();i++){
+//			if(fly(listeCubeSelectionne.get(i)))
+//				return true;
+//		}
+		return false;
+	}
+
+	public boolean fly(Cube c){
+		Cube tmp;
+		boolean up = false;
+		boolean down = false;
+		for(int i=1;i<group.getChildren().size();i++){
+			tmp = (Cube)group.getChildren().get(i);
+			if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
+				up = true;
+			}
+			if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
+				down = true;
 			}
 		}
+		if(!up && !down && c.getBoundsInParent().getMaxY()!=0)
+			return true;
 		return false;
+	}
+
+	public boolean correctPos (){
+		if(isInCollision()){
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText("Vous etes en collision");
+			alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+			alert.showAndWait();
+			return false;
+		}
+		if(isFlying()){
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText("Placement incorect");
+			alert.setContentText("Au moins un de vos cubes vole");
+			alert.showAndWait();
+			return false;
+		}
+
+		return true;
 	}
 
 }
