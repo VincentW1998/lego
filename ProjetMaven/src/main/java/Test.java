@@ -149,7 +149,8 @@ public class Test extends Application implements Initializable {
 				switch (event.getCode()) {
 					//seclection
 					case ESCAPE:
-						selection.clear();
+						if(selection.correctPos())
+							selection.clear();
 						break;
 					//Cube
 					case W:
@@ -235,19 +236,17 @@ public class Test extends Application implements Initializable {
 		// Creation d'un nouveau cube
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.isControlDown() && event.getCode() == KeyCode.N) {
-				if(!selection.isInCollision()) {
+				if (selection.correctPos()) {
 					{
+
 						Cube c = tmp;
 						c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-							if(selection.isInCollision()){
-								Alert alert = new Alert(Alert.AlertType.INFORMATION);
-								alert.setHeaderText("Vous etes en collision");
-								alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
-								alert.showAndWait();
-							}
-							else if (!e.isShiftDown())
+							//verifie si la selection n'est pas en collision et si elle n'est pas en vol et affiche les messages d'erreur si c'est le cas
+							if (selection.correctPos()) {
+								if (!e.isShiftDown())
 									selection.clear();
 								selection.add((Cube) e.getSource());
+							}
 						});
 						selection.clear();
 						selection.add(c);
@@ -257,15 +256,9 @@ public class Test extends Application implements Initializable {
 					}
 					save.saveMoves(event);
 				}
-				else{
-					Alert alert = new Alert(Alert.AlertType.INFORMATION);
-					alert.setHeaderText("Vous etes en collision");
-					alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
-					alert.showAndWait();
-				}
-
 			}
 		});
+
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, e -> {//couleur Num
 			KeyCode[] kc = {KeyCode.DIGIT0, KeyCode.DIGIT1, KeyCode.DIGIT2, KeyCode.DIGIT3, KeyCode.DIGIT4, KeyCode.DIGIT5,

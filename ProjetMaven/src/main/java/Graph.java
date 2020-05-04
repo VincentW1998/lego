@@ -117,4 +117,20 @@ public class Graph {
         }
     }
 
+
+
+    public boolean floating(Cube c){
+        if(noeuds[c.getIdentifiant()].arretesDown.isEmpty()&& c.getBoundsInParent().getMaxY()==0)
+            return false;
+        for(int i=0;i<noeuds[c.getIdentifiant()].arretesUp.size();i++){
+            if(!floating(c))
+                return false;
+        }
+        for(int y=0;y<noeuds[c.getIdentifiant()].arretesDown.size();y++){
+            if(!floating(c))
+                return false;
+        }
+        return true;
+    }
+
 }
