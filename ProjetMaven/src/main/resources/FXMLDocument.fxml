@@ -37,7 +37,7 @@
                 </Menu>
               </menus>
             </MenuBar>
-            <CheckBox fx:id="mute_value" layoutX="178.0" layoutY="137.0" mnemonicParsing="false" text="Mute Sound" textFill="WHITE" />
+            <CheckBox fx:id="mute_value" layoutX="178.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleMuteBox" text="Mute Sound" textFill="WHITE" />
          </children>
       </AnchorPane>
       <AnchorPane layoutY="398.0" prefHeight="200.0" prefWidth="310.0" style="-fx-border-color: black; -fx-background-color: #484b49;">
