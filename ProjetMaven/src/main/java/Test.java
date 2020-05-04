@@ -153,7 +153,8 @@ public class Test extends Application implements Initializable {
 				switch (event.getCode()) {
 					//seclection
 					case ESCAPE:
-						selection.clear();
+						if(selection.correctPos())
+							selection.clear();
 						break;
 					//Cube
 					case W:
