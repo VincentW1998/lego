@@ -14,7 +14,7 @@ public class Audio {
     }
 
     public static void soundDelete() {
-        String bip = "./src/main/resources/effacement.wav";
+        String bip = "./src/main/resources/remove.wav";
         Media hit = new Media(new File(bip).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(hit);
         mediaPlayer.play();
