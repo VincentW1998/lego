@@ -310,14 +310,11 @@ public class Test extends Application implements Initializable {
 				configureFileChooser(fileChooser);
 
 				File file = fileChooser.showOpenDialog(primaryStage);
-//				String path = "src/main/resources/Data/";
 				if (file != null) {
-//					path += file.getName();
 					group.getChildren().clear();
 					group.getChildren().add(sol);
 				}
 				try {
-//					LinkedList<Cube> construction = Importer.loadFrom(new File(path));
 					LinkedList<Cube> construction = Importer.loadFrom(file);
 
 					for (int i = 0; i < construction.size(); i++) {
@@ -359,14 +356,6 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-		// affiche la composition de la figure, avec les donnees de chaques cubes
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-			if (event.getCode() == KeyCode.G) {
-				for (int i = 1; i < group.getChildren().size(); i++) {
-					System.out.println(group.getChildren().get(i));
-				}
-			}
-		});
 
 		// printPartie fonctionne
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
@@ -385,18 +374,9 @@ public class Test extends Application implements Initializable {
 					graphConstruction[0].printOrder(); // affiche l'ordre de construction
 				}
 
-				// validation de la construction et la creation du graphe
 			}
 		});
 
-		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event ->{
-			if(event.getCode()== KeyCode.P) {
-				//affiche les differentes parties apres separation dans le terminal
-				if(event.isControlDown()){
-					selection.printParties(); // afficher les parties qu'on a selectionnee a la main
-				}
-			}
-		});
 
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.getCode() == KeyCode.U) {
@@ -416,15 +396,6 @@ public class Test extends Application implements Initializable {
 			}
 		});
 
-//		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-//			if (event.getCode() == KeyCode.B) {
-//				System.out.println("Quel est votre mail ? ");
-//				Scanner sc = new Scanner(System.in);
-//				String to = sc.nextLine();
-//				SendEmail.sendFileEmail(to);
-//
-//			}
-//		});
 
 
 // *********************** MOUSE CONTROLS ****************************
@@ -467,22 +438,6 @@ public class Test extends Application implements Initializable {
 
 	}
 
-
-	// Initialise les attaches bas de toutes les pieces du groupe
-	public void setAttache(Group group) {
-		Cube bas;
-		Cube haut;
-		for (int i = 1; i < group.getChildren().size(); i++) {
-			haut = (Cube) group.getChildren().get(i);
-			haut.setAttacheDown(null);
-			for (int j = 1; j < group.getChildren().size(); j++) {
-				bas = (Cube) group.getChildren().get(j);
-				if (haut.checkPos(bas)) {
-					haut.setAttacheDown(bas);
-				}
-			}
-		}
-	}
 
 	// reordonner les identifiants des pieces
 	public void reordonner(Group group){

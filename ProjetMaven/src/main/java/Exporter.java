@@ -17,8 +17,6 @@ public class Exporter {
             Cube cube = (Cube) group.getChildren().get(i);
             JSONObject json = new JSONObject();
             JSONObject color = new JSONObject();
-//            System.out.println("id " + cube.getIdentifiant());
-//            System.out.println("red " + cube.getColor().getRed()*255);
             json.put("id",cube.getIdentifiant());
             color.put("red", cube.getColor().getRed()*255);
             color.put("green", cube.getColor().getGreen()*255);

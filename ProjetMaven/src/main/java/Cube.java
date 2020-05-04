@@ -1,12 +1,7 @@
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.geometry.Bounds;
 import javafx.scene.paint.Color;
-
-import java.util.LinkedList;
 import java.util.Random;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
-import javafx.scene.transform.Rotate;
 
 public class Cube extends Box{
 	Color color;
@@ -16,7 +11,6 @@ public class Cube extends Box{
 	double y;
 	double z;
 	double angle;
-	Cube attacheDown;
 	Color [] colorRange = {Color.BLACK,Color.YELLOW,Color.ORANGE,Color.RED,Color.PINK,Color.PURPLE,
 			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
 
@@ -24,15 +18,6 @@ public class Cube extends Box{
 		this.identifiant = id;
 		
 	}
-
-	public Cube getAttacheDown(){
-		return attacheDown;
-	}
-
-	public void setAttacheDown(Cube c){
-		this.attacheDown = c;
-	}
-
 
 	public int getIdentifiant() {
 		return identifiant;
@@ -61,15 +46,7 @@ public class Cube extends Box{
 		this.angle = a;
 	}
 
-	public Cube(Color c) {
-		this(c,1,1,1);
-	}
 
-	public Cube() {
-		super(1,1,1);
-		numeroCube++;
-		identifiant = numeroCube;
-	}
 	
 	public void addRandomColor() {
 		Random rand = new Random();
@@ -88,21 +65,7 @@ public class Cube extends Box{
 	public boolean equals(Cube c) {
 		return this.identifiant == c.identifiant;
 	}
-	
-	public Cube copy() {
-		Cube tmp = new Cube(color,this.getWidth(),this.getHeight(),this.getDepth());
-		tmp.x =this.getTranslateX();
-		tmp.y = this.getTranslateY();
-		tmp.z = this.getTranslateZ();
-		tmp.identifiant = this.identifiant;
-		numeroCube-=1;
-		return tmp;
-	}
-	public void giveLocation() {
-		translateXProperty().set(x);
-		translateYProperty().set(y);
-		translateZProperty().set(z);
-	}
+
 
 	public void angleChange(double a){
 		angle += a;
@@ -143,11 +106,6 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		return false;
 	}
 
-//	public boolean isColliding(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax){
-//		return (inBounds(xMin,xMax,getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
-//				&& inBounds(yMax,yMin,getBoundsInParent().getMaxY(),getBoundsInParent().getMinY()))
-//				&& inBounds(zMin,zMax,getBoundsInParent().getMinZ(),getBoundsInParent().getMaxZ());
-//	}
 
 	//deplace le cube vers le point d'origine de la scene
 	public void moveToOrigin(){
@@ -161,24 +119,6 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 
 
 
-	public boolean equalsPosition(double x, double y, double z){
-		return this.getTranslateX() == x && this.getTranslateY() == y && this.getTranslateZ() == z;
-	}
-
-	@Override
-	//a changer avec attache down + up avec graphe
-	public String toString() {
-		String s = this.getAttacheDown() == null ? ", Aucune piece en dessous" : ", la piece qui est en dessous est " + this.getAttacheDown().getIdentifiant();
-		return "Cube{" +
-				"color=" + color +
-				", identifiant=" + identifiant +
-				", x=" + this.getTranslateX() +
-				", y=" + this.getTranslateY() +
-				", z=" + this.getTranslateZ() +
-				", rotate =" + this.angle +
-				s +
-				'}';
-	}
 
 
 
