@@ -6,7 +6,6 @@ public class Node {
     LinkedList<Node> arretesUp; // arretes pieces au dessus (liens)
     int ordreConstruction = -1; // utilisation explicite
     static int acc = -1;
-    int numeroPartie;
 
 
     public Node(){
@@ -121,11 +120,6 @@ public class Node {
                 return false;
         }
         return true;
-    }
-
-    // affiche l'ordre de construction
-    public void printNodeOrder(){
-        System.out.println(ordreConstruction);
     }
 
 

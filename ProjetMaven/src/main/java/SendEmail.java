@@ -8,6 +8,7 @@ import javax.activation.*;
 public class SendEmail {
 
     public static void sendFileEmail(String to) {
+
         // Recipient's email ID needs to be mentioned.
 
         // Sender's email ID needs to be mentioned
@@ -36,8 +37,6 @@ public class SendEmail {
 
         });
 
-        // Used to debug SMTP issues
-//        session.setDebug(true);
 
         try {
             // Create a default MimeMessage object.
@@ -77,8 +76,6 @@ public class SendEmail {
         } catch (MessagingException mex) {
             mex.printStackTrace();
         }
-
-
     }
 
 }

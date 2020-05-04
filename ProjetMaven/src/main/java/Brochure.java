@@ -126,7 +126,6 @@ public class Brochure {
     public static void imagesToPdfManuel() {
         Document document = new Document(PageSize.A4);
 
-//       String input = null;
         String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
         try {
             FileOutputStream fos = new FileOutputStream(output);

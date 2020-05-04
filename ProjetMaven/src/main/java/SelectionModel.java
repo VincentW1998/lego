@@ -372,19 +372,12 @@ public class SelectionModel {
 	}
 
 	public boolean isFlying(){
-		Graph graph= new Graph(group.getChildren().size()-1);
-		graph.createGraph(group);
-		for(int i=0;i<listeCubeSelectionne.size();i++){
-			if(graph.noeuds[listeCubeSelectionne.get(i).getIdentifiant()].arretesUp.isEmpty()
-					&& graph.noeuds[listeCubeSelectionne.get(i).getIdentifiant()].arretesDown.isEmpty()
-					&& listeCubeSelectionne.get(i).getBoundsInParent().getMaxY()!=0)
+		Cube tmp;
+		for(int i=1;i<group.getChildren().size();i++){
+			tmp = (Cube) group.getChildren().get(i);
+			if(fly(tmp))
 				return true;
 		}
-//		Cube tmp;
-//		for(int i=0;i<listeCubeSelectionne.size();i++){
-//			if(fly(listeCubeSelectionne.get(i)))
-//				return true;
-//		}
 		return false;
 	}
 
