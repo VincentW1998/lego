@@ -8,7 +8,6 @@ public class Graph {
 
     Group group;
 
-//    Group group;
 
    // initialisation de chaque noeud du graphe
     public Graph(int l){
