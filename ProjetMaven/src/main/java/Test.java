@@ -249,7 +249,7 @@ public class Test extends Application implements Initializable {
 				if (selection.correctPos()) {
 					{
 
-						Cube c = tmp;
+						Cube c = new Cube(tmp.getColor(),tmp.getWidth(),tmp.getHeight(),tmp.getDepth());
 						c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 							//verifie si la selection n'est pas en collision et si elle n'est pas en vol et affiche les messages d'erreur si c'est le cas
 							if (selection.correctPos()) {
