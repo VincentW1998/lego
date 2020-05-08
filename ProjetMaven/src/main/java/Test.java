@@ -78,7 +78,7 @@ public class Test extends Application implements Initializable {
 	public void createCube() {
 		Alert alert = new Alert(Alert.AlertType.INFORMATION);
 		alert.setHeaderText("ERREUR");
-		alert.setContentText("Aucune pièce crééer");
+		alert.setContentText("Veuillez remplir correctement les champs");
 
 
 		if(!width_value.getText().equals("") && !height_value.getText().equals("") && !length_value.getText().equals("")) {
