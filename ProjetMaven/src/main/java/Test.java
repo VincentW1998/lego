@@ -23,6 +23,7 @@ import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -75,11 +76,20 @@ public class Test extends Application implements Initializable {
 
 	@FXML
 	public void createCube() {
-		double w = Double.parseDouble(width_value.getText());
-		double h = Double.parseDouble(height_value.getText());
-		double d = Double.parseDouble(length_value.getText());
-		Color color = colorPicker.getValue();
-		tmp = new Cube(color, w, h, d);
+		Alert alert = new Alert(Alert.AlertType.INFORMATION);
+		alert.setHeaderText("ERREUR");
+		alert.setContentText("Aucune pièce crééer");
+
+
+		if(!width_value.getText().equals("") && !height_value.getText().equals("") && !length_value.getText().equals("")) {
+			double w = Double.parseDouble(width_value.getText());
+			double h = Double.parseDouble(height_value.getText());
+			double d = Double.parseDouble(length_value.getText());
+			Color color = colorPicker.getValue();
+
+			tmp = new Cube(color, w, h, d);
+		}
+		else alert.showAndWait();
 	}
 
 	@FXML
@@ -244,26 +254,27 @@ public class Test extends Application implements Initializable {
 		// Creation d'un nouveau cube
 		primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
 			if (event.isControlDown() && event.getCode() == KeyCode.N) {
-				if (selection.correctPos()) {
-					{
+					if (selection.correctPos()) {
+						{
 
-						Cube c = new Cube(tmp.getColor(),tmp.getWidth(),tmp.getHeight(),tmp.getDepth());
-						c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-							//verifie si la selection n'est pas en collision et si elle n'est pas en vol et affiche les messages d'erreur si c'est le cas
-							if (selection.correctPos()) {
-								if (!e.isShiftDown())
-									selection.clear();
-								selection.add((Cube) e.getSource());
-							}
-						});
-						selection.clear();
-						selection.add(c);
-						group.getChildren().add(c);
-						c.moveToOrigin();
-						save.newCube(c);
+							Cube c = new Cube(tmp.getColor(), tmp.getWidth(), tmp.getHeight(), tmp.getDepth());
+							c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+								//verifie si la selection n'est pas en collision et si elle n'est pas en vol et affiche les messages d'erreur si c'est le cas
+								if (selection.correctPos()) {
+									if (!e.isShiftDown())
+										selection.clear();
+									selection.add((Cube) e.getSource());
+								}
+							});
+							selection.clear();
+							selection.add(c);
+							group.getChildren().add(c);
+							c.moveToOrigin();
+							save.newCube(c);
+						}
+						save.saveMoves(event);
 					}
-					save.saveMoves(event);
-				}
+
 			}
 		});
 
