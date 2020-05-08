@@ -236,6 +236,11 @@ public class Test extends Application implements Initializable {
 					case RIGHT:
 						camera.translateXProperty().set(camera.getTranslateX() + 1);
 						break;
+					case SPACE:
+						camera.translateXProperty().set(0);
+						camera.translateYProperty().set(-1.5);
+						angleX.set(0);
+						angleY.set(0);
 				}
 
 			}
