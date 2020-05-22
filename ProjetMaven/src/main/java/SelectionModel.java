@@ -109,47 +109,53 @@ public class SelectionModel {
 		return listeCubeSelectionne.contains(b);
 	}
 
-	public void W(){// incremente de 1 la position du de la selection dans l'axe y
+	public void W(Boolean mute){// incremente de 1 la position du de la selection dans l'axe y
 		sortSelectionModel('W');
 		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			if(!mute) Audio.soundMove();
 			listeCubeSelectionne.get(i).translateZProperty().set(listeCubeSelectionne.get(i).getTranslateZ()+1);
 		}
 	}
 
-	public void S(){ //decremente la position de la selection de 1 dans l'axe z
+	public void S(Boolean mute){ //decremente la position de la selection de 1 dans l'axe z
 		sortSelectionModel('S');
 		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			if(!mute) Audio.soundMove();
 			listeCubeSelectionne.get(i).translateZProperty().set(listeCubeSelectionne.get(i).getTranslateZ()-1);
 		}
 	}
 
 	
-	public void A(){ //decremente la position de la selection de 1 dans l'axe x
+	public void A(Boolean mute){ //decremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('A');
 		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			if(!mute) Audio.soundMove();
 			listeCubeSelectionne.get(i).translateXProperty().set(listeCubeSelectionne.get(i).getTranslateX()-1);
 		}
 	}
 
-	public void D(){ // incremente la position de la selection de 1 dans l'axe x
+	public void D(Boolean mute){ // incremente la position de la selection de 1 dans l'axe x
 		sortSelectionModel('D');
 		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			if(!mute) Audio.soundMove();
 			listeCubeSelectionne.get(i).translateXProperty().set(listeCubeSelectionne.get(i).getTranslateX()+1);
 		}
 	}
 
-	public void Z(){//decremente la position d'un cube dans l'axe y
+	public void Z(Boolean mute){//decremente la position d'un cube dans l'axe y
 		sortSelectionModel('Z');
 		for(int i = 0; i < listeCubeSelectionne.size(); i++){
+			if(!mute) Audio.soundMove();
 			listeCubeSelectionne.get(i).translateYProperty().set(listeCubeSelectionne.get(i).getTranslateY()-1);
 		}
 	}
 
 //a finir
-	public void X(){//incremente de 1 la position des cube de la selection dans l'axe y
+	public void X(Boolean mute){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
 		if(listeCubeSelectionne.get(0).getBoundsInParent().getMaxY()+1<=0)
 			for(int i = 0; i < listeCubeSelectionne.size(); i++){
+				if(!mute) Audio.soundMove();
 				listeCubeSelectionne.get(i).translateYProperty().set(listeCubeSelectionne.get(i).getTranslateY()+1);
 			}
 	}
@@ -212,28 +218,28 @@ public class SelectionModel {
 
 					case W:
 						remote(save);
-						this.S();
+						this.S(false);
 						break;
 					case S:
 						remote(save);
-						this.W();
+						this.W(false);
 						break;
 					case A:
 						remote(save);
-						this.D();
+						this.D(false);
 						break;
 					case D:
 
 						remote(save);
-						this.A();
+						this.A(false);
 						break;
 					case Z:
 						remote(save);
-						this.X();
+						this.X(false);
 						break;
 					case X:
 						remote(save);
-						this.Z();
+						this.Z(false);
 						break;
 					case Q:
 						remote(save);
