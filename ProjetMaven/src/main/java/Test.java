@@ -176,44 +176,36 @@ public class Test extends Application implements Initializable {
 						break;
 					//Cube
 					case W:
-						selection.W();// add 15 to the Z axis when the W key is pressed
+						selection.W(mute);// add 15 to the Z axis when the W key is pressed
 						save.saveRemote(selection.copy());// sauvegarde le dernier mouvement realiser
 						save.saveMoves((KeyEvent) event);
-						if(mute == false)Audio.soundMove();
 						break;
 					case S:
-						selection.S(); // substract 15 to Z axis
+						selection.S(mute); // substract 15 to Z axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						if(mute == false)Audio.soundMove();
 						break;
 					case A:
-
-						selection.A();// substract 10 to X axis
+						selection.A(mute);// substract 10 to X axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						if(mute == false)Audio.soundMove();
 						break;
 					case D:
-						selection.D(); // add 10 to X axis
+						selection.D(mute); // add 10 to X axis
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						if(mute == false)Audio.soundMove();
 						break;
 					case Z:
-						selection.Z();
+						selection.Z(mute);
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						if(mute == false)Audio.soundMove();
 						break;
 					case X:
-						selection.X();
+						selection.X(mute);
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
-						if(mute == false)Audio.soundMove();
 						break;
 					case Q:
-
 						selection.Q();
 						save.saveRemote(selection.copy());
 						save.saveMoves((KeyEvent) event);
@@ -229,8 +221,8 @@ public class Test extends Application implements Initializable {
 							for (int i = 0; i < selection.listeCubeSelectionne.size(); i++) {
 								selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
 								group.getChildren().remove(selection.listeCubeSelectionne.get(i));
+								if(mute == false)Audio.soundDelete();
 							}
-							if(mute == false)Audio.soundDelete();
 							save.saveRemote(selection.copy());
 							selection.clear();
 							save.saveMoves((KeyEvent) event);
