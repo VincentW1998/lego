@@ -1,3 +1,5 @@
+import javafx.scene.control.Alert;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -74,7 +76,11 @@ public class SendEmail {
             Transport.send(message);
             System.out.println("Sent message successfully....");
         } catch (MessagingException mex) {
-            mex.printStackTrace();
+//            mex.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Aucune adresse email n'a été indiquée");
+                alert.setContentText("Veuillez inscrire votre adresse email dans le champs indiqué");
+                alert.showAndWait();
         }
     }
 
