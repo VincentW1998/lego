@@ -76,20 +76,25 @@ public class Test extends Application implements Initializable {
 
 	@FXML
 	public void createCube() {
-		Alert alert = new Alert(Alert.AlertType.INFORMATION);
-		alert.setHeaderText("ERREUR");
-		alert.setContentText("Veuillez remplir correctement les champs");
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setHeaderText("ERREUR");
+			alert.setContentText("Veuillez remplir correctement les champs");
 
 
-		if(!width_value.getText().equals("") && !height_value.getText().equals("") && !length_value.getText().equals("")) {
-			double w = Double.parseDouble(width_value.getText());
-			double h = Double.parseDouble(height_value.getText());
-			double d = Double.parseDouble(length_value.getText());
-			Color color = colorPicker.getValue();
-
-			tmp = new Cube(color, w, h, d);
-		}
-		else alert.showAndWait();
+			if (!width_value.getText().equals("") && !height_value.getText().equals("") && !length_value.getText().equals("")) {
+				try {
+					double w = Double.parseDouble(width_value.getText());
+					double h = Double.parseDouble(height_value.getText());
+					double d = Double.parseDouble(length_value.getText());
+					Color color = colorPicker.getValue();
+					tmp = new Cube(color, w, h, d);
+				}
+				catch(Exception e){
+					alert.setContentText(alert.getContentText()+"\n Les caracteres autres que des chiffres ne sont pas autorisés");
+					alert.showAndWait();
+				}
+			}
+			else alert.showAndWait();
 	}
 
 	@FXML
@@ -145,7 +150,6 @@ public class Test extends Application implements Initializable {
 		Ground sol = new Ground(WIDTH, DEPTH);
 		group.getChildren().add(sol);
 		sol.translateYProperty().set(0.004999999888241291);//deplacement du sol en dessous de 0
-		System.out.println(sol.getBoundsInParent().getMinY());
 		camera.translateXProperty().set(0);
 		camera.translateYProperty().set(-1.5);
 		camera.translateZProperty().set(-15);
@@ -261,23 +265,31 @@ public class Test extends Application implements Initializable {
 			if (event.isControlDown() && event.getCode() == KeyCode.N) {
 					if (selection.correctPos()) {
 						{
-
-							Cube c = new Cube(tmp.getColor(), tmp.getWidth(), tmp.getHeight(), tmp.getDepth());
-							c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
-								//verifie si la selection n'est pas en collision et si elle n'est pas en vol et affiche les messages d'erreur si c'est le cas
-								if (selection.correctPos()) {
-									if (!e.isShiftDown())
-										selection.clear();
-									selection.add((Cube) e.getSource());
-								}
-							});
-							selection.clear();
-							selection.add(c);
-							group.getChildren().add(c);
-							c.moveToOrigin();
-							save.newCube(c);
+							try {
+								Cube c = new Cube(tmp.getColor(), tmp.getWidth(), tmp.getHeight(), tmp.getDepth());
+								c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+									//verifie si la selection n'est pas en collision et si elle n'est pas en vol et affiche les messages d'erreur si c'est le cas
+									if (selection.correctPos()) {
+										if (!e.isShiftDown())
+											selection.clear();
+										selection.add((Cube) e.getSource());
+									}
+								});
+								selection.clear();
+								selection.add(c);
+								group.getChildren().add(c);
+								c.moveToOrigin();
+								save.newCube(c);
+							}
+							catch(Exception e){
+								Alert alert = new Alert(Alert.AlertType.INFORMATION);
+								alert.setHeaderText("Aucun Cube n'a été créé");
+								alert.setContentText("Veuillez appuyer sur le bouton \"creation de la piece\" avant d'appuyer sur CTRL+N");
+								alert.showAndWait();
+							}
 						}
-						save.saveMoves(event);
+							save.saveMoves(event);
+
 					}
 
 			}
@@ -351,9 +363,8 @@ public class Test extends Application implements Initializable {
 						construction.get(i).getTransforms().addAll(t);
 					}
 
-				} catch (IOException e) {
-
-					e.printStackTrace();
+				} catch (Exception e) {
+//					e.printStackTrace();
 				}
 
 			}
@@ -490,9 +501,9 @@ public class Test extends Application implements Initializable {
 
 	}
 
-	public void sendEmail(ActionEvent actionEvent) {
-		String to = email_value.getText();
-		SendEmail.sendFileEmail(to);
+	public void sendEmail(ActionEvent actionEvent){
+			String to = email_value.getText();
+			SendEmail.sendFileEmail(to);
 	}
 }
 
