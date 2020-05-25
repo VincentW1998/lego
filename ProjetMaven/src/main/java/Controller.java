@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Alert;
 
 import javax.swing.*;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -101,12 +102,21 @@ public class Controller {
     @FXML
     public void creationBrochure(ActionEvent actionEvent) {
         graphAlgo();
+        CreateBrochure();
     }
 
     @FXML
     public void sendEmail(ActionEvent actionEvent){
         String to = email_value.getText();
-        SendEmail.sendFileEmail(to);
+        File tmp = new File("src/main/resources/Brochures/brochure.pdf");
+        if(!tmp.exists()) {
+            graphAlgo();
+            CreateBrochure();
+        }
+        if(!SendEmail.mailChecker(to))
+            displayAlert("Email incorect","Veuillez inserer un mail correct");
+        else
+            SendEmail.sendFileEmail(to);
     }
     @FXML
     public void Exporter(ActionEvent actionEvent) {
