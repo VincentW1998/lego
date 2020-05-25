@@ -218,28 +218,28 @@ public class SelectionModel {
 
 					case W:
 						remote(save);
-						this.S(false);
+						this.S(true);
 						break;
 					case S:
 						remote(save);
-						this.W(false);
+						this.W(true);
 						break;
 					case A:
 						remote(save);
-						this.D(false);
+						this.D(true);
 						break;
 					case D:
 
 						remote(save);
-						this.A(false);
+						this.A(true);
 						break;
 					case Z:
 						remote(save);
-						this.X(false);
+						this.X(true);
 						break;
 					case X:
 						remote(save);
-						this.Z(false);
+						this.Z(true);
 						break;
 					case Q:
 						remote(save);
