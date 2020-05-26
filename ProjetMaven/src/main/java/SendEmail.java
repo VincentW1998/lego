@@ -9,6 +9,12 @@ import javax.activation.*;
 
 public class SendEmail {
 
+    public static boolean mailChecker(String mail){ //verifie que le texte donnee est bien un email
+        if(mail.contains("@") && mail.contains(".") && mail.indexOf('@')< mail.lastIndexOf('.'))
+            return true;
+        return false;
+    }
+
     public static void sendFileEmail(String to) {
 
         // Recipient's email ID needs to be mentioned.

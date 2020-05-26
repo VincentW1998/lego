@@ -34,5 +34,21 @@ public class Exporter {
         fw.write(construction.toString());
         fw.close();
     }
+    private static void configureFileSave(final FileChooser fileChooser) {
+        fileChooser.setTitle("Save");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
+    }
+
+    public static void export(Model model){
+        configureFileSave(model.fileChooser);
+        File file = model.fileChooser.showSaveDialog(model.primaryStage);
+        try {
+            Exporter.saveToFile(model.group, file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
 }

@@ -1,4 +1,8 @@
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
+import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,4 +44,44 @@ public class Importer {
             return null;
         }
     }
+    private static void configureFileChooser(final FileChooser fileChooser) {
+        fileChooser.setTitle("Import");
+        fileChooser.setInitialDirectory(new File("src/main/resources/Data/")
+        );
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("fichier json", "*.json"));
+    }
+
+    public static void importe(Model model){
+        configureFileChooser(model.fileChooser);
+
+        File file = model.fileChooser.showOpenDialog(model.primaryStage);
+        if (file != null) {
+            model.group.getChildren().clear();
+            model.group.getChildren().add(model.sol);
+        }
+        try {
+            LinkedList<Cube> construction = Importer.loadFrom(file);
+
+            for (int i = 0; i < construction.size(); i++) {
+                Rotate r;
+                Transform t = new Rotate();
+                construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                    if (!e.isShiftDown())
+                        model.selection.clear();
+                    model.selection.add((Cube) e.getSource());
+                });
+                model.group.getChildren().add(construction.get(i));
+                construction.get(i).translateXProperty().set(construction.get(i).x);
+                construction.get(i).translateYProperty().set(construction.get(i).y);
+                construction.get(i).translateZProperty().set(construction.get(i).z);
+                r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
+                t = t.createConcatenation(r);
+                construction.get(i).getTransforms().addAll(t);
+            }
+
+        } catch (Exception e) {
+//					e.printStackTrace();
+        }
+    }
+
 }
