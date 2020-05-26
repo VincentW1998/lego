@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="598.0" prefWidth="310.0" style="-fx-background-color: #484b49;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="642.0" prefWidth="312.0" style="-fx-background-color: #484b49;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane prefHeight="176.0" prefWidth="310.0" style="-fx-border-color: black; -fx-background-color: #484b49;">
          <children>
@@ -40,7 +40,7 @@
             <CheckBox fx:id="mute_value" layoutX="178.0" layoutY="137.0" mnemonicParsing="false" onAction="#handleMuteBox" text="Mute Sound" textFill="WHITE" />
          </children>
       </AnchorPane>
-      <AnchorPane layoutY="398.0" prefHeight="200.0" prefWidth="310.0" style="-fx-border-color: black; -fx-background-color: #484b49;">
+      <AnchorPane layoutY="435.0" prefHeight="207.0" prefWidth="310.0" style="-fx-border-color: black; -fx-background-color: #484b49;">
          <children>
             <Button layoutX="166.0" layoutY="18.0" mnemonicParsing="false" onAction="#creationBrochure" prefHeight="50.0" prefWidth="130.0" style="-fx-background-color: #F5FFFA;" text="Brochure" textAlignment="CENTER">
                <font>
@@ -64,5 +64,6 @@
       <TextField fx:id="length_value" layoutX="53.0" layoutY="188.0" prefHeight="32.0" prefWidth="204.0" promptText="Length" />
       <TextField fx:id="width_value" layoutX="53.0" layoutY="234.0" prefHeight="32.0" prefWidth="204.0" promptText="Width" />
       <TextField fx:id="height_value" layoutX="53.0" layoutY="275.0" prefHeight="32.0" prefWidth="204.0" promptText="Height" />
+      <Button layoutX="61.0" layoutY="396.0" mnemonicParsing="false" onAction="#reset" prefHeight="27.0" prefWidth="188.0" text="Reinitialisé" />
    </children>
 </AnchorPane>
