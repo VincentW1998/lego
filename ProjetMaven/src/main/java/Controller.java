@@ -38,6 +38,7 @@ public class Controller {
    private final DoubleProperty angleX;
    private final DoubleProperty angleY;
    private Alert alert;
+   static int nbcube;
 
     @FXML
     public TextField email_value;
@@ -89,6 +90,7 @@ public class Controller {
 
     @FXML
     public void createCube() {
+        nbcube++;
         cubeCreation(null);
     }
 
@@ -120,9 +122,11 @@ public class Controller {
     }
     @FXML
     public void Exporter(ActionEvent actionEvent) {
+        Exporter.export((model));
     }
     @FXML
     public void Importer(ActionEvent actionEvent) {
+        Importer.importe(model);
     }
 
     public void displayAlert(String header, String content){//cree une alert personalise et l'affiche
@@ -130,6 +134,13 @@ public class Controller {
         if(content!=null)
             alert.setContentText(content);
         alert.showAndWait();
+    }
+    @FXML
+    public void reset(ActionEvent actionEvent){
+        for(int j =0;j< nbcube;j++)
+        for(int i = 1;i<model.group.getChildren().size();i++){
+            model.group.getChildren().remove(model.group.getChildren().get(i));
+        }
     }
 
 
