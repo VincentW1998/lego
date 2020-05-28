@@ -133,10 +133,18 @@ public class Controller {
     }
     @FXML
     public void reset(ActionEvent actionEvent){
-        for(int j =0;j< model.group.getChildren().size();j++)
-        for(int i = 1;i<model.group.getChildren().size();i++){
-            model.group.getChildren().remove(model.group.getChildren().get(i));
+        model.selection.clear();
+        Cube tmp;
+        for(int i = 1;i < model.group.getChildren().size();i++){
+            tmp = (Cube)model.group.getChildren().get(i);
+            model.selection.add(tmp);
+            tmp.setDrawMode(DrawMode.FILL);
         }
+        model.save.saveRemote(model.selection.copy());
+        model.selection.clear();
+        KeyEvent k = new KeyEvent(model.primaryStage, null, KeyEvent.KEY_PRESSED, "BACK_SPACE","", KeyCode.BACK_SPACE,false,false,false,false);
+        model.save.saveMoves(k);
+        model.group.getChildren().remove(1,model.group.getChildren().size());
     }
 
 
