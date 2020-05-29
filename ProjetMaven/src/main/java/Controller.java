@@ -329,18 +329,23 @@ public class Controller {
     }
 
     public void CreateBrochure(){
-        if(model.selection.PartiesSelection.size() != 0)
-            Brochure.creationBrochure(model.scene, model.group, model.selection);
-        else {
-            for (int i = 0 ; i < model.graphConstruction.noeuds.length; i ++) {
-                model.selection.add(model.graphConstruction.noeuds[i].c);
+        try {
+            if (model.selection.PartiesSelection.size() != 0)
+                Brochure.creationBrochure(model.scene, model.group, model.selection);
+            else {
+                for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
+                    model.selection.add(model.graphConstruction.noeuds[i].c);
+                }
+                SelectionModel tmp = model.selection.copy();
+                //vide le groupe en laissant le sol
+                while (model.group.getChildren().size() > 1) {
+                    model.group.getChildren().remove(1);
+                }
+                Brochure.creationBrochureAlgo(tmp);
             }
-            SelectionModel tmp = model.selection.copy();
-            //vide le groupe en laissant le sol
-            while(model.group.getChildren().size() > 1) {
-                model.group.getChildren().remove(1);
-            }
-            Brochure.creationBrochureAlgo(tmp);
+        }
+        catch(Exception e){
+            System.out.println("CreateBrochure Error");
         }
     }
 
