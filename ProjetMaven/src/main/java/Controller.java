@@ -403,6 +403,7 @@ public class Controller {
             loader.setController(c);
             AnchorPane Apane= loader.load();
             Scene secondScene = new Scene(Apane);
+            model.secondStage.setResizable(false); // Ne permet pas de redimensionner la telecommande
             model.secondStage.setScene(secondScene);
             model.secondStage.setTitle("Lego");
             model.secondStage.show();
