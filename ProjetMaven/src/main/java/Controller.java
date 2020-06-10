@@ -147,7 +147,7 @@ public class Controller {
         model.group.getChildren().remove(1,model.group.getChildren().size());
     }
 
-
+    // Commandes pour l'editeur
     public void addKeyboardControls(){
         model.primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (!event.isControlDown()) {
@@ -238,7 +238,7 @@ public class Controller {
                     case U://creer la brochure
                         CreateBrochure();
                         break;
-                    case Y:
+                    case Y: // Appelle la telecommande
                         callTelecommande(this);
                         break;
 
@@ -394,7 +394,7 @@ public class Controller {
 
 
 
-    //*********CONTROLLER FOR TELECOMMANDE********
+    // Fait apparaitre la telecommande
     public void callTelecommande(Controller c){
 
         try{

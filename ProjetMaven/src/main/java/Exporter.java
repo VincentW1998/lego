@@ -10,6 +10,7 @@ import java.util.LinkedList;
 
 public class Exporter {
 
+    // Fonction qui exporte la construction dans un fichier .JSON
     public static void saveToFile(Group group, File f) throws IOException {
         FileWriter fw = new FileWriter(f);
         JSONArray construction = new JSONArray();

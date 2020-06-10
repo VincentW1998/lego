@@ -123,6 +123,7 @@ public class Brochure {
         }
     }
 
+    // fonction qui creer un pdf à partir des images png obtenu grace au decoupage manuel
     public static void imagesToPdfManuel() {
         Document document = new Document(PageSize.A4);
 
