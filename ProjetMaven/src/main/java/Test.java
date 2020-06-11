@@ -29,6 +29,8 @@ public class Test extends Application implements Initializable {
 
 		primaryStage.setTitle("Editeur LEGO"); // frame
 		primaryStage.setScene(model.scene);
+		primaryStage.setX(50);
+//		primaryStage.setY(150);
 		primaryStage.show();
 
 		model.setup();
@@ -38,7 +40,7 @@ public class Test extends Application implements Initializable {
 
 		controller.addKeyboardControls();
 		controller.initMouseControl();
-		controller.callTelecommande(controller);
+		controller.callTelecommande(controller, primaryStage.getX() + primaryStage.getWidth());
 	}
 
 	@Override
