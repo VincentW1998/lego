@@ -239,7 +239,9 @@ public class Controller {
                         CreateBrochure();
                         break;
                     case Y: // Appelle la telecommande
-                        callTelecommande(this, model.primaryStage.getWidth() + model.primaryStage.getX());
+                        double w = model.primaryStage.getWidth() + model.primaryStage.getX();
+                        double h = model.primaryStage.getY();
+                        callTelecommande(this, w, h);
                         break;
 
                 }
@@ -395,7 +397,7 @@ public class Controller {
 
 
     // Fait apparaitre la telecommande
-    public void callTelecommande(Controller c, double d){
+    public void callTelecommande(Controller c, double d, double h){
 
         try{
             FXMLLoader loader = new FXMLLoader();
@@ -405,7 +407,9 @@ public class Controller {
             Scene secondScene = new Scene(Apane);
             model.secondStage.setResizable(false); // Ne permet pas de redimensionner la telecommande
             System.out.println(d);
+            System.out.println(h);
             model.secondStage.setX(d); // a revoir !!!!!
+            model.secondStage.setY(h);
             model.secondStage.setScene(secondScene);
             model.secondStage.setTitle("Lego");
             model.secondStage.show();
