@@ -24,13 +24,13 @@ public class Unionfind {
     public int find(int p) {
 
         // trouve la racine de p
-        int root = getCube(p).getId();
-        while (root != getCube(root).getId()) root = getCube(root).getId();
+        int root = p;
+        while (root != getCube(root).getRootid()) root = getCube(root).getRootid();
 
         // Compresse le chemin qui nous mene a la racine
         // cette opération est le "path compression"
         while (p != root) {
-            int next = getCube(p).getId();
+            int next = getCube(p).getRootid();
             getCube(p).setRootid(root);
             p = next;
         }
