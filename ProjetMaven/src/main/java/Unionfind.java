@@ -11,8 +11,6 @@ public class Unionfind {
     private int numComponents;
 
     public Unionfind(int[] rootab) {
-        if (rootab.length <= 0) throw new IllegalArgumentException("Taille incorrect");
-
         size = numComponents = rootab.length;
         id = new Coordunioncube[size];
 

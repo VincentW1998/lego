@@ -327,8 +327,8 @@ public class Controller {
             rootab[i] = current.getIdentifiant();
         }
         model.graphConstruction = new Graph(model.group.getChildren().size() - 1,rootab); // initialisation du graphe
-        model.graphConstruction.afficherCubes();
         model.graphConstruction.createGraph(model.group); // creation du graphe
+        model.graphConstruction.afficherCubes();
         model.graphConstruction.printGraph(); // affichage du graphe
         model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
         model.graphConstruction.printOrder(); // affiche l'ordre de construction

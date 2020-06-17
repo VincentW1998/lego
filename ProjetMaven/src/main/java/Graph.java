@@ -139,7 +139,7 @@ public class Graph {
 
     public void afficherCubes(){
         for(int i = 0;i<unionfind.getId().length;i++){
-            System.out.println(unionfind.getId()[i].getRootid());
+            System.out.println("cube numeros:"+i+" "+unionfind.getId()[i].getRootid());
         }
     }
 
