@@ -25,12 +25,13 @@ public class Model {
         primaryStage = primaryS;
         secondStage = secondS;
         group = new Group();
+        int [] rootab = new int[group.getChildren().size()];
         scene = new Scene(group, WIDTH, DEPTH, true);
         camera = new PerspectiveCamera(true);
         selection = new SelectionModel(group);
         sol = new Ground(WIDTH, DEPTH);
         save = new Save();
-        graphConstruction = new Graph(0);
+        graphConstruction = new Graph(0,rootab);
         fileChooser = new FileChooser();
         mute = false;
 

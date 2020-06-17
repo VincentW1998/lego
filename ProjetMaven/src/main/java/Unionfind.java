@@ -5,26 +5,20 @@ public class Unionfind {
     // nombre d'élément dans cette UnionFind
     private int size;
 
-    // pointeur vers la taille de chaque élément
-    private int[] sz;
-
     // id[i] pointe vers le parent de i, si id[i] = i alors le i est un noeud racine
-    private int[] id;
+    private Coordunioncube[] id;
 
     private int numComponents;
 
-    public Unionfind() {
+    public Unionfind(int[] rootab) {
+        if (rootab.length <= 0) throw new IllegalArgumentException("Taille incorrect");
 
-        if (model.group.getChildren().size() <= 0) throw new IllegalArgumentException("Taille incorrect");
-
-        size = numComponents = model.group.getChildren().size();
-        sz = new int[size];
-        id = new int[size];
+        size = numComponents = rootab.length;
+        id = new Coordunioncube[size];
 
         for (int i = 0; i < size; i++) {
-            Cube current = (Cube)model.group.getChildren().get(i);
-            id[current.getIdentifiant()] = current.getIdentifiant(); // pointe vers lui même
-            sz[i] = 1; // originellement tout les élément sont de taille 1
+            id[i] = new Coordunioncube(rootab[i],rootab[i]);
+            id[i].sz  = 1; // originellement tout les élément sont de taille 1
         }
     }
 
@@ -32,14 +26,14 @@ public class Unionfind {
     public int find(int p) {
 
         // trouve la racine de p
-        int root = p;
-        while (root != id[root]) root = id[root];
+        int root = getCube(p).getId();
+        while (root != getCube(root).getId()) root = getCube(root).getId();
 
         // Compresse le chemin qui nous mene a la racine
         // cette opération est le "path compression"
         while (p != root) {
-            int next = id[p];
-            id[p] = root;
+            int next = getCube(p).getId();
+            getCube(p).setRootid(root);
             p = next;
         }
 
@@ -59,7 +53,7 @@ public class Unionfind {
 
     // Retourne la taille du groupe de cubes associé à 'p'
     public int componentSize(int p) {
-        return sz[find(p)];
+        return getCube(p).sz;
     }
 
     // Retourne le nombre d'élément dans cette Unionfind
@@ -82,15 +76,24 @@ public class Unionfind {
         if (root1 == root2) return;
 
         // Unifie le plus petit groupe de bloc dans le plus grand
-        if (sz[root1] < sz[root2]) {
-            sz[root2] += sz[root1];
-            id[root1] = root2;
+        if (getCube(root1).sz < getCube(root2).sz) {
+            getCube(root2).sz += getCube(root1).sz;
+            getCube(root1).setRootid(root2);
         } else {
-            sz[root1] += sz[root2];
-            id[root2] = root1;
+            getCube(root1).sz += getCube(root2).sz;
+            getCube(root2).setRootid(root1);
         }
 
         // Comme il y a eu une fusion de deux groupe de cubes le nombre d'élément est donc réduit de 1
         numComponents--;
     }
+
+    public Coordunioncube[] getId(){return id;}
+
+    public Coordunioncube getCube(int p){//renvoie la Coordunioncube ayant pour id 'p' null sinon
+        for(int i = 0;i<id.length;i++)
+            if(id[i].getId() == p)return id[i];
+        return null;
+    }
+
 }

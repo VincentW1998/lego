@@ -8,9 +8,12 @@ public class Graph {
 
     Group group;
 
+    Unionfind unionfind;
+
 
    // initialisation de chaque noeud du graphe
-    public Graph(int l){
+    public Graph(int l,int[] rootab){
+        unionfind = new Unionfind(rootab);
         noeuds = new Node[l];
         for(int i=0;i<l;i++){
             noeuds[i] = new Node();
@@ -48,9 +51,11 @@ public class Graph {
                 Cube tmp = (Cube) group.getChildren().get(i);
                 if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
                     addArretes(c, tmp);
+                    unionfind.unify(c.getIdentifiant(),tmp.getIdentifiant());//on regroupe les bloc de cubes contenant c et tmp
                 }
                 if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
                     addArretesUp(c, tmp);
+                    unionfind.unify(c.getIdentifiant(),tmp.getIdentifiant());//pareil
                 }
             }
         }
@@ -130,6 +135,12 @@ public class Graph {
                 return false;
         }
         return true;
+    }
+
+    public void afficherCubes(){
+        for(int i = 0;i<unionfind.getId().length;i++){
+            System.out.println(unionfind.getId()[i].getRootid());
+        }
     }
 
 }

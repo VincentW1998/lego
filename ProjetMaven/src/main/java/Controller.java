@@ -321,7 +321,13 @@ public class Controller {
 
     public void graphAlgo() {//appel l'algo pour creer une brochure
         model.reordonnerGroup(); // reordonner le groupe
-        model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
+        int[] rootab = new int[model.group.getChildren().size()];
+        for(int i = 0;i<model.group.getChildren().size();i++){
+            Cube current = (Cube)model.group.getChildren().get(i);
+            rootab[i] = current.getIdentifiant();
+        }
+        model.graphConstruction = new Graph(model.group.getChildren().size() - 1,rootab); // initialisation du graphe
+        model.graphConstruction.afficherCubes();
         model.graphConstruction.createGraph(model.group); // creation du graphe
         model.graphConstruction.printGraph(); // affichage du graphe
         model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
