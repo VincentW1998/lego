@@ -31,6 +31,7 @@ public class Test extends Application implements Initializable {
 		primaryStage.setScene(model.scene);
 		primaryStage.setX(50);
 		primaryStage.setY(150);
+//		primaryStage.centerOnScreen();
 		primaryStage.show();
 
 		model.setup();
