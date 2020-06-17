@@ -1,10 +1,11 @@
 import javafx.scene.Group;
 
+import java.util.LinkedList;
+
 
 public class Graph {
 
     Node [] noeuds; // liste des noeud de la construction
-
 
     Group group;
 
@@ -139,8 +140,16 @@ public class Graph {
 
     public void afficherCubes(){
         for(int i = 0;i<unionfind.getId().length;i++){
-            System.out.println("cube numeros:"+i+" "+unionfind.getId()[i].getRootid());
+            System.out.println("cube numeros:"+unionfind.getId()[i].getId()+" "+unionfind.getId()[i].getRootid());
         }
     }
 
+    public void ordre(){
+        LinkedList<Integer> listePivot = new LinkedList<Integer>();
+        for(int i =0;i<unionfind.getId().length;i++)
+            if(!listePivot.contains(unionfind.getId()[i].getRootid()))
+                listePivot.add(unionfind.getId()[i].getRootid());
+            
+
+    }
 }
