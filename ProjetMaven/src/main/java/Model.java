@@ -31,7 +31,7 @@ public class Model {
         selection = new SelectionModel(group);
         sol = new Ground(WIDTH, DEPTH);
         save = new Save();
-        graphConstruction = new Graph(0,rootab);
+        graphConstruction = new Graph(0);
         fileChooser = new FileChooser();
         mute = false;
 
@@ -58,6 +58,16 @@ public class Model {
             tmp = (Cube) group.getChildren().get(i);
             tmp.setId(i - 1);
         }
+    }
+
+    public int[] getTab(){
+        int taille = group.getChildren().size();
+        int[] tab = new int[taille];
+        for(int i = 0;i< taille;i++){
+            Cube curr = (Cube)group.getChildren().get(i);
+            tab[i] = curr.getIdentifiant();
+        }
+        return tab;
     }
 
 

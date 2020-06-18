@@ -199,6 +199,9 @@ public class Controller {
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         break;
+                    case O:
+                        if(model.selection.listeCubeSelectionne.size() == 1)
+                            System.out.println("id : "+model.selection.listeCubeSelectionne.get(0).getIdentifiant());
 
                     //Camera
                     case UP:
@@ -321,12 +324,7 @@ public class Controller {
 
     public void graphAlgo() {//appel l'algo pour creer une brochure
         model.reordonnerGroup(); // reordonner le groupe
-        int[] rootab = new int[model.group.getChildren().size()];
-        for(int i = 0;i<model.group.getChildren().size();i++){
-            Cube current = (Cube)model.group.getChildren().get(i);
-            rootab[i] = current.getIdentifiant();
-        }
-        model.graphConstruction = new Graph(model.group.getChildren().size() - 1,rootab); // initialisation du graphe
+        model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
         model.graphConstruction.createGraph(model.group); // creation du graphe
         model.graphConstruction.afficherCubes();
         model.graphConstruction.printGraph(); // affichage du graphe

@@ -10,7 +10,9 @@ public class Unionfind {
 
     private int numComponents;
 
-    public Unionfind(int[] rootab) {
+    public Unionfind(Model m) {
+        model = m;
+        int [] rootab = model.getTab();
         size = numComponents = rootab.length;
         id = new Coordunioncube[size];
 

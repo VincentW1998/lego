@@ -13,8 +13,8 @@ public class Graph {
 
 
    // initialisation de chaque noeud du graphe
-    public Graph(int l,int[] rootab){
-        unionfind = new Unionfind(rootab);
+    public Graph(int l){
+        unionfind = new Unionfind();
         noeuds = new Node[l];
         for(int i=0;i<l;i++){
             noeuds[i] = new Node();
