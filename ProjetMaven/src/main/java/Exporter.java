@@ -13,6 +13,9 @@ public class Exporter {
     public static void saveToFile(Group group, File f) throws IOException {
         FileWriter fw = new FileWriter(f);
         JSONArray construction = new JSONArray();
+        JSONObject maxVals = new JSONObject();
+        maxVals.put("MaxSNB",Cube.numeroCube);
+        construction.put(maxVals);
         for (int i = 1; i < group.getChildren().size(); i++){
             Cube cube = (Cube) group.getChildren().get(i);
             JSONObject json = new JSONObject();
@@ -32,9 +35,6 @@ public class Exporter {
             json.put("angle", cube.angle);
             construction.put(json);
         }
-        JSONObject maxVals = new JSONObject();
-        maxVals.put("MaxSNB",Cube.numeroCube);
-        construction.put(maxVals);
         fw.write(construction.toString());
         fw.close();
     }
