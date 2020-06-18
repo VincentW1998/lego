@@ -60,16 +60,6 @@ public class Model {
         }
     }
 
-    public int[] getTab(){
-        int taille = group.getChildren().size();
-        int[] tab = new int[taille];
-        for(int i = 0;i< taille;i++){
-            Cube curr = (Cube)group.getChildren().get(i);
-            tab[i] = curr.getIdentifiant();
-        }
-        return tab;
-    }
-
 
 
 

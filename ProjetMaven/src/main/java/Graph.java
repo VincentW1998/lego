@@ -14,7 +14,6 @@ public class Graph {
 
    // initialisation de chaque noeud du graphe
     public Graph(int l){
-        unionfind = new Unionfind();
         noeuds = new Node[l];
         for(int i=0;i<l;i++){
             noeuds[i] = new Node();
@@ -36,6 +35,7 @@ public class Graph {
     // creer le graphe
     public void createGraph(Group group){
         this.group = group;
+        unionfind = new Unionfind(group);
         Cube tmp;
         for (int i = 1; i < group.getChildren().size(); i ++){
             tmp = (Cube) group.getChildren().get(i);

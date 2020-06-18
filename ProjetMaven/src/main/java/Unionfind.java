@@ -1,6 +1,8 @@
+import javafx.scene.Group;
+
 public class Unionfind {
     //model
-    private Model model;
+    private Group groupe;
 
     // nombre d'élément dans cette UnionFind
     private int size;
@@ -10,9 +12,13 @@ public class Unionfind {
 
     private int numComponents;
 
-    public Unionfind(Model m) {
-        model = m;
-        int [] rootab = model.getTab();
+    public Unionfind(Group group) {
+        groupe = group;
+        int[] rootab = new int[groupe.getChildren().size()-1];
+        for(int i = 1;i<rootab.length;i++){
+            Cube current = (Cube)groupe.getChildren().get(i);
+            rootab[i] = current.getIdentifiant();
+        }
         size = numComponents = rootab.length;
         id = new Coordunioncube[size];
 
@@ -27,8 +33,9 @@ public class Unionfind {
 
         // trouve la racine de p
         int root = p;
-        while (root != getCube(root).getRootid()) root = getCube(root).getRootid();
-
+        while (root != getCube(root).getRootid()) {
+            root = getCube(root).getRootid();
+        }
         // Compresse le chemin qui nous mene a la racine
         // cette opération est le "path compression"
         while (p != root) {
