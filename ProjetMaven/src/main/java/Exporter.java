@@ -18,6 +18,7 @@ public class Exporter {
             JSONObject json = new JSONObject();
             JSONObject color = new JSONObject();
             json.put("id",cube.getIdentifiant());
+            json.put("SerialNB",cube.SerialNb);
             color.put("red", cube.getColor().getRed()*255);
             color.put("green", cube.getColor().getGreen()*255);
             color.put("blue", cube.getColor().getBlue()*255);
@@ -31,6 +32,9 @@ public class Exporter {
             json.put("angle", cube.angle);
             construction.put(json);
         }
+        JSONObject maxVals = new JSONObject();
+        maxVals.put("MaxSNB",Cube.numeroCube);
+        construction.put(maxVals);
         fw.write(construction.toString());
         fw.close();
     }

@@ -22,7 +22,8 @@
                 <Menu mnemonicParsing="false" text="File">
                   <items>
                     <MenuItem mnemonicParsing="false" onAction="#Exporter" text="Sauvegarder" />
-                        <MenuItem mnemonicParsing="false" onAction="#Importer" text="Importer" />
+                      <MenuItem mnemonicParsing="false" onAction="#Importer" text="Importer" />
+                        <MenuItem mnemonicParsing="false" onAction="#reset" text="Nouveau" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
@@ -64,9 +65,5 @@
       <TextField fx:id="length_value" layoutX="53.0" layoutY="188.0" prefHeight="32.0" prefWidth="204.0" promptText="Length" />
       <TextField fx:id="width_value" layoutX="53.0" layoutY="234.0" prefHeight="32.0" prefWidth="204.0" promptText="Width" />
       <TextField fx:id="height_value" layoutX="53.0" layoutY="275.0" prefHeight="32.0" prefWidth="204.0" promptText="Height" />
-      <Button layoutX="75.0" layoutY="386.0" mnemonicParsing="false" onAction="#reset" prefHeight="32.0" prefWidth="160.0" text="RESET">
-         <font>
-            <Font name="System Bold" size="13.0" />
-         </font></Button>
    </children>
 </AnchorPane>

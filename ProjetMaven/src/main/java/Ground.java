@@ -7,6 +7,6 @@ import javafx.scene.shape.DrawMode;
 public class Ground extends Cube{
 	public Ground(int w, int d) {
 		super(Color.rgb(200, 200, 200, 0.2),w,0.01,d);
-		
+		Cube.setId(this,-1);
 	}
 }
