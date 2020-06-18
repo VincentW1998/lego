@@ -144,12 +144,13 @@ public class Graph {
         }
     }
 
-    public void ordre(){
+    public LinkedList getListe(){
         LinkedList<Integer> listePivot = new LinkedList<Integer>();
         for(int i =0;i<unionfind.getId().length;i++)
             if(!listePivot.contains(unionfind.getId()[i].getRootid()))
                 listePivot.add(unionfind.getId()[i].getRootid());
             
-
+        return listePivot;
     }
+
 }
