@@ -23,7 +23,7 @@ public class Unionfind {
         id = new Coordunioncube[size];
 
         for (int i = 0; i < size; i++) {
-            id[i] = new Coordunioncube(rootab[i],rootab[i]);
+            id[i] = new Coordunioncube(rootab[i]);
             id[i].sz  = 1; // originellement tout les élément sont de taille 1
         }
     }

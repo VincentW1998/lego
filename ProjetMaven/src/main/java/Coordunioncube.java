@@ -3,9 +3,9 @@ public class Coordunioncube {
     private int rootid;
     public int sz;
 
-    public Coordunioncube(int id, int rootid){
+    public Coordunioncube(int id){
         this.id= id;
-        this.rootid = rootid ;
+        this.rootid = id ;
     }
 
     public int getId(){return id;}
