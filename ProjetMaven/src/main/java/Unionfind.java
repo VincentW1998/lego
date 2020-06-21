@@ -1,7 +1,13 @@
 import javafx.scene.Group;
 
+import java.util.LinkedList;
+
 public class Unionfind {
+
     //model
+    private Model model;
+
+    //groupe
     private Group groupe;
 
     // nombre d'élément dans cette UnionFind
@@ -12,8 +18,9 @@ public class Unionfind {
 
     private int numComponents;
 
-    public Unionfind(Group group) {
+    public Unionfind(Group group,Model model) {
         groupe = group;
+        this.model = model;
         int[] rootab = new int[groupe.getChildren().size()-1];
         for(int i = 1;i<groupe.getChildren().size();i++){
             Cube current = (Cube)groupe.getChildren().get(i);
@@ -101,6 +108,26 @@ public class Unionfind {
         for(int i = 0;i<id.length;i++)
             if(id[i].getId() == p)return id[i];
         return null;
+    }
+
+    public LinkedList getListe(){
+        LinkedList<Integer> listePivot = new LinkedList<Integer>();
+        for(int i =0;i<id.length;i++)
+            if(!listePivot.contains(id[i].getRootid()))
+                listePivot.add(id[i].getRootid());
+
+        return listePivot;
+    }
+
+    public void setPartie(){
+        LinkedList<Integer> liste = getListe();
+        for(int i =0;i<liste.size();i++){
+            LinkedList<Node> listnode = new LinkedList<Node>();
+            for(int j =0;j<id.length;j++)
+                if(id[j].getRootid() == liste.get(i))
+                    listnode.add(model.graphConstruction.noeuds[id[j].getId()]);
+            model.selection.Parties.add(listnode);
+        }
     }
 
 }

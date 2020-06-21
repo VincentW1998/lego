@@ -33,17 +33,17 @@ public class Graph {
    }
 
     // creer le graphe
-    public void createGraph(Group group){
+    public void createGraph(Group group,Model model){
         this.group = group;
-        unionfind = new Unionfind(group);
+        unionfind = new Unionfind(group,model);
         Cube tmp;
         for (int i = 1; i < group.getChildren().size(); i ++){
             tmp = (Cube) group.getChildren().get(i);
             add(tmp);
             attachedTo(tmp);
         }
+        unionfind.setPartie();
     }
-
 
 
     public void attachedTo(Cube c){ // ajoute les cubes dans les arretes && arretesUP
@@ -142,15 +142,6 @@ public class Graph {
         for(int i = 0;i<unionfind.getId().length;i++){
             System.out.println("cube numeros:"+unionfind.getId()[i].getId()+" "+unionfind.getId()[i].getRootid());
         }
-    }
-
-    public LinkedList getListe(){
-        LinkedList<Integer> listePivot = new LinkedList<Integer>();
-        for(int i =0;i<unionfind.getId().length;i++)
-            if(!listePivot.contains(unionfind.getId()[i].getRootid()))
-                listePivot.add(unionfind.getId()[i].getRootid());
-            
-        return listePivot;
     }
 
 }
