@@ -15,9 +15,9 @@ public class Unionfind {
     public Unionfind(Group group) {
         groupe = group;
         int[] rootab = new int[groupe.getChildren().size()-1];
-        for(int i = 1;i<rootab.length;i++){
+        for(int i = 1;i<groupe.getChildren().size();i++){
             Cube current = (Cube)groupe.getChildren().get(i);
-            rootab[i] = current.getIdentifiant();
+            rootab[i-1] = current.getIdentifiant();
         }
         size = numComponents = rootab.length;
         id = new Coordunioncube[size];
