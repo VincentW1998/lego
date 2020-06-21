@@ -5,8 +5,9 @@ import javafx.scene.shape.Box;
 
 public class Cube extends Box{
 	Color color;
-	static int numeroCube = -2;
+	static int numeroCube = -1;
 	private int identifiant;
+	int SerialNb;
 	double x;
 	double y;
 	double z;
@@ -14,25 +15,13 @@ public class Cube extends Box{
 	Color [] colorRange = {Color.BLACK,Color.YELLOW,Color.ORANGE,Color.RED,Color.PINK,Color.PURPLE,
 			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
 
-	public void setId(int id){
-		this.identifiant = id;
-		
-	}
-
-	public int getIdentifiant() {
-		return identifiant;
-	}
-
-	public void setRange(int x){
-		setColor(colorRange[x]);
-	}
 
 	public Cube(Color c, double w, double h, double d) {
 		super(w,h,d);
 		color = c;
 		setMaterial(new PhongMaterial(c));
 		numeroCube++;
-		identifiant = numeroCube;
+		SerialNb = numeroCube;
 	}
 
 	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z, double a){
@@ -47,7 +36,25 @@ public class Cube extends Box{
 	}
 
 
-	
+	public static void setId(Cube c, int id){
+		c.identifiant = id;
+
+	}
+
+	public Cube copy(){
+		Cube c =  new Cube(this.color,this.getWidth(),this.getHeight(),this.getDepth(),this.identifiant,this.getTranslateX(),this.getTranslateY(),this.getTranslateZ(),this.angle);
+		c.SerialNb = this.SerialNb;
+		return c;
+	}
+	public int getIdentifiant() {
+		return identifiant;
+	}
+
+	public void setRange(int x){
+		setColor(colorRange[x]);
+	}
+
+
 	public void addRandomColor() {
 		Random rand = new Random();
 		setColor(Color.rgb(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
@@ -105,6 +112,11 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		return false;
 	}
 
+	public void updateLoc(){ //actualise les valeurs x,y,z
+		x = this.getTranslateX();
+		y = this.getTranslateY();
+		z = this.getTranslateZ();
+	}
 
 	//deplace le cube vers le point d'origine de la scene
 	public void moveToOrigin(){
