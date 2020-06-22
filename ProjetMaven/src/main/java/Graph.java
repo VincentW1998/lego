@@ -146,12 +146,19 @@ public class Graph {
     }
 
     public void makeUnionfindId(){
+        boolean found = false;
+
         for(int i = 1; i < group.getChildren().size(); i ++){
             Cube tmp = (Cube) group.getChildren().get(i);
             for(int j = 1;j< group.getChildren().size();j++) {
                 Cube tmpb = (Cube)group.getChildren().get(j);
                 if (!tmp.equals(tmpb) && tmpb.checkPos(tmp)) { // checkPos == true if tmp est en dessous de tmpb
                     unionfind.unify(tmpb.getIdentifiant(), tmp.getIdentifiant());//on regroupe les bloc de cubes contenant tmpb et tmp
+                    found  = true;
+                }
+                if(found){
+                    found = false;
+                    break;
                 }
             }
         }
