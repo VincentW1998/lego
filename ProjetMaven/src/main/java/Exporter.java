@@ -40,6 +40,7 @@ public class Exporter {
     }
     private static void configureFileSave(final FileChooser fileChooser) {
         fileChooser.setTitle("Save");
+        fileChooser.setInitialDirectory(new File("src/main/resources/Data/"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
     }
 

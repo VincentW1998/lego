@@ -344,7 +344,7 @@ public class Controller {
     public void CreateBrochure(){
         try {
             if (model.selection.PartiesSelection.size() != 0)
-                Brochure.creationBrochure(model.scene, model.group, model.selection);
+                Brochure.creationBrochure(model);
             else {
                 for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
                     model.selection.add(model.graphConstruction.noeuds[i].c);
@@ -354,7 +354,7 @@ public class Controller {
                 while (model.group.getChildren().size() > 1) {
                     model.group.getChildren().remove(1);
                 }
-                Brochure.creationBrochureAlgo(tmp);
+                Brochure.creationBrochureAlgo(tmp,model);
             }
         }
         catch(Exception e){
