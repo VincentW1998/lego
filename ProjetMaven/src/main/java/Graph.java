@@ -43,9 +43,15 @@ public class Graph {
         }
     }
 
-    public void initUnionfind(Model model){
+    public void createGraphUF(Group group, Model model){
+        this.group = group;
         unionfind = new Unionfind(group,model);
-        makeUnionfindId();
+        Cube tmp;
+        for (int i = 1; i < group.getChildren().size(); i ++){
+            tmp = (Cube) group.getChildren().get(i);
+            add(tmp);
+            attachedTo(tmp);
+        }
         unionfind.setPartie();
     }
 
@@ -143,7 +149,7 @@ public class Graph {
         for(int i = 1; i < group.getChildren().size(); i ++){
             Cube tmp = (Cube) group.getChildren().get(i);
             for(int j = 1;j< group.getChildren().size();j++) {
-                Cube tmpb = (Cube)group.getChildren().get(i);
+                Cube tmpb = (Cube)group.getChildren().get(j);
                 if (!tmp.equals(tmpb) && tmpb.checkPos(tmp)) { // checkPos == true if tmp est en dessous de tmpb
                     unionfind.unify(tmpb.getIdentifiant(), tmp.getIdentifiant());//on regroupe les bloc de cubes contenant tmpb et tmp
                 }
@@ -153,7 +159,7 @@ public class Graph {
 
     public void afficherCubes(){
         for(int i = 0;i<unionfind.getId().length;i++){
-            System.out.println("cube numeros:"+unionfind.getId()[i].getId()+" "+unionfind.getId()[i].getRootid());
+            System.out.println("id cube: "+unionfind.getId()[i].getId()+"  id root: "+unionfind.getId()[i].getRootid());
         }
     }
 
