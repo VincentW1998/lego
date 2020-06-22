@@ -364,7 +364,7 @@ public class Controller {
             model.selection.clear();
         }
         catch(Exception e){
-            System.out.println("CreateBrochure Error");
+//            System.out.println("CreateBrochure Error");
         }
     }
 

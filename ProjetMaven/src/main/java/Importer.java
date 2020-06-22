@@ -113,12 +113,13 @@ public class Importer {
                     model.selection.add((Cube) e.getSource());
                 });
                 model.group.getChildren().add(construction.get(i));
-                construction.get(i).translateXProperty().set(construction.get(i).x);
-                construction.get(i).translateYProperty().set(construction.get(i).y);
-                construction.get(i).translateZProperty().set(construction.get(i).z);
-                r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
-                t = t.createConcatenation(r);
-                construction.get(i).getTransforms().addAll(t);
+                Cube.moveToLoc(construction.get(i));
+//                construction.get(i).translateXProperty().set(construction.get(i).x);
+//                construction.get(i).translateYProperty().set(construction.get(i).y);
+//                construction.get(i).translateZProperty().set(construction.get(i).z);
+//                r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
+//                t = t.createConcatenation(r);
+//                construction.get(i).getTransforms().addAll(t);
             }
 
         } catch (Exception e) {
