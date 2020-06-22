@@ -2,6 +2,10 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.DrawMode;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Transform;
+import org.w3c.dom.ranges.DocumentRange;
 
 public class Cube extends Box{
 	Color color;
@@ -126,6 +130,17 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		this.translateXProperty().set(w);
 		this.translateYProperty().set(-h);
 		this.translateZProperty().set(d);
+	}
+
+	public static void moveToLoc(Cube c){
+		c.translateXProperty().set(c.x);
+		c.translateYProperty().set(c.y);
+		c.translateZProperty().set(c.z);
+		Rotate r = new Rotate(c.angle, Rotate.Y_AXIS);
+		Transform t = new Rotate();
+		t = t.createConcatenation(r);
+		c.getTransforms().addAll(t);
+		c.setDrawMode(DrawMode.FILL);
 	}
 
 

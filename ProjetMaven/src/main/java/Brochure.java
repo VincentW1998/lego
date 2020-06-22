@@ -5,6 +5,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.DrawMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -52,7 +53,7 @@ public class Brochure {
         }
         while(model.group.getChildren().size() > 1)
             model.group.getChildren().remove(1);
-        imagesToPdfManuel();
+        imagesToPdfManuel(model);
     }
 
 
@@ -62,7 +63,14 @@ public class Brochure {
         for(int i = 0; i < selection.listeCubeSelectionne.size(); i++){
             // on ajoute chaque cube de la selection dans le groupe
             selection.group.getChildren().add(selection.listeCubeSelectionne.get(i));
-            selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+
+//            selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+            Cube.moveToLoc((Cube) selection.group.getChildren().get(i + 1));
+            selection.group.getChildren().get(i+1).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                if (!e.isShiftDown())
+                    model.selection.clear();
+                model.selection.add((Cube) e.getSource());
+            });
             // on initialise un fichier
             File f = new File("src/main/resources/Brochures/piece.png");
             listeIdentifiant.add(selection.listeCubeSelectionne.get(i).getIdentifiant());
@@ -76,16 +84,16 @@ public class Brochure {
                 System.out.println("error PNG");
             }
         }
-        imagesToPdfAlgo(model.primaryStage); // On transforme la linkedlist de File en un document pdf
+        imagesToPdfAlgo(model); // On transforme la linkedlist de File en un document pdf
     }
 
     // fonction qui permet de creer un document pdf
-    public static void imagesToPdfAlgo(Stage primaryStage) {
+    public static void imagesToPdfAlgo(Model model) {
         Document document = new Document(PageSize.A4);
 
 //       String input = null;
-        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
-//        String output = configurePdfFile(primaryStage);
+//        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
+        String output = configurePdfFile(model.primaryStage);
         try {
             FileOutputStream fos = new FileOutputStream(output);
             PdfWriter writer = PdfWriter.getInstance(document, fos);
@@ -120,16 +128,18 @@ public class Brochure {
             }
             document.close();
             writer.close();
+            model.CurrentBrochure = new File(output);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void imagesToPdfManuel() {
+    public static void imagesToPdfManuel(Model model) {
         Document document = new Document(PageSize.A4);
 
-        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
+//        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
+        String output = configurePdfFile(model.primaryStage);
         try {
             FileOutputStream fos = new FileOutputStream(output);
             PdfWriter writer = PdfWriter.getInstance(document, fos);
@@ -176,6 +186,7 @@ public class Brochure {
             }
             document.close();
             writer.close();
+            model.CurrentBrochure = new File(output);
         }
         catch (Exception e) {
             e.printStackTrace();

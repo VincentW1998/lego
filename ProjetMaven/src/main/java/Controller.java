@@ -112,15 +112,20 @@ public class Controller {
     @FXML
     public void sendEmail(ActionEvent actionEvent){
         String to = email_value.getText();
-        File tmp = new File("src/main/resources/Brochures/brochure.pdf");
-        if(!tmp.exists()) {
-            graphAlgo();
-            CreateBrochure();
+//        File tmp = new File("src/main/resources/Brochures/brochure.pdf");
+//        if(!tmp.exists()) {
+//            graphAlgo();
+//            CreateBrochure();
+//        }
+        if(model.CurrentBrochure == null){
+            displayAlert("Aucune brochure n'a ete creer", "veuillez creer votre brochure");
+            return;
         }
+
         if(!SendEmail.mailChecker(to))
             displayAlert("Email incorect","Veuillez inserer un mail correct");
         else
-            SendEmail.sendFileEmail(to);
+            SendEmail.sendFileEmail(to,model.CurrentBrochure);
     }
     @FXML
     public void Exporter(ActionEvent actionEvent) {
@@ -356,6 +361,7 @@ public class Controller {
                 }
                 Brochure.creationBrochureAlgo(tmp,model);
             }
+            model.selection.clear();
         }
         catch(Exception e){
             System.out.println("CreateBrochure Error");
