@@ -33,18 +33,21 @@ public class Graph {
    }
 
     // creer le graphe
-    public void createGraph(Group group,Model model){
+    public void createGraph(Group group){
         this.group = group;
-        unionfind = new Unionfind(group,model);
         Cube tmp;
         for (int i = 1; i < group.getChildren().size(); i ++){
             tmp = (Cube) group.getChildren().get(i);
             add(tmp);
             attachedTo(tmp);
         }
-        unionfind.setPartie();
     }
 
+    public void initUnionfind(Model model){
+        unionfind = new Unionfind(group,model);
+        makeUnionfindId();
+        unionfind.setPartie();
+    }
 
     public void attachedTo(Cube c){ // ajoute les cubes dans les arretes && arretesUP
         for(int i = 1; i < group.getChildren().size(); i ++){
@@ -52,11 +55,9 @@ public class Graph {
                 Cube tmp = (Cube) group.getChildren().get(i);
                 if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
                     addArretes(c, tmp);
-                    unionfind.unify(c.getIdentifiant(),tmp.getIdentifiant());//on regroupe les bloc de cubes contenant c et tmp
                 }
                 if (!tmp.equals(c) && tmp.checkPos(c)) { // checkPos == true if tmp est au dessus de c
                     addArretesUp(c, tmp);
-                    unionfind.unify(c.getIdentifiant(),tmp.getIdentifiant());//pareil
                 }
             }
         }
@@ -136,6 +137,18 @@ public class Graph {
                 return false;
         }
         return true;
+    }
+
+    public void makeUnionfindId(){
+        for(int i = 1; i < group.getChildren().size(); i ++){
+            Cube tmp = (Cube) group.getChildren().get(i);
+            for(int j = 1;j< group.getChildren().size();j++) {
+                Cube tmpb = (Cube)group.getChildren().get(i);
+                if (!tmp.equals(tmpb) && tmpb.checkPos(tmp)) { // checkPos == true if tmp est en dessous de tmpb
+                    unionfind.unify(tmpb.getIdentifiant(), tmp.getIdentifiant());//on regroupe les bloc de cubes contenant tmpb et tmp
+                }
+            }
+        }
     }
 
     public void afficherCubes(){

@@ -325,7 +325,8 @@ public class Controller {
     public void graphAlgo() {//appel l'algo pour creer une brochure
         model.reordonnerGroup(); // reordonner le groupe
         model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
-        model.graphConstruction.createGraph(model.group,model); // creation du graphe
+        model.graphConstruction.createGraph(model.group); // creation du graphe
+        model.graphConstruction.initUnionfind(model);
         model.graphConstruction.afficherCubes();
         model.graphConstruction.printGraph(); // affichage du graphe
         model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
