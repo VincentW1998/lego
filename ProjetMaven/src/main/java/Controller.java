@@ -72,7 +72,10 @@ public class Controller {
         Color choice = colorPicker.getValue();
         selected_color.setBackground(new Background(new BackgroundFill(Paint.valueOf(choice.toString()), CornerRadii.EMPTY, Insets.EMPTY)));
     }
-
+    @FXML
+    public void Undo(){
+        model.save.undo(model);
+    }
     //
     @FXML
     void newWindow(ActionEvent event) {
@@ -105,12 +108,12 @@ public class Controller {
     @FXML
     public void creationBrochure(ActionEvent actionEvent) {
         try {
-            if(model.group.getChildren().size()==1) {
+            if(model.group.getChildren().size()==1 && model.selection.PartiesSelection.isEmpty()) {
                 displayAlert("Aucun lego creer", "Vous ne pouvez pas creer de brochure sans ajouter de cubes");
                 return;
             }
-            Brochure.clearAll();
-            graphAlgo();
+            if(model.selection.PartiesSelection.isEmpty())
+                graphAlgo();
             CreateBrochure();
         }
         catch(Exception e){
@@ -284,6 +287,9 @@ public class Controller {
                         Exporter.export(model);
                         break;
                     case ENTER:
+                        model.reordonnerGroup(); // reordonner le groupe
+                        model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
+                        model.graphConstruction.createGraph(model.group); // creation du graphe
                         model.selection.separation(model.graphConstruction);
                         break;
                 }
