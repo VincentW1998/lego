@@ -337,7 +337,6 @@ public class Controller {
         model.reordonnerGroup(); // reordonner le groupe
         model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
         model.graphConstruction.createGraphUF(model.group,model); // creation du graphe
-        model.graphConstruction.makeUnionfindId();
         model.graphConstruction.afficherCubes();
         model.graphConstruction.printGraph(); // affichage du graphe
         model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
