@@ -37,6 +37,7 @@ public class Controller {
    private double anchorAngleY = 0;
    private final DoubleProperty angleX;
    private final DoubleProperty angleY;
+   private boolean notYet = true;
    private Alert alert;
 
     @FXML
@@ -75,16 +76,20 @@ public class Controller {
     //
     @FXML
     void newWindow(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hotkeys.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("HotKeys");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            System.out.println("ERROR");
+        if(notYet){
+            notYet = false;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hotkeys.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setTitle("HotKeys");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (Exception e) {
+                System.out.println("ERROR");
+            }
         }
+
     }
 
     @FXML
@@ -162,7 +167,7 @@ public class Controller {
         model.group.getChildren().remove(1,model.group.getChildren().size());
     }
 
-
+    // Commandes pour l'editeur
     public void addKeyboardControls(){
         model.primaryStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (!event.isControlDown()) {
@@ -255,8 +260,10 @@ public class Controller {
                     case U://creer la brochure
                         CreateBrochure();
                         break;
-                    case Y:
-                        callTelecommande(this);
+                    case Y: // Appelle la telecommande
+                        double w = model.primaryStage.getWidth() + model.primaryStage.getX();
+                        double h = model.primaryStage.getY();
+                        callTelecommande(this, w, h);
                         break;
                 }
             }
@@ -418,8 +425,12 @@ public class Controller {
         });
     }
 
-    //*********CONTROLLER FOR TELECOMMANDE********
-    public void callTelecommande(Controller c){
+
+
+
+
+    // Fait apparaitre la telecommande
+    public void callTelecommande(Controller c, double d, double h){
 
         try{
             FXMLLoader loader = new FXMLLoader();
@@ -427,6 +438,9 @@ public class Controller {
             loader.setController(c);
             AnchorPane Apane= loader.load();
             Scene secondScene = new Scene(Apane);
+            model.secondStage.setResizable(false); // Ne permet pas de redimensionner la telecommande
+            model.secondStage.setX(d); // a revoir !!!!!
+            model.secondStage.setY(h);
             model.secondStage.setScene(secondScene);
             model.secondStage.setTitle("Lego");
             model.secondStage.show();

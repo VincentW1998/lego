@@ -19,8 +19,7 @@ public class Model {
     public Graph graphConstruction;
     final FileChooser fileChooser;
     private static final int DEPTH = 800;
-    private static final int WIDTH = 1400;
-    public File CurrentBrochure;
+    private static final int WIDTH = 1200;
 
     public Controller controller;
 
