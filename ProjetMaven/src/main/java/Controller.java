@@ -37,6 +37,7 @@ public class Controller {
    private double anchorAngleY = 0;
    private final DoubleProperty angleX;
    private final DoubleProperty angleY;
+   private boolean notYet = true;
    private Alert alert;
 
     @FXML
@@ -75,16 +76,20 @@ public class Controller {
     //
     @FXML
     void newWindow(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hotkeys.fxml"));
-            Parent root = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setTitle("HotKeys");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            System.out.println("ERROR");
+        if(notYet){
+            notYet = false;
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hotkeys.fxml"));
+                Parent root = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setTitle("HotKeys");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (Exception e) {
+                System.out.println("ERROR");
+            }
         }
+
     }
 
     @FXML
