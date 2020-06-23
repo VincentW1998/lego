@@ -155,7 +155,7 @@ public class Unionfind {
             Cube val = (Cube)groupe.getChildren().get(i);
             int cval = val.getIdentifiant();
             if(liste.size() > 1)
-                setRootid(cval,cval);//on regroupe les bloc de cubes contenant tmpb et tmp
+                setRootid(cval,cval);//le bloc est un root
             else
                 unify(idtmpb, tmp.getIdentifiant());
 
