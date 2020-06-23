@@ -3,6 +3,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 
 public class Model {
     public Stage primaryStage;
@@ -55,7 +57,7 @@ public class Model {
         Cube tmp;
         for(int i = 1; i < group.getChildren().size(); i++){
             tmp = (Cube) group.getChildren().get(i);
-            tmp.setId(i - 1);
+            Cube.setId(tmp,i - 1);
         }
     }
 

@@ -16,7 +16,8 @@
                   <items>
                         <MenuItem mnemonicParsing="false" onAction="#reset" text="Nouveau" />
                     <MenuItem mnemonicParsing="false" onAction="#Exporter" text="Sauvegarder" />
-                        <MenuItem mnemonicParsing="false" onAction="#Importer" text="Importer" />
+                      <MenuItem mnemonicParsing="false" onAction="#Importer" text="Importer" />
+                        <MenuItem mnemonicParsing="false" onAction="#reset" text="Nouveau" />
                   </items>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">

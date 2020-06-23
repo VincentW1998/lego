@@ -14,11 +14,15 @@ public class Exporter {
     public static void saveToFile(Group group, File f) throws IOException {
         FileWriter fw = new FileWriter(f);
         JSONArray construction = new JSONArray();
+        JSONObject maxVals = new JSONObject();
+        maxVals.put("MaxSNB",Cube.numeroCube);
+        construction.put(maxVals);
         for (int i = 1; i < group.getChildren().size(); i++){
             Cube cube = (Cube) group.getChildren().get(i);
             JSONObject json = new JSONObject();
             JSONObject color = new JSONObject();
             json.put("id",cube.getIdentifiant());
+            json.put("SerialNB",cube.SerialNb);
             color.put("red", cube.getColor().getRed()*255);
             color.put("green", cube.getColor().getGreen()*255);
             color.put("blue", cube.getColor().getBlue()*255);
@@ -37,6 +41,7 @@ public class Exporter {
     }
     private static void configureFileSave(final FileChooser fileChooser) {
         fileChooser.setTitle("Save");
+        fileChooser.setInitialDirectory(new File("src/main/resources/Data/"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
     }
 
