@@ -147,7 +147,6 @@ public class Graph {
 
     public void makeUnionfindId(){
         boolean found = false;
-
         for(int i = 1; i < group.getChildren().size(); i ++){
             Cube tmp = (Cube) group.getChildren().get(i);
             for(int j = 1;j< group.getChildren().size();j++) {

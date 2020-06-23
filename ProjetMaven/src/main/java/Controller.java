@@ -108,7 +108,7 @@ public class Controller {
         String to = email_value.getText();
         File tmp = new File("src/main/resources/Brochures/brochure.pdf");
         if(!tmp.exists()) {
-            graphAlgo();
+            graphAlgoUF();
             CreateBrochure();
         }
         if(!SendEmail.mailChecker(to))
@@ -325,8 +325,16 @@ public class Controller {
     public void graphAlgo() {//appel l'algo pour creer une brochure
         model.reordonnerGroup(); // reordonner le groupe
         model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
+        model.graphConstruction.createGraph(model.group); // creation du graphe
+        model.graphConstruction.printGraph(); // affichage du graphe
+        model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
+        model.graphConstruction.printOrder(); // affiche l'ordre de construction
+    }
+
+    public void graphAlgoUF() {//appel l'algo pour creer une brochure
+        model.reordonnerGroup(); // reordonner le groupe
+        model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
         model.graphConstruction.createGraphUF(model.group,model); // creation du graphe
-        model.graphConstruction.afficherCubes();
         model.graphConstruction.makeUnionfindId();
         model.graphConstruction.afficherCubes();
         model.graphConstruction.printGraph(); // affichage du graphe
