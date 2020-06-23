@@ -111,6 +111,13 @@ public class Unionfind {
         }
     }
 
+    public void setRootlock(int ind){
+        for(int i =0; i < this.id.length ; i++){
+            if(this.id[i].getId() == ind)
+                this.id[i].rootlock = true;
+        }
+    }
+
     public Coordunioncube getCube(int p){//renvoie la Coordunioncube ayant pour id 'p' null sinon
         for(int i = 0;i<id.length;i++)
             if(id[i].getId() == p)return id[i];
@@ -141,24 +148,36 @@ public class Unionfind {
         for(int i = 1; i < groupe.getChildren().size(); i ++){
             Cube tmp = (Cube) groupe.getChildren().get(i);
             Cube tmpb = tmp;
-            int idtmpb = 0;
+            int idtmpb = -1;
+            int cval = -1;
             LinkedList<Integer> liste = new LinkedList<Integer>();
             for(int j = 1;j< groupe.getChildren().size();j++) {
                 tmpb = (Cube)groupe.getChildren().get(j);
-                if (!tmp.equals(tmpb) && tmpb.checkPos(tmp)) // checkPos == true if tmp est en dessous de tmpb
+                if (!tmp.equals(tmpb) && tmpb.checkPos(tmp)) { // checkPos == true if tmp est en dessous de tmpb
                     idtmpb = tmpb.getIdentifiant();
+                    unify(tmpb.getIdentifiant(), tmp.getIdentifiant());
+                }
 
-                if (!tmp.equals(tmpb) && tmp.checkPos(tmpb)) // checkPos == true if tmp est au dessus de tmpb
-                    liste.add(tmp.getIdentifiant());
-
+                if (!tmp.equals(tmpb) && tmp.checkPos(tmpb))  // checkPos == true if tmp est au dessus de tmpb
+                    if(!liste.contains(tmpb.getIdentifiant()))
+                        liste.add(tmpb.getIdentifiant());
             }
-            Cube val = (Cube)groupe.getChildren().get(i);
-            int cval = val.getIdentifiant();
-            if(liste.size() > 1)
-                setRootid(cval,cval);//le bloc est un root
-            else
-                unify(idtmpb, tmp.getIdentifiant());
+            cval = tmp.getIdentifiant();
+            if(liste.size() > 1) {
+                setRootid(cval, cval);//le bloc est un root
+                setRootlock(cval);
+            }
+            if(liste.size() == 1 && idtmpb == -1)
+                setRootid(cval, liste.get(0));
 
+            if(i == 1)
+                System.out.println(liste.size());
+        }
+        LinkedList<Integer> end = getListe();
+        for(int i = 0;i<id.length;i++){
+            if(end.contains(id[i].getId()))
+                setRootid(i,id[i].getId());
         }
     }
+
 }
