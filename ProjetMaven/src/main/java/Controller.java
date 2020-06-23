@@ -99,7 +99,8 @@ public class Controller {
 
     @FXML
     public void creationBrochure(ActionEvent actionEvent) {
-        graphAlgo();
+        //graphAlgo();
+        graphAlgoUF();
         CreateBrochure();
     }
 
@@ -108,6 +109,7 @@ public class Controller {
         String to = email_value.getText();
         File tmp = new File("src/main/resources/Brochures/brochure.pdf");
         if(!tmp.exists()) {
+            //graphALgo();
             graphAlgoUF();
             CreateBrochure();
         }
