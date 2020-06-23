@@ -193,6 +193,14 @@ public class Brochure {
         }
     }
 
+    public static void clearAll(){
+        listeImages.clear();
+        listeIdentifiant.clear();
+        listeImagesPartie.clear();
+        listeIdentifiantPartie.clear();
+        listeImagesAssemblage.clear();
+    }
+
     public static String configurePdfFile(Stage primaryStage){
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialFileName("brochure");

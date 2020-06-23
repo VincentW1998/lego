@@ -100,6 +100,7 @@ public class Controller {
     @FXML
     public void creationBrochure(ActionEvent actionEvent) {
         try {
+            Brochure.clearAll();
             graphAlgo();
             CreateBrochure();
         }
