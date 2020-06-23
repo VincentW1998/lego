@@ -104,14 +104,14 @@ public class Unionfind {
 
     public Coordunioncube[] getId(){return id;}
 
-    public void setRootid(int ind, int id){
-        for(int i =0; i < this.id.length ; i++){
-            if(this.id[i].getId() == ind)
+    public void setRootid(int ind, int id){//permet de changer le Rootid du coordunioncube a l'id "ind" a "id"
+        for(int i =0; i < this.id.length ; i++){//On parcours toute la liste des coordunioncube
+            if(this.id[i].getId() == ind) // On trouve la coordunioncube ayant pour id "ind"
                 this.id[i].setRootid(id);
         }
     }
 
-    public void setRootlock(int ind){
+    public void setRootlock(int ind){//vérouille la valeur rootid d'un coordunioncube
         for(int i =0; i < this.id.length ; i++){
             if(this.id[i].getId() == ind)
                 this.id[i].rootlock = true;
@@ -124,7 +124,7 @@ public class Unionfind {
         return null;
     }
 
-    public LinkedList getListe(){
+    public LinkedList getListe(){//renvoie la liste de tout les roots / nom de groupe
         LinkedList<Integer> listePivot = new LinkedList<Integer>();
         for(int i =0;i<id.length;i++)
             if(!listePivot.contains(id[i].getRootid()))
@@ -133,7 +133,7 @@ public class Unionfind {
         return listePivot;
     }
 
-    public void setPartie(){
+    public void setPartie(){//insere les parties obtenue avec l'algorythme dans le model
         LinkedList<Integer> liste = getListe();
         for(int i =0;i<liste.size();i++){
             LinkedList<Node> listnode = new LinkedList<Node>();
@@ -144,40 +144,45 @@ public class Unionfind {
         }
     }
 
-    public void makeUnionfindId(){
+    public void makeUnionfindId(){//
         for(int i = 1; i < groupe.getChildren().size(); i ++){
             Cube tmp = (Cube) groupe.getChildren().get(i);
             Cube tmpb = tmp;
             int idtmpb = -1;
             int cval = -1;
-            LinkedList<Integer> liste = new LinkedList<Integer>();
+            LinkedList<Integer> liste = new LinkedList<Integer>();//liste contenant les id des cubes étant en dessous de tmp
             for(int j = 1;j< groupe.getChildren().size();j++) {
                 tmpb = (Cube)groupe.getChildren().get(j);
                 if (!tmp.equals(tmpb) && tmpb.checkPos(tmp)) { // checkPos == true if tmp est en dessous de tmpb
-                    idtmpb = tmpb.getIdentifiant();
+                    idtmpb = tmpb.getIdentifiant();//change la valeur de idtmpb pour dire qu'il existe une piece au dessus
                     unify(tmpb.getIdentifiant(), tmp.getIdentifiant());
                 }
 
                 if (!tmp.equals(tmpb) && tmp.checkPos(tmpb))  // checkPos == true if tmp est au dessus de tmpb
-                    if(!liste.contains(tmpb.getIdentifiant()))
+                    if(!liste.contains(tmpb.getIdentifiant())) // vérifie que le cube n'est pas déjà dans la liste
                         liste.add(tmpb.getIdentifiant());
             }
             cval = tmp.getIdentifiant();
             if(liste.size() > 1) {
                 setRootid(cval, cval);//le bloc est un root
-                setRootlock(cval);
+                setRootlock(cval);//on vérouille le cube
             }
-            if(liste.size() == 1 && idtmpb == -1)
-                setRootid(cval, liste.get(0));
+            if(liste.size() == 1 && idtmpb == -1) // si le cube est au dessus d'un cube mais en dessous de personne alors
+                setRootid(cval, liste.get(0));//on initialise son groupe au root du cube en dessous
 
-            if(i == 1)
-                System.out.println(liste.size());
         }
-        LinkedList<Integer> end = getListe();
-        for(int i = 0;i<id.length;i++){
+        LinkedList<Integer> end = getListe();//on récupere la liste des groupes
+        for(int i = 0;i<id.length;i++){//on remet les bons id au cubes root
             if(end.contains(id[i].getId()))
                 setRootid(i,id[i].getId());
         }
     }
+
+    /*public void printOrderAssemblage(){
+        LinkedList<Integer> liste = getListe();
+        for(int i = 0; i< liste.size(); i++){
+
+        }
+    }*/
 
 }
