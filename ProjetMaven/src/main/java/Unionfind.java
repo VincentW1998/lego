@@ -178,11 +178,4 @@ public class Unionfind {
         }
     }
 
-    /*public void printOrderAssemblage(){
-        LinkedList<Integer> liste = getListe();
-        for(int i = 0; i< liste.size(); i++){
-
-        }
-    }*/
-
 }
