@@ -369,6 +369,7 @@ public class Controller {
             if (model.selection.PartiesSelection.size() != 0) {
                 model.group.getChildren().remove(1,model.group.getChildren().size()-1);
                 Brochure.creationBrochure(model);
+                model.selection.PartiesSelection.clear();
             }
             else {
                 for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
