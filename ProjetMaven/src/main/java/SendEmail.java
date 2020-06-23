@@ -15,7 +15,7 @@ public class SendEmail {
         return false;
     }
 
-    public static void sendFileEmail(String to) {
+    public static void sendFileEmail(String to,File f) {
 
         // Recipient's email ID needs to be mentioned.
 
@@ -66,7 +66,8 @@ public class SendEmail {
             MimeBodyPart textPart = new MimeBodyPart();
 
             try {
-                File f =new File("src/main/resources/Brochures/brochure.pdf");
+//                    File f =new File("src/main/resources/Brochures/brochure.pdf");
+
 
                 attachmentPart.attachFile(f);
                 textPart.setText("Voici votre brochure");

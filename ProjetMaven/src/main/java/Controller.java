@@ -100,6 +100,7 @@ public class Controller {
     @FXML
     public void creationBrochure(ActionEvent actionEvent) {
         try {
+            Brochure.clearAll();
             graphAlgo();
             CreateBrochure();
         }
@@ -112,15 +113,20 @@ public class Controller {
     @FXML
     public void sendEmail(ActionEvent actionEvent){
         String to = email_value.getText();
-        File tmp = new File("src/main/resources/Brochures/brochure.pdf");
-        if(!tmp.exists()) {
-            graphAlgo();
-            CreateBrochure();
+//        File tmp = new File("src/main/resources/Brochures/brochure.pdf");
+//        if(!tmp.exists()) {
+//            graphAlgo();
+//            CreateBrochure();
+//        }
+        if(model.CurrentBrochure == null){
+            displayAlert("Aucune brochure n'a ete creer", "veuillez creer votre brochure");
+            return;
         }
+
         if(!SendEmail.mailChecker(to))
             displayAlert("Email incorect","Veuillez inserer un mail correct");
         else
-            SendEmail.sendFileEmail(to);
+            SendEmail.sendFileEmail(to,model.CurrentBrochure);
     }
     @FXML
     public void Exporter(ActionEvent actionEvent) {
@@ -344,7 +350,7 @@ public class Controller {
     public void CreateBrochure(){
         try {
             if (model.selection.PartiesSelection.size() != 0)
-                Brochure.creationBrochure(model.scene, model.group, model.selection);
+                Brochure.creationBrochure(model);
             else {
                 for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
                     model.selection.add(model.graphConstruction.noeuds[i].c);
@@ -354,11 +360,12 @@ public class Controller {
                 while (model.group.getChildren().size() > 1) {
                     model.group.getChildren().remove(1);
                 }
-                Brochure.creationBrochureAlgo(tmp);
+                Brochure.creationBrochureAlgo(tmp,model);
             }
+            model.selection.clear();
         }
         catch(Exception e){
-            System.out.println("CreateBrochure Error");
+//            System.out.println("CreateBrochure Error");
         }
     }
 

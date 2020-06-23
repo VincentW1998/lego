@@ -5,7 +5,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.DrawMode;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.io.File;
@@ -22,45 +25,52 @@ public class Brochure {
     static LinkedList <Image> listeImagesAssemblage = new LinkedList<Image>();
 
     /* Creer une brochure à partir du decoupage manuel */
-    public static void creationBrochure(Scene scene, Group group, SelectionModel selection) {
+    public static void creationBrochure(Model model) {
 //        LinkedList <Image> tmp  = new LinkedList<Image>();
-        for(int i = 0;i<selection.PartiesSelection.size();i++){
-            while(group.getChildren().size() > 1)//vide le groupe en laissant le sol
-                group.getChildren().remove(1);
+        for(int i = 0;i<model.selection.PartiesSelection.size();i++){
+            while(model.group.getChildren().size() > 1)//vide le groupe en laissant le sol
+                model.group.getChildren().remove(1);
 
 //            tmp = selection.PartiesSelection.get(i).addPartiesToGroup(); // renvoie une liste d'image de l'assemblage de chaque partie
-            listeIdentifiantPartie.add(selection.PartiesSelection.get(i).getIdParties());
-            listeImagesPartie.add(selection.PartiesSelection.get(i).addPartiesToGroup());
+            listeIdentifiantPartie.add(model.selection.PartiesSelection.get(i).getIdParties());
+            listeImagesPartie.add(model.selection.PartiesSelection.get(i).addPartiesToGroup());
             // ajoute chaque image a la liste d'image
 //            listeImagesPartie.addAll(tmp);
         }
-        while(group.getChildren().size() > 1)
-            group.getChildren().remove(1);
+        while(model.group.getChildren().size() > 1)
+            model.group.getChildren().remove(1);
 
-        for (int i = 0; i < selection.PartiesSelection.size(); i++) {// crée les png de l'assemblage des parties
-            selection.PartiesSelection.get(i).addPiecesToGroup(); // Pour chaque parties, on ajoute toutes les pieces de la parties dans le groupe
+        for (int i = 0; i < model.selection.PartiesSelection.size(); i++) {// crée les png de l'assemblage des parties
+            model.selection.PartiesSelection.get(i).addPiecesToGroup(); // Pour chaque parties, on ajoute toutes les pieces de la parties dans le groupe
             try {//creer l'image
                 File f = new File("src/main/resources/Brochures/etape.png");
-                ImageIO.write(SwingFXUtils.fromFXImage(scene.snapshot(null), null), "png", f);
+                ImageIO.write(SwingFXUtils.fromFXImage(model.scene.snapshot(null), null), "png", f);
                 listeImagesAssemblage.add(Image.getInstance(f.getPath()));
                 f.delete();
             } catch (IOException | BadElementException e) {
                 System.out.println("error PNG");
             }
         }
-        while(group.getChildren().size() > 1)
-            group.getChildren().remove(1);
-        imagesToPdfManuel();
+        while(model.group.getChildren().size() > 1)
+            model.group.getChildren().remove(1);
+        imagesToPdfManuel(model);
     }
 
 
     // creer une brochure PDF à partir de l'alog
-    public static void creationBrochureAlgo(SelectionModel selection) {
+    public static void creationBrochureAlgo(SelectionModel selection, Model model) {
         // on parcourt la selection de cube
         for(int i = 0; i < selection.listeCubeSelectionne.size(); i++){
             // on ajoute chaque cube de la selection dans le groupe
             selection.group.getChildren().add(selection.listeCubeSelectionne.get(i));
-            selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+
+//            selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+            Cube.moveToLoc((Cube) selection.group.getChildren().get(i + 1));
+            selection.group.getChildren().get(i+1).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                if (!e.isShiftDown())
+                    model.selection.clear();
+                model.selection.add((Cube) e.getSource());
+            });
             // on initialise un fichier
             File f = new File("src/main/resources/Brochures/piece.png");
             listeIdentifiant.add(selection.listeCubeSelectionne.get(i).getIdentifiant());
@@ -74,15 +84,16 @@ public class Brochure {
                 System.out.println("error PNG");
             }
         }
-        imagesToPdfAlgo(); // On transforme la linkedlist de File en un document pdf
+        imagesToPdfAlgo(model); // On transforme la linkedlist de File en un document pdf
     }
 
     // fonction qui permet de creer un document pdf
-    public static void imagesToPdfAlgo() {
+    public static void imagesToPdfAlgo(Model model) {
         Document document = new Document(PageSize.A4);
 
 //       String input = null;
-        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
+//        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
+        String output = configurePdfFile(model.primaryStage);
         try {
             FileOutputStream fos = new FileOutputStream(output);
             PdfWriter writer = PdfWriter.getInstance(document, fos);
@@ -117,16 +128,18 @@ public class Brochure {
             }
             document.close();
             writer.close();
+            model.CurrentBrochure = new File(output);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void imagesToPdfManuel() {
+    public static void imagesToPdfManuel(Model model) {
         Document document = new Document(PageSize.A4);
 
-        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
+//        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
+        String output = configurePdfFile(model.primaryStage);
         try {
             FileOutputStream fos = new FileOutputStream(output);
             PdfWriter writer = PdfWriter.getInstance(document, fos);
@@ -173,9 +186,28 @@ public class Brochure {
             }
             document.close();
             writer.close();
+            model.CurrentBrochure = new File(output);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void clearAll(){
+        listeImages.clear();
+        listeIdentifiant.clear();
+        listeImagesPartie.clear();
+        listeIdentifiantPartie.clear();
+        listeImagesAssemblage.clear();
+    }
+
+    public static String configurePdfFile(Stage primaryStage){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialFileName("brochure");
+        fileChooser.setTitle("brochure");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier pdf", "*.pdf"));
+        fileChooser.setInitialDirectory(new File("src/main/resources/Brochures/"));
+        File file = fileChooser.showSaveDialog(primaryStage);
+        return file.getPath();
     }
 }

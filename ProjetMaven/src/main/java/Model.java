@@ -3,6 +3,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 
 public class Model {
     public Stage primaryStage;
@@ -18,6 +20,7 @@ public class Model {
     final FileChooser fileChooser;
     private static final int DEPTH = 800;
     private static final int WIDTH = 1400;
+    public File CurrentBrochure;
 
     public Controller controller;
 
