@@ -100,14 +100,17 @@ public class Controller {
     @FXML
     public void creationBrochure(ActionEvent actionEvent) {
         try {
+            if(model.group.getChildren().size()==1) {
+                displayAlert("Aucun lego creer", "Vous ne pouvez pas creer de brochure sans ajouter de cubes");
+                return;
+            }
             Brochure.clearAll();
             graphAlgo();
             CreateBrochure();
         }
         catch(Exception e){
-            if(model.group.getChildren().size()==1)
-                displayAlert("Aucun lego creer","Vous ne pouvez pas creer de brochure sans ajouter de cubes");
-         }
+
+        }
     }
 
     @FXML
