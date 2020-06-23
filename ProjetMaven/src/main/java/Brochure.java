@@ -26,6 +26,7 @@ public class Brochure {
 
     /* Creer une brochure à partir du decoupage manuel */
     public static void creationBrochure(Model model) {
+        clearAll();
 //        LinkedList <Image> tmp  = new LinkedList<Image>();
         for(int i = 0;i<model.selection.PartiesSelection.size();i++){
             while(model.group.getChildren().size() > 1)//vide le groupe en laissant le sol
@@ -59,6 +60,7 @@ public class Brochure {
 
     // creer une brochure PDF à partir de l'alog
     public static void creationBrochureAlgo(SelectionModel selection, Model model) {
+        clearAll();
         // on parcourt la selection de cube
         for(int i = 0; i < selection.listeCubeSelectionne.size(); i++){
             // on ajoute chaque cube de la selection dans le groupe

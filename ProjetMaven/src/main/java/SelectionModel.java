@@ -60,6 +60,7 @@ public class SelectionModel {
 		LinkedList <Image> creationPartie = new LinkedList<Image>();
 		for(int i = 0; i< listeCubeSelectionne.size(); i++){
 			group.getChildren().add(listeCubeSelectionne.get(i));
+			Cube.moveToLoc(listeCubeSelectionne.get(i));
 			listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
 			File f = new File("src/main/resources/Brochures/etape.png");
 			try {//creer l'image
@@ -296,13 +297,15 @@ public class SelectionModel {
 
 //separe la selection de la structure (creation d'une partie) et la supprime
 	public void separation(Graph grapheSelection){
+		grapheSelection.createGraph(group);
 		LinkedList <Node> tmp = new LinkedList<Node>();
 		if(listeCubeSelectionne.size()!=0)
 			PartiesSelection.add(this.copy());
 		if(grapheSelection!=null && listeCubeSelectionne.size()!=0){
 			for(int i = 0; i< listeCubeSelectionne.size(); i++){
 				tmp.add(grapheSelection.noeuds[listeCubeSelectionne.get(i).getIdentifiant()]);
-				group.getChildren().remove(listeCubeSelectionne.get(i));
+//				group.getChildren().remove(listeCubeSelectionne.get(i));
+				listeCubeSelectionne.get(i).setVisible(false);
 			}
 			Parties.add(tmp);
 		}
