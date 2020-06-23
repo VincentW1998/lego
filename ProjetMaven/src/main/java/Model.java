@@ -20,6 +20,7 @@ public class Model {
     final FileChooser fileChooser;
     private static final int DEPTH = 800;
     private static final int WIDTH = 1200;
+    public File CurrentBrochure;
 
     public Controller controller;
 
