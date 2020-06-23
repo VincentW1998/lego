@@ -304,7 +304,8 @@ public class SelectionModel {
 		if(grapheSelection!=null && listeCubeSelectionne.size()!=0){
 			for(int i = 0; i< listeCubeSelectionne.size(); i++){
 				tmp.add(grapheSelection.noeuds[listeCubeSelectionne.get(i).getIdentifiant()]);
-				group.getChildren().remove(listeCubeSelectionne.get(i));
+//				group.getChildren().remove(listeCubeSelectionne.get(i));
+				listeCubeSelectionne.get(i).setVisible(false);
 			}
 			Parties.add(tmp);
 		}
