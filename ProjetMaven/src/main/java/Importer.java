@@ -16,9 +16,49 @@ public class Importer {
     private static LinkedList<Cube> figure;
 
     public static LinkedList<Cube> loadFrom(File f)  {
-        try {
-            figure = new LinkedList<Cube>();
+
+        try{
             JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
+            Cube.numeroCube = json.getJSONObject(json.length()-1).getInt("MaxSNB");
+        }
+        catch(Exception e){
+            return loadFromOld(f);
+        }
+        try {
+            JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
+            figure = new LinkedList<Cube>();
+            for (int i = 1; i < json.length(); i++) {
+                JSONObject content = json.getJSONObject(i); // recupere l'objet contenu dans le JSON array qu'on a creer auparavant
+                int id = content.getInt("id");
+                int sNb = content.getInt("SerialNB");
+                double w = content.getDouble("width");
+                double h = content.getDouble("height");
+                double d = content.getDouble("depth");
+                double x = content.getDouble("x");
+                double y = content.getDouble("y");
+                double z = content.getDouble("z");
+                double a = content.getDouble("angle");
+                JSONObject color = content.getJSONObject("color"); // une couleur est un objet contenant 3 int (red,green,blue)
+                int red = color.getInt("red");
+                int green = color.getInt("green");
+                int blue = color.getInt("blue");
+                Color color1 = Color.rgb(red, green, blue);
+                Cube cube = new Cube(color1, w, h, d, id, x, y, z, a); // creation du cube 3D
+                cube.SerialNb = sNb;
+                figure.add(cube);
+            }
+
+            return figure;
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
+
+    public static LinkedList<Cube> loadFromOld(File f){
+        try {
+            JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
+            figure = new LinkedList<Cube>();
             for (int i = 0; i < json.length(); i++) {
                 JSONObject content = json.getJSONObject(i); // recupere l'objet contenu dans le JSON array qu'on a creer auparavant
                 int id = content.getInt("id");
@@ -35,15 +75,17 @@ public class Importer {
                 int blue = color.getInt("blue");
                 Color color1 = Color.rgb(red, green, blue);
                 Cube cube = new Cube(color1, w, h, d, id, x, y, z, a); // creation du cube 3D
+                cube.SerialNb = i+1;
                 figure.add(cube);
-
             }
+            Cube.numeroCube = json.length();
             return figure;
         }
         catch(Exception e){
             return null;
         }
     }
+
     private static void configureFileChooser(final FileChooser fileChooser) {
         fileChooser.setTitle("Import");
         fileChooser.setInitialDirectory(new File("src/main/resources/Data/")
@@ -71,12 +113,13 @@ public class Importer {
                     model.selection.add((Cube) e.getSource());
                 });
                 model.group.getChildren().add(construction.get(i));
-                construction.get(i).translateXProperty().set(construction.get(i).x);
-                construction.get(i).translateYProperty().set(construction.get(i).y);
-                construction.get(i).translateZProperty().set(construction.get(i).z);
-                r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
-                t = t.createConcatenation(r);
-                construction.get(i).getTransforms().addAll(t);
+                Cube.moveToLoc(construction.get(i));
+//                construction.get(i).translateXProperty().set(construction.get(i).x);
+//                construction.get(i).translateYProperty().set(construction.get(i).y);
+//                construction.get(i).translateZProperty().set(construction.get(i).z);
+//                r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
+//                t = t.createConcatenation(r);
+//                construction.get(i).getTransforms().addAll(t);
             }
 
         } catch (Exception e) {

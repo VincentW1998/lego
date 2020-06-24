@@ -33,15 +33,18 @@ public class SelectionModel {
 		PartiesSelection = new LinkedList<SelectionModel>();
 	}
 	
-	public SelectionModel copy() { 
+	public SelectionModel copy() {
 // permet de creer une copie de la selection qui ne pointe pas vers l'objet actuel
 		SelectionModel tmp = new SelectionModel(group);
 		for(int i = 0; i< listeCubeSelectionne.size(); i++) {
-			tmp.add(listeCubeSelectionne.get(i));
+			// ne fonctionne pas avec la fonction add de SelectionModel
+			tmp.listeCubeSelectionne.add(listeCubeSelectionne.get(i).copy());
+			tmp.listeCubeSelectionne.getLast().setDrawMode(DrawMode.LINE);
+			//
 		}
-	
 		return tmp;
 	}
+
 	//ajoute un cube a la selection
 	public void add(Cube b) {
 		if(!contains(b)) {
@@ -57,6 +60,7 @@ public class SelectionModel {
 		LinkedList <Image> creationPartie = new LinkedList<Image>();
 		for(int i = 0; i< listeCubeSelectionne.size(); i++){
 			group.getChildren().add(listeCubeSelectionne.get(i));
+			Cube.moveToLoc(listeCubeSelectionne.get(i));
 			listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
 			File f = new File("src/main/resources/Brochures/etape.png");
 			try {//creer l'image
@@ -100,7 +104,7 @@ public class SelectionModel {
 			alert.showAndWait();
 		}
 	}
-	
+
 	public boolean empty() {
 		return listeCubeSelectionne.isEmpty();
 	}
@@ -196,71 +200,7 @@ public class SelectionModel {
 			listeCubeSelectionne.get(i).angleChange(-90);
 		}
 	}
-	
-//	*************UNDO***************
-	public void Undo(Save save){ // annule le mouvement realiser
-		KeyEvent e ;
-		if(!save.moves.isEmpty()){
-			e = save.moves.pollLast();
-			if(e.getEventType().equals(KeyEvent.KEY_PRESSED)) {
-				if(e.isMetaDown() && e.getCode() == KeyCode.N){
-					Cube tmp;
-					for(int i=1;i<group.getChildren().size();i++){
-						tmp = (Cube) group.getChildren().get(i);
-						if(tmp.equals(save.cubes.getLast())){
-							group.getChildren().remove(i);
-							save.cubes.pollLast();
-							return;
-						}
-					}
-				}
-				switch (e.getCode()) {
 
-					case W:
-						remote(save);
-						this.S(true);
-						break;
-					case S:
-						remote(save);
-						this.W(true);
-						break;
-					case A:
-						remote(save);
-						this.D(true);
-						break;
-					case D:
-
-						remote(save);
-						this.A(true);
-						break;
-					case Z:
-						remote(save);
-						this.X(true);
-						break;
-					case X:
-						remote(save);
-						this.Z(true);
-						break;
-					case Q:
-						remote(save);
-						this.E();
-						break;
-					case E:
-						remote(save);
-						this.Q();
-						break;
-					case BACK_SPACE:
-						remote(save);
-						for(int i = 0; i< listeCubeSelectionne.size(); i++) {
-							group.getChildren().add(listeCubeSelectionne.get(i));
-						}
-						break;
-					}
-
-
-			}
-		}
-	}
 	// prend la couleur a la position x dans le tableau de couleur et l'affecte au cube this
 	public void setColors(int x){
 		for(int i = 0; i < listeCubeSelectionne.size(); i++){
@@ -355,17 +295,20 @@ public class SelectionModel {
 		System.out.println();
 	}
 
-//separe la selection de la structure (creation d'une partie) et la supprime
+	//separe la selection de la structure (creation d'une partie) et la supprime
 	public void separation(Graph grapheSelection){
+		grapheSelection.createGraph(group);
 		LinkedList <Node> tmp = new LinkedList<Node>();
-		if(listeCubeSelectionne.size()!=0)
+		if(listeCubeSelectionne.size()!=0){
 			PartiesSelection.add(this.copy());
-		if(grapheSelection!=null && listeCubeSelectionne.size()!=0){
-			for(int i = 0; i< listeCubeSelectionne.size(); i++){
-				tmp.add(grapheSelection.noeuds[listeCubeSelectionne.get(i).getIdentifiant()]);
-				group.getChildren().remove(listeCubeSelectionne.get(i));
+			if(grapheSelection!=null){
+				for(int i = 0; i< listeCubeSelectionne.size(); i++){
+					tmp.add(grapheSelection.noeuds[listeCubeSelectionne.get(i).getIdentifiant()]);
+//				group.getChildren().remove(listeCubeSelectionne.get(i));
+					listeCubeSelectionne.get(i).setVisible(false);
+				}
+				Parties.add(tmp);
 			}
-			Parties.add(tmp);
 		}
 	}
 
@@ -424,4 +367,12 @@ public class SelectionModel {
 		return true;
 	}
 
+	public int getMinID(){
+		int min = listeCubeSelectionne.get(0).getIdentifiant();
+		for(int i=1;i<listeCubeSelectionne.size();i++){
+			if(listeCubeSelectionne.get(i).getIdentifiant()<min)
+				min = listeCubeSelectionne.get(i).getIdentifiant();
+		}
+		return min;
+	}
 }
