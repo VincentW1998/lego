@@ -224,6 +224,10 @@ public class Controller {
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.E();
                         break;
+                    case O:
+                        if(model.selection.listeCubeSelectionne.size() == 1)
+                            System.out.println("id : "+model.selection.listeCubeSelectionne.get(0).getIdentifiant());
+                            break;
                     //Camera
                     case UP:
                        model.camera.translateYProperty().set(model.camera.getTranslateY() - 1);
@@ -359,6 +363,16 @@ public class Controller {
         model.reordonnerGroup(); // reordonner le groupe
         model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
         model.graphConstruction.createGraph(model.group); // creation du graphe
+        model.graphConstruction.printGraph(); // affichage du graphe
+        model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
+        model.graphConstruction.printOrder(); // affiche l'ordre de construction
+    }
+
+    public void graphAlgoUF() {//appel l'algo pour creer une brochure
+        model.reordonnerGroup(); // reordonner le groupe
+        model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
+        model.graphConstruction.createGraphUF(model.group,model); // creation du graphe
+        model.graphConstruction.afficherCubes();
         model.graphConstruction.printGraph(); // affichage du graphe
         model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
         model.graphConstruction.printOrder(); // affiche l'ordre de construction

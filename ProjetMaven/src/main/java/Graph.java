@@ -1,12 +1,15 @@
 import javafx.scene.Group;
 
+import java.util.LinkedList;
+
 
 public class Graph {
 
     Node [] noeuds; // liste des noeud de la construction
 
-
     Group group;
+
+    Unionfind unionfind;
 
 
    // initialisation de chaque noeud du graphe
@@ -40,7 +43,18 @@ public class Graph {
         }
     }
 
-
+    public void createGraphUF(Group group, Model model){
+        this.group = group;
+        unionfind = new Unionfind(group,model);
+        Cube tmp;
+        for (int i = 1; i < group.getChildren().size(); i ++){
+            tmp = (Cube) group.getChildren().get(i);
+            add(tmp);
+            attachedTo(tmp);
+        }
+        unionfind.setPartie();
+        unionfind.makeUnionfindId();
+    }
 
     public void attachedTo(Cube c){ // ajoute les cubes dans les arretes && arretesUP
         for(int i = 1; i < group.getChildren().size(); i ++){
@@ -130,6 +144,13 @@ public class Graph {
                 return false;
         }
         return true;
+    }
+
+
+    public void afficherCubes(){
+        for(int i = 0;i<unionfind.getId().length;i++){
+            System.out.println("id cube: "+unionfind.getId()[i].getId()+"  id root: "+unionfind.getId()[i].getRootid());
+        }
     }
 
 }
