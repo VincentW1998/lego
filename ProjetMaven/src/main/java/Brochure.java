@@ -212,4 +212,15 @@ public class Brochure {
         File file = fileChooser.showSaveDialog(primaryStage);
         return file.getPath();
     }
+
+    public void boucleUF(Model model){
+        for(int i=0;i<model.selection.Parties.size();i++){
+
+            for(int y=0;y<model.selection.Parties.get(i).size();y++){
+                model.group.getChildren().add(model.selection.Parties.get(i).get(y).c);
+                Cube.moveToLoc(model.selection.Parties.get(i).get(y).c);
+            }
+            
+        }
+    }
 }
