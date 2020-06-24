@@ -2,7 +2,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.stage.Stage;
-
 import java.awt.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,6 +20,8 @@ public class Test extends Application implements Initializable {
 
 	public void start(Stage primaryStage) throws Exception {
 		Platform.setImplicitExit(false);
+
+		// recupere la largeur d'ecran de l'utilisateur
 		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
 		int longeur = screenDim.width;
 
@@ -35,7 +36,7 @@ public class Test extends Application implements Initializable {
 		primaryStage.setScene(model.scene);
 		primaryStage.setX(0);
 		primaryStage.setY(150);
-		primaryStage.setWidth(longeur - 312);
+		primaryStage.setWidth(longeur - 312); // moins 312 car la telecommande fait 312 pixels
 
 //		primaryStage.centerOnScreen();
 		primaryStage.show();

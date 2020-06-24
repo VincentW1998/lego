@@ -11,7 +11,6 @@ public class Audio {
         String bip = "./src/main/resources/move.wav";
         Media hit = new Media(new File(bip).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(hit);
-
         mediaPlayer.play();
     }
 

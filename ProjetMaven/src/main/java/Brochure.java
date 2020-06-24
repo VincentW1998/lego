@@ -3,10 +3,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.DrawMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -27,16 +24,12 @@ public class Brochure {
     /* Creer une brochure à partir du decoupage manuel */
     public static void creationBrochure(Model model) {
         clearAll();
-//        LinkedList <Image> tmp  = new LinkedList<Image>();
         for(int i = 0;i<model.selection.PartiesSelection.size();i++){
             while(model.group.getChildren().size() > 1)//vide le groupe en laissant le sol
                 model.group.getChildren().remove(1);
 
-//            tmp = selection.PartiesSelection.get(i).addPartiesToGroup(); // renvoie une liste d'image de l'assemblage de chaque partie
             listeIdentifiantPartie.add(model.selection.PartiesSelection.get(i).getIdParties());
             listeImagesPartie.add(model.selection.PartiesSelection.get(i).addPartiesToGroup());
-            // ajoute chaque image a la liste d'image
-//            listeImagesPartie.addAll(tmp);
         }
         while(model.group.getChildren().size() > 1)
             model.group.getChildren().remove(1);
@@ -61,26 +54,19 @@ public class Brochure {
     // creer une brochure PDF à partir de l'alog
     public static void creationBrochureAlgo(SelectionModel selection, Model model) {
         clearAll();
-        // on parcourt la selection de cube
-        for(int i = 0; i < selection.listeCubeSelectionne.size(); i++){
-            // on ajoute chaque cube de la selection dans le groupe
-            selection.group.getChildren().add(selection.listeCubeSelectionne.get(i));
-
-//            selection.listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
+        for(int i = 0; i < selection.listeCubeSelectionne.size(); i++){  // on parcourt la selection de cube
+            selection.group.getChildren().add(selection.listeCubeSelectionne.get(i)); // on ajoute chaque cube de la selection dans le groupe
             Cube.moveToLoc((Cube) selection.group.getChildren().get(i + 1));
             selection.group.getChildren().get(i+1).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                 if (!e.isShiftDown())
                     model.selection.clear();
                 model.selection.add((Cube) e.getSource());
             });
-            // on initialise un fichier
-            File f = new File("src/main/resources/Brochures/piece.png");
+            File f = new File("src/main/resources/Brochures/piece.png"); // on initialise un fichier
             listeIdentifiant.add(selection.listeCubeSelectionne.get(i).getIdentifiant());
-            //creer un fichier png à partir d'un screenshot de la scene
-            try {
+            try { //creer un fichier png à partir d'un screenshot de la scene
                 ImageIO.write(SwingFXUtils.fromFXImage(selection.group.getScene().snapshot(null), null), "png", f);
-                // on ajoute à la Linkedlist d'Image
-                listeImages.add(Image.getInstance(f.getPath()));
+                listeImages.add(Image.getInstance(f.getPath())); // on ajoute à la Linkedlist d'Image
                 f.delete(); // supprimer le fichier png
             } catch (IOException | BadElementException e) {
                 System.out.println("error PNG");
@@ -93,8 +79,6 @@ public class Brochure {
     public static void imagesToPdfAlgo(Model model) {
         Document document = new Document(PageSize.A4);
 
-//       String input = null;
-//        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
         String output = configurePdfFile(model.primaryStage);
         try {
             FileOutputStream fos = new FileOutputStream(output);

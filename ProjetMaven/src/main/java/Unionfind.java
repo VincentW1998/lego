@@ -1,5 +1,4 @@
 import javafx.scene.Group;
-
 import java.util.LinkedList;
 
 public class Unionfind {

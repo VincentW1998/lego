@@ -2,11 +2,9 @@ import javafx.scene.Group;
 import javafx.stage.FileChooser;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.LinkedList;
 
 public class Exporter {
 
@@ -50,8 +48,8 @@ public class Exporter {
         File file = model.fileChooser.showSaveDialog(model.primaryStage);
         try {
             Exporter.saveToFile(model.group, file);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+//            e.printStackTrace();
         }
 
     }

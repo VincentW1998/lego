@@ -21,12 +21,8 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.control.Alert;
-
-import javax.swing.*;
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
 
 
 public class Controller {
@@ -124,11 +120,6 @@ public class Controller {
     @FXML
     public void sendEmail(ActionEvent actionEvent){
         String to = email_value.getText();
-//        File tmp = new File("src/main/resources/Brochures/brochure.pdf");
-//        if(!tmp.exists()) {
-//            graphAlgo();
-//            CreateBrochure();
-//        }
         if(model.CurrentBrochure == null){
             displayAlert("Aucune brochure n'a ete creer", "veuillez creer votre brochure");
             return;
