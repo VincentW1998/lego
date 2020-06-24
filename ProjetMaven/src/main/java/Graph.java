@@ -50,7 +50,7 @@ public class Graph {
             add(tmp);
             attachedTo(tmp);
         }
-        unionfind.setPartie();
+//        unionfind.setPartie();
         unionfind.makeUnionfindId();
     }
 

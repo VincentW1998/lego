@@ -132,15 +132,30 @@ public class Unionfind {
         return listePivot;
     }
 
-    public void setPartie(){//insere les parties obtenue avec l'algorythme dans le model
-        LinkedList<Integer> liste = getListe();
-        for(int i =0;i<liste.size();i++){
-            LinkedList<Node> listnode = new LinkedList<Node>();
-            for(int j =0;j<id.length;j++)
-                if(id[j].getRootid() == liste.get(i))
-                    listnode.add(model.graphConstruction.noeuds[id[j].getId()]);
-            model.selection.Parties.add(listnode);
+    public LinkedList getList(int r,LinkedList<Coordunioncube> l){
+        LinkedList<Node> list = new LinkedList<Node>();
+        for(int i=0;i<l.size();i++) {
+            if (l.get(i).getRootid() == r) {
+                list.add(model.graphConstruction.noeuds[l.get(i).getId()]);
+                l.remove(i);
+                i--;
+            }
         }
+        return list;
+    }
+
+
+    public void setPartie(){
+        LinkedList<Coordunioncube> newId = new LinkedList<Coordunioncube>();
+         for(int i=0;i<this.id.length;i++){
+             newId.add(id[i]);
+         }
+         int y=1;
+         while(!newId.isEmpty()){
+             LinkedList<Node> list = getList(newId.getFirst().getRootid(),newId);
+             model.selection.Parties.add(list);
+
+         }
     }
 
     public void makeUnionfindId(){//
