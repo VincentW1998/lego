@@ -215,12 +215,15 @@ public class Brochure {
 
     public static void boucleUF(Model model){
         for(int i=0;i<model.selection.Parties.size();i++){
-            System.out.println("Partie "+i+" [");
+            System.out.print("Partie "+i+" [");
             for(int y=0;y<model.selection.Parties.get(i).size();y++){
 //                model.group.getChildren().add(model.selection.Parties.get(i).get(y).c);
 //                Cube.moveToLoc(model.selection.Parties.get(i).get(y).c);
-                System.out.print(model.selection.Parties.get(i).get(y).c.getId()+",");
-
+                System.out.print(model.selection.Parties.get(i).get(y).c.getIdentifiant()+",");
+//               if(model.selection.Parties.get(i).get(y).c!=null)
+//                   System.out.print(true+",");
+//               else
+//                   System.out.print(false+",");
             }
             System.out.print("]\n");
         }

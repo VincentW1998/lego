@@ -375,10 +375,11 @@ public class Controller {
         model.graphConstruction = new Graph(model.group.getChildren().size() - 1); // initialisation du graphe
         model.graphConstruction.createGraphUF(model.group,model); // creation du graphe
         model.graphConstruction.afficherCubes();
+        model.graphConstruction.unionfind.setPartie();
         Brochure.boucleUF(model);
-        model.graphConstruction.printGraph(); // affichage du graphe
-        model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
-        model.graphConstruction.printOrder(); // affiche l'ordre de construction
+//        model.graphConstruction.printGraph(); // affichage du graphe
+//        model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
+//        model.graphConstruction.printOrder(); // affiche l'ordre de construction
     }
 
     public void CreateBrochure(){
