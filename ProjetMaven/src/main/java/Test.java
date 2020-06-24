@@ -20,9 +20,8 @@ public class Test extends Application implements Initializable {
 
 
 	public void start(Stage primaryStage) throws Exception {
-
+		Platform.setImplicitExit(false);
 		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
-		int hauteur = screenDim.height;
 		int longeur = screenDim.width;
 
 		Stage secondStage = new Stage();
@@ -37,6 +36,7 @@ public class Test extends Application implements Initializable {
 		primaryStage.setX(0);
 		primaryStage.setY(150);
 		primaryStage.setWidth(longeur - 312);
+
 //		primaryStage.centerOnScreen();
 		primaryStage.show();
 		
