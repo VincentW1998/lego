@@ -213,14 +213,16 @@ public class Brochure {
         return file.getPath();
     }
 
-    public void boucleUF(Model model){
+    public static void boucleUF(Model model){
         for(int i=0;i<model.selection.Parties.size();i++){
-
+            System.out.println("Partie "+i+" [");
             for(int y=0;y<model.selection.Parties.get(i).size();y++){
-                model.group.getChildren().add(model.selection.Parties.get(i).get(y).c);
-                Cube.moveToLoc(model.selection.Parties.get(i).get(y).c);
+//                model.group.getChildren().add(model.selection.Parties.get(i).get(y).c);
+//                Cube.moveToLoc(model.selection.Parties.get(i).get(y).c);
+                System.out.print(model.selection.Parties.get(i).get(y).c.getId()+",");
+
             }
-            
+            System.out.print("]\n");
         }
     }
 }
