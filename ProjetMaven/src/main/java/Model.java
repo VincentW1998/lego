@@ -2,11 +2,18 @@ import javafx.scene.*;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
 
 
 public class Model {
+
+    private class Ground extends Cube{
+        public Ground(int w, int d) {
+            super(Color.rgb(200, 200, 200, 0.2),w,0.01,d);
+            Cube.setId(this,-1);
+        }
+    }
+
     public Stage primaryStage;
     public Stage secondStage;
     public Group group;

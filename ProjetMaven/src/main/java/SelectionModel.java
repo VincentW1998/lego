@@ -2,16 +2,11 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.LinkedList;
-
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.Image;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
@@ -201,30 +196,8 @@ public class SelectionModel {
 		}
 	}
 
-	// prend la couleur a la position x dans le tableau de couleur et l'affecte au cube this
-	public void setColors(int x){
-		for(int i = 0; i < listeCubeSelectionne.size(); i++){
-			listeCubeSelectionne.get(i).setRange(x);
-		}
-	}
-	// prend la selection du dernier mouvement realiser et l'ajoute a la selection actuelle
-	public void remote(Save save){
-		LinkedList <Cube> s;
-			listeCubeSelectionne.clear();
-			s = save.remotes.pollLast().listeCubeSelectionne;
-			for(int i=0;i<s.size();i++){
-				this.add(s.get(i));
-			}
 
-	}
-	//****************TEST
-	public void changeColor() {
-		for(int i = 0; i< listeCubeSelectionne.size(); i++) {
-			listeCubeSelectionne.get(i).addRandomColor();
-		}
-	}
 
-	// pareil a revoir
 	public void sortSelectionModel(char command){
 		switch (command){
 			case 'X' :
@@ -278,22 +251,6 @@ public class SelectionModel {
 		}
 	}
 
-	public void getId(){
-		for(int i = 0; i< listeCubeSelectionne.size(); i++){
-			System.out.println(listeCubeSelectionne.get(i).getIdentifiant());
-		}
-	}
-
-	public void printParties(){
-		System.out.println("Affichage des differentes parties selectionnees :");
-		for(int i = 0; i < Parties.size(); i++){
-			System.out.println("Partie " + i + ":");
-			for(int y = 0; y < Parties.get(i).size(); y++) {
-				System.out.println("         " + "Piece "+Parties.get(i).get(y).c.getIdentifiant());
-			}
-		}
-		System.out.println();
-	}
 
 	//separe la selection de la structure (creation d'une partie) et la supprime
 	public void separation(Graph grapheSelection){
@@ -367,12 +324,4 @@ public class SelectionModel {
 		return true;
 	}
 
-	public int getMinID(){
-		int min = listeCubeSelectionne.get(0).getIdentifiant();
-		for(int i=1;i<listeCubeSelectionne.size();i++){
-			if(listeCubeSelectionne.get(i).getIdentifiant()<min)
-				min = listeCubeSelectionne.get(i).getIdentifiant();
-		}
-		return min;
-	}
 }

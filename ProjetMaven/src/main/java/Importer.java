@@ -6,9 +6,7 @@ import javafx.stage.FileChooser;
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.LinkedList;
 
 public class Importer {
@@ -16,7 +14,6 @@ public class Importer {
     private static LinkedList<Cube> figure;
 
     public static LinkedList<Cube> loadFrom(File f)  {
-
         try{
             JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
             Cube.numeroCube = json.getJSONObject(json.length()-1).getInt("MaxSNB");
@@ -114,12 +111,6 @@ public class Importer {
                 });
                 model.group.getChildren().add(construction.get(i));
                 Cube.moveToLoc(construction.get(i));
-//                construction.get(i).translateXProperty().set(construction.get(i).x);
-//                construction.get(i).translateYProperty().set(construction.get(i).y);
-//                construction.get(i).translateZProperty().set(construction.get(i).z);
-//                r = new Rotate(construction.get(i).angle, Rotate.Y_AXIS);
-//                t = t.createConcatenation(r);
-//                construction.get(i).getTransforms().addAll(t);
             }
 
         } catch (Exception e) {

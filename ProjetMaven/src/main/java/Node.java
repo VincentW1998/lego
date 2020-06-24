@@ -13,12 +13,6 @@ public class Node {
         arretesUp = new LinkedList<Node>();
     }
 
-    public Node(Cube cb){
-        this();
-        c = cb;
-
-    }
-
     public void addCube(Cube cb){ //initialise le cube
         c = cb;
     }

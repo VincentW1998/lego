@@ -5,7 +5,6 @@ import javafx.scene.shape.Box;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
-import org.w3c.dom.ranges.DocumentRange;
 
 public class Cube extends Box{
 	Color color;
@@ -116,11 +115,6 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		return false;
 	}
 
-	public void updateLoc(){ //actualise les valeurs x,y,z
-		x = this.getTranslateX();
-		y = this.getTranslateY();
-		z = this.getTranslateZ();
-	}
 
 	//deplace le cube vers le point d'origine de la scene
 	public void moveToOrigin(){
