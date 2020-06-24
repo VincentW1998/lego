@@ -204,7 +204,7 @@ public class Controller {
                     case O:
                         if(model.selection.listeCubeSelectionne.size() == 1)
                             System.out.println("id : "+model.selection.listeCubeSelectionne.get(0).getIdentifiant());
-
+                            break;
                     //Camera
                     case UP:
                        model.camera.translateYProperty().set(model.camera.getTranslateY() - 1);
