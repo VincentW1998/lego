@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/* Classe permettant d'exporter une figure (une liste de piece), on s'est servi des fichiers Json pour enregistrer les datas.*/
+
 public class Exporter {
 
     // Fonction qui exporte la construction dans un fichier .JSON
@@ -13,10 +15,10 @@ public class Exporter {
         FileWriter fw = new FileWriter(f);
         JSONArray construction = new JSONArray();
         JSONObject maxVals = new JSONObject();
-        maxVals.put("MaxSNB",Cube.numeroCube);
+        maxVals.put("MaxSNB", Piece.numeroCube);
         construction.put(maxVals);
         for (int i = 1; i < group.getChildren().size(); i++){
-            Cube cube = (Cube) group.getChildren().get(i);
+            Piece cube = (Piece) group.getChildren().get(i);
             JSONObject json = new JSONObject();
             JSONObject color = new JSONObject();
             json.put("id",cube.getIdentifiant());

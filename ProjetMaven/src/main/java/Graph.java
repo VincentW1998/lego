@@ -1,5 +1,6 @@
 import javafx.scene.Group;
 
+/* Classe qui creer le graphe : Une liste de noeud */
 
 public class Graph {
 
@@ -18,24 +19,24 @@ public class Graph {
         }
     }
 
-   public void add(Cube c){
+   public void add(Piece c){
         noeuds[c.getIdentifiant()].addCube(c); //ajoute le cube dans le Node []
    }
 //ajoute une arrete au noeud src
-   public void addArretes(Cube src, Cube dest ){ // ajoute une arrete
+   public void addArretes(Piece src, Piece dest ){ // ajoute une arrete
         noeuds[src.getIdentifiant()].addArretes(noeuds[dest.getIdentifiant()]);
    }
 
-   public  void addArretesUp(Cube src, Cube dest){
+   public  void addArretesUp(Piece src, Piece dest){
        noeuds[src.getIdentifiant()].addArretesUp(noeuds[dest.getIdentifiant()]);
    }
 
     // creer le graphe
     public void createGraph(Group group){
         this.group = group;
-        Cube tmp;
+        Piece tmp;
         for (int i = 1; i < group.getChildren().size(); i ++){
-            tmp = (Cube) group.getChildren().get(i);
+            tmp = (Piece) group.getChildren().get(i);
             add(tmp);
             attachedTo(tmp);
         }
@@ -43,21 +44,20 @@ public class Graph {
 
     public void createGraphUF(Group group, Model model){
         this.group = group;
-        unionfind = new Unionfind(group,model);
-        Cube tmp;
+        Piece tmp;
         for (int i = 1; i < group.getChildren().size(); i ++){
-            tmp = (Cube) group.getChildren().get(i);
+            tmp = (Piece) group.getChildren().get(i);
             add(tmp);
             attachedTo(tmp);
         }
-//        unionfind.setPartie();
+        unionfind = new Unionfind(group,model);
         unionfind.makeUnionfindId();
     }
 
-    public void attachedTo(Cube c){ // ajoute les cubes dans les arretes && arretesUP
+    public void attachedTo(Piece c){ // ajoute les cubes dans les arretes && arretesUP
         for(int i = 1; i < group.getChildren().size(); i ++){
             {
-                Cube tmp = (Cube) group.getChildren().get(i);
+                Piece tmp = (Piece) group.getChildren().get(i);
                 if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
                     addArretes(c, tmp);
                 }

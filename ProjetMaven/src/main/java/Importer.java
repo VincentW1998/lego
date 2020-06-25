@@ -9,22 +9,24 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.LinkedList;
 
+/* Classe qui importer les donnes d'un fichier json directement dans l'editeur graphique*/
+
 public class Importer {
 
-    private static LinkedList<Cube> figure;
+    private static LinkedList<Piece> figure;
 
-    public static LinkedList<Cube> loadFrom(File f)  {
+    public static LinkedList<Piece> loadFrom(File f)  {
         try{
             JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
             JSONObject maxSNB = json.getJSONObject(0); // recuper le premier JSONObject qui contient le MaxSNB
-            Cube.numeroCube = maxSNB.getInt("MaxSNB");
+            Piece.numeroCube = maxSNB.getInt("MaxSNB");
         }
         catch(Exception e){
             return loadFromOld(f);
         }
         try {
             JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
-            figure = new LinkedList<Cube>();
+            figure = new LinkedList<Piece>();
             for (int i = 1; i < json.length(); i++) {
                 JSONObject content = json.getJSONObject(i); // recupere l'objet contenu dans le JSON array qu'on a creer auparavant
                 int id = content.getInt("id");
@@ -40,7 +42,7 @@ public class Importer {
                 int green = color.getInt("green");
                 int blue = color.getInt("blue");
                 Color color1 = Color.rgb(red, green, blue);
-                Cube cube = new Cube(color1, w, h, d, id, x, y, z); // creation du cube 3D
+                Piece cube = new Piece(color1, w, h, d, id, x, y, z); // creation du cube 3D
                 cube.SerialNb = sNb;
                 figure.add(cube); // on ajoute le cube Creer dans la linkedList de Cube
             }
@@ -52,10 +54,10 @@ public class Importer {
         }
     }
 
-    public static LinkedList<Cube> loadFromOld(File f){
+    public static LinkedList<Piece> loadFromOld(File f){
         try {
             JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
-            figure = new LinkedList<Cube>();
+            figure = new LinkedList<Piece>();
             for (int i = 0; i < json.length(); i++) {
                 JSONObject content = json.getJSONObject(i); // recupere l'objet contenu dans le JSON array qu'on a creer auparavant
                 int id = content.getInt("id");
@@ -70,11 +72,11 @@ public class Importer {
                 int green = color.getInt("green");
                 int blue = color.getInt("blue");
                 Color color1 = Color.rgb(red, green, blue);
-                Cube cube = new Cube(color1, w, h, d, id, x, y, z); // creation du cube 3D
+                Piece cube = new Piece(color1, w, h, d, id, x, y, z); // creation du cube 3D
                 cube.SerialNb = i+1;
                 figure.add(cube);
             }
-            Cube.numeroCube = json.length();
+            Piece.numeroCube = json.length();
             return figure;
         }
         catch(Exception e){
@@ -99,7 +101,7 @@ public class Importer {
             model.group.getChildren().add(model.sol); // on remet le sol
         }
         try {
-            LinkedList<Cube> construction = Importer.loadFrom(file);
+            LinkedList<Piece> construction = Importer.loadFrom(file);
 
             for (int i = 0; i < construction.size(); i++) { // on place piece par piece le contenu du fichier json
                 Rotate r;
@@ -107,10 +109,10 @@ public class Importer {
                 construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                     if (!e.isShiftDown())
                         model.selection.clear();
-                    model.selection.add((Cube) e.getSource());
+                    model.selection.add((Piece) e.getSource());
                 });
                 model.group.getChildren().add(construction.get(i));
-                Cube.moveToLoc(construction.get(i));
+                Piece.moveToLoc(construction.get(i));
             }
 
         } catch (Exception e) {

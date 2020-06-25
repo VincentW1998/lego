@@ -22,10 +22,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.Optional;
 
+/* Classe qui gere toutes les interactions de l'utilisateur,
+* raccourcis clavier ou bien l'utilisation des boutons de la telecommande*/
 
 public class Controller {
    public Model model;
-   public Cube temporaryCube;
+   public Piece temporaryCube;
    private double anchorX, anchorY;
    private double anchorAngleX = 0;
    private double anchorAngleY = 0;
@@ -167,9 +169,9 @@ public class Controller {
     @FXML
     public void reset(ActionEvent actionEvent){ // creer un nouvel espace de travail
         model.selection.clear();
-        Cube tmp;
+        Piece tmp;
         for(int i = 1;i < model.group.getChildren().size();i++){
-            tmp = (Cube)model.group.getChildren().get(i);
+            tmp = (Piece)model.group.getChildren().get(i);
             model.selection.add(tmp);
             tmp.setDrawMode(DrawMode.FILL);
         }
@@ -314,7 +316,7 @@ public class Controller {
                 double h = Double.parseDouble(height_value.getText());
                 double d = Double.parseDouble(length_value.getText());
                 Color color = colorPicker.getValue();
-                temporaryCube = new Cube(color, w, h, d);
+                temporaryCube = new Piece(color, w, h, d);
             }
             catch(Exception e){
                displayAlert("ERREUR"," Veuillez remplir correctement les champs \n Les caracteres autres que des chiffres ne sont pas autorisés");
@@ -328,14 +330,14 @@ public class Controller {
             {
                 try {
                     initTemporaryCube();
-                    Cube c = temporaryCube;
-                    Cube.setId(c,model.group.getChildren().size()-1);
+                    Piece c = temporaryCube;
+                    Piece.setId(c,model.group.getChildren().size()-1);
                     c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                         //verifie si la selection n'est pas en collision et si elle n'est pas en vol et affiche les messages d'erreur si c'est le cas
                         if (model.selection.correctPos()) {
                             if (!e.isShiftDown())
                                 model.selection.clear();
-                           model.selection.add((Cube) e.getSource());
+                           model.selection.add((Piece) e.getSource());
                         }
                     });
                     model.selection.clear();

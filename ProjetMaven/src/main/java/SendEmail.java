@@ -5,6 +5,7 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+/* Classe qui permet d'envoyer la brochure courrante par mail*/
 public class SendEmail {
 
     public static boolean mailChecker(String mail){ //verifie que le texte donnee est bien un email

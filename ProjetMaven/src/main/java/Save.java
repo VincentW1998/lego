@@ -2,8 +2,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.DrawMode;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
 
 import java.util.LinkedList;
 
@@ -35,10 +33,10 @@ public class Save {
 
 			KeyEvent move = moves.pollLast();
 			SelectionModel s = remotes.pollLast();
-			Cube tmp;
+			Piece tmp;
 			for(int i=0;i<s.listeCubeSelectionne.size();i++){
 				for(int y=1;y<model.group.getChildren().size();y++){
-					tmp = (Cube)model.group.getChildren().get(y);
+					tmp = (Piece)model.group.getChildren().get(y);
 					if(s.listeCubeSelectionne.get(i).SerialNb == tmp.SerialNb) {
 						model.group.getChildren().remove(y);
 						break;
@@ -50,7 +48,7 @@ public class Save {
 					tmp = s.listeCubeSelectionne.get(i).copy();
 					model.group.getChildren().add(tmp);
 					//ajoute le cube a la selection (on utilise pas la fonction add de selection car la fonction check les collisions
-					model.selection.listeCubeSelectionne.add((Cube) model.group.getChildren().get(model.group.getChildren().size()-1));
+					model.selection.listeCubeSelectionne.add((Piece) model.group.getChildren().get(model.group.getChildren().size()-1));
 					model.selection.listeCubeSelectionne.getLast().setDrawMode(DrawMode.LINE);
 					tmp.translateXProperty().set(s.listeCubeSelectionne.get(i).x);
 					tmp.translateYProperty().set(s.listeCubeSelectionne.get(i).y);
@@ -60,7 +58,7 @@ public class Save {
 						if (model.selection.correctPos()) {
 							if (!e.isShiftDown())
 								model.selection.clear();
-							model.selection.add((Cube) e.getSource());
+							model.selection.add((Piece) e.getSource());
 						}
 					});
 				}
