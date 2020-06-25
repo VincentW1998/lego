@@ -19,6 +19,8 @@ public class Cube extends Box{
 			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
 
 
+	/* Different constructeur pour une piece */
+
 	public Cube(Color c, double w, double h, double d) {
 		super(w,h,d);
 		color = c;
@@ -38,45 +40,41 @@ public class Cube extends Box{
 		this.angle = a;
 	}
 
-
+	// change l'id
 	public static void setId(Cube c, int id){
 		c.identifiant = id;
-
 	}
 
+	// copie une piece
 	public Cube copy(){
 		Cube c =  new Cube(this.color,this.getWidth(),this.getHeight(),this.getDepth(),this.identifiant,this.getTranslateX(),this.getTranslateY(),this.getTranslateZ(),this.angle);
 		c.SerialNb = this.SerialNb;
 		return c;
 	}
+
+	// getter identifiant
 	public int getIdentifiant() {
 		return identifiant;
 	}
 
-	public void setRange(int x){
-		setColor(colorRange[x]);
-	}
-
-
-	public void addRandomColor() {
-		Random rand = new Random();
-		setColor(Color.rgb(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-	}
+	// donne une couleur a une piece
 	public void setColor(Color c) {
 		this.color = c;
 		setMaterial(new PhongMaterial(c));
 	}
 
+	// getter couleur
 	public Color getColor() {
 		return color;
 	
 	}
-	
+
+	// verifie si une piece a le meme identifiant qu'une autre piece
 	public boolean equals(Cube c) {
 		return this.identifiant == c.identifiant;
 	}
 
-
+	// modifie l'angle
 	public void angleChange(double a){
 		angle += a;
 		if(angle >=360)
@@ -125,6 +123,7 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		this.translateYProperty().set(-h);
 		this.translateZProperty().set(d);
 	}
+
 
 	public static void moveToLoc(Cube c){
 		c.translateXProperty().set(c.x);

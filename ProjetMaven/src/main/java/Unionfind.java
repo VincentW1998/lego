@@ -53,30 +53,9 @@ public class Unionfind {
         return root;
     }
 
-    // alternative recursive de la methode find
-    // public int find(int p) {
-    //   if (p == id[p]) return p;
-    //   return id[p] = find(id[p]);
-    // }
-
-    // Retourne si 'p' et 'q' appartiennent à la même famille (groupe de cubes)
-    public boolean connected(int p, int q) {
-        return find(p) == find(q);
-    }
-
-    // Retourne la taille du groupe de cubes associé à 'p'
-    public int componentSize(int p) {
-        return getCube(p).sz;
-    }
-
     // Retourne le nombre d'élément dans cette Unionfind
     public int size() {
         return size;
-    }
-
-    // Retourne le nombre restant d'élément dans cette UnionFind
-    public int components() {
-        return numComponents;
     }
 
     // Regroupe les groupes de cubes contenant les éléments 'p' et 'q'
@@ -137,6 +116,7 @@ public class Unionfind {
         for(int i=0;i<l.size();i++) {
             if (l.get(i).getRootid() == r) {
                 list.add(model.graphConstruction.noeuds[l.get(i).getId()]);
+                list.getLast().c = list.getLast().c.copy();
                 l.remove(i);
                 i--;
             }
@@ -158,38 +138,31 @@ public class Unionfind {
          }
     }
 
-    public void makeUnionfindId(){//
-        for(int i = 1; i < groupe.getChildren().size(); i ++){
-            Cube tmp = (Cube) groupe.getChildren().get(i);
-            Cube tmpb = tmp;
-            int idtmpb = -1;
-            int cval = -1;
-            LinkedList<Integer> liste = new LinkedList<Integer>();//liste contenant les id des cubes étant en dessous de tmp
-            for(int j = 1;j< groupe.getChildren().size();j++) {
-                tmpb = (Cube)groupe.getChildren().get(j);
-                if (!tmp.equals(tmpb) && tmpb.checkPos(tmp)) { // checkPos == true if tmp est en dessous de tmpb
-                    idtmpb = tmpb.getIdentifiant();//change la valeur de idtmpb pour dire qu'il existe une piece au dessus
-                    unify(tmpb.getIdentifiant(), tmp.getIdentifiant());
-                }
+    public void makeUnionfindId(){
+        for(int i=0;i<model.graphConstruction.noeuds.length;i++){
 
-                if (!tmp.equals(tmpb) && tmp.checkPos(tmpb))  // checkPos == true if tmp est au dessus de tmpb
-                    if(!liste.contains(tmpb.getIdentifiant())) // vérifie que le cube n'est pas déjà dans la liste
-                        liste.add(tmpb.getIdentifiant());
+            if(model.graphConstruction.noeuds[i].arretesDown.size() > 1) {
+                setRootid(model.graphConstruction.noeuds[i].c.getIdentifiant(), model.graphConstruction.noeuds[i].c.getIdentifiant());//le bloc est un root
+                setRootlock(model.graphConstruction.noeuds[i].c.getIdentifiant());//on vérouille le cube
             }
-            cval = tmp.getIdentifiant();
-            if(liste.size() > 1) {
-                setRootid(cval, cval);//le bloc est un root
-                setRootlock(cval);//on vérouille le cube
-            }
-            if(liste.size() == 1 && idtmpb == -1) // si le cube est au dessus d'un cube mais en dessous de personne alors
-                setRootid(cval, liste.get(0));//on initialise son groupe au root du cube en dessous
 
-        }
-        LinkedList<Integer> end = getListe();//on récupere la liste des groupes
-        for(int i = 0;i<id.length;i++){//on remet les bons id au cubes root
-            if(end.contains(id[i].getId()))
-                setRootid(i,id[i].getId());
+            for(int cmpt = 0; cmpt < model.graphConstruction.noeuds[i].arretesUp.size();cmpt ++){
+                unify(model.graphConstruction.noeuds[i].c.getIdentifiant(),model.graphConstruction.noeuds[i].arretesUp.get(cmpt).c.getIdentifiant());
+            }
+
+            if(model.graphConstruction.noeuds[i].arretesDown.size() == 1 && model.graphConstruction.noeuds[i].arretesUp.isEmpty()) // si le cube est au dessus d'un cube mais en dessous de personne alors
+                setRootid(model.graphConstruction.noeuds[i].c.getIdentifiant(), model.graphConstruction.noeuds[i].arretesDown.get(0).c.getIdentifiant());//on initialise son groupe au root du cube en dessous
+            if(i == 5)
+                for(int bcl = 0; bcl< model.graphConstruction.noeuds[i].arretesDown.size();bcl++)
+                    System.out.println(model.graphConstruction.noeuds[i].arretesDown.get(bcl).c.getIdentifiant());
+
+            LinkedList<Integer> end = getListe();//on récupere la liste des groupes
+            for(int j = 0;j<id.length;j++){//on remet les bons id au cubes root
+                if(end.contains(id[j].getId()))
+                    setRootid(j,id[j].getId());
+            }
         }
     }
+    
 
 }

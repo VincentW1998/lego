@@ -4,6 +4,7 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.DrawMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -11,15 +12,16 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.LinkedList;
 
 public class Brochure {
 
-    static LinkedList <Image> listeImages = new LinkedList<Image>();
-    static LinkedList <Integer> listeIdentifiant = new LinkedList<Integer>();
-    static LinkedList <LinkedList <Image>> listeImagesPartie = new LinkedList<LinkedList<Image>>();
-    static LinkedList <LinkedList <Integer>> listeIdentifiantPartie = new LinkedList<LinkedList<Integer>>();
-    static LinkedList <Image> listeImagesAssemblage = new LinkedList<Image>();
+    static LinkedList <Image> listeImages = new LinkedList<Image>(); // contient des images
+    static LinkedList <Integer> listeIdentifiant = new LinkedList<Integer>(); // contient les id
+    static LinkedList <LinkedList <Image>> listeImagesPartie = new LinkedList<LinkedList<Image>>(); // contient une liste de liste d'image
+    static LinkedList <LinkedList <Integer>> listeIdentifiantPartie = new LinkedList<LinkedList<Integer>>(); // contient une liste de liste d'id
+    static LinkedList <Image> listeImagesAssemblage = new LinkedList<Image>(); // contient une liste d'image
 
     /* Creer une brochure à partir du decoupage manuel */
     public static void creationBrochure(Model model) {
@@ -205,5 +207,56 @@ public class Brochure {
             }
             System.out.print("]\n");
         }
+    }
+
+    /* Creer une brochure à partir du Union-Find */
+    public static void creationBrochureUF(Model model){
+        clearAll(); // on supprime le contenu des LinkedList
+        for (int i = 0; i < model.selection.Parties.size(); i++) {
+            while(model.group.getChildren().size() > 1) // on supprime tout les pieces du group en laissant le sol
+                model.group.getChildren().remove(1);
+
+            LinkedList <Integer> listeID = new LinkedList <Integer>();
+            LinkedList <Image> creationPartie = new LinkedList<Image>();
+            for (int j = 0; j < model.selection.Parties.get(i).size(); j++) { // On parcourt les Parties creer via UF
+			    listeID.add(model.selection.Parties.get(i).get(j).c.getIdentifiant()); // on ajoute les identifiants qui compose chaque parties
+			    model.group.getChildren().add(model.selection.Parties.get(i).get(j).c); // on ajoute ces pieces dans le group (Editeur)
+			    Cube.moveToLoc(model.selection.Parties.get(i).get(j).c); // on les positionne avec leur coordonnes resp.
+                model.selection.Parties.get(i).get(j).c.setDrawMode(DrawMode.FILL); // On les rend visible
+                File f = new File("src/main/resources/Brochures/etape.png"); // on initialise un fichier qui contiendra une capture d'ecran de l'editeur
+                if (model.selection.Parties.get(i).size() > 1){
+                    try {//creer l'image
+                        ImageIO.write(SwingFXUtils.fromFXImage(model.group.getScene().snapshot(null), null), "png", f);
+                        creationPartie.add(Image.getInstance(f.getPath())); // on ajoute l'image dans une linkedList d'image
+                        f.delete(); // on supprime le fichier
+                    } catch (IOException | BadElementException e) {
+                        System.out.println("error PNG");
+                    }
+                }
+            }
+            listeIdentifiantPartie.add(listeID);
+            listeImagesPartie.add(creationPartie);
+        }
+        while(model.group.getChildren().size() > 1) // on supprime a nouveau le contenu du group en laissant le sol
+            model.group.getChildren().remove(1);
+
+        // on fait la meme chose avec l'assemblage des parties
+        for (int i = 0; i < model.selection.Parties.size(); i ++) {
+            for (int j = 0; j < model.selection.Parties.get(i).size(); j ++) {
+                model.group.getChildren().add(model.selection.Parties.get(i).get(j).c);
+                model.selection.Parties.get(i).get(j).c.setDrawMode(DrawMode.FILL);
+            }
+            try {
+                File f = new File("src/main/resources/Brochures/etape.png");
+                ImageIO.write(SwingFXUtils.fromFXImage(model.scene.snapshot(null), null), "png", f);
+                listeImagesAssemblage.add(Image.getInstance(f.getPath()));
+                f.delete();
+            } catch (IOException | BadElementException e) {
+                System.out.println("error PNG");
+            }
+        }
+        while(model.group.getChildren().size() > 1)
+            model.group.getChildren().remove(1);
+        imagesToPdfManuel(model); // fonction permettant de creer le fichier pdf
     }
 }

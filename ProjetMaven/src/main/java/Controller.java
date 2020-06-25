@@ -64,17 +64,17 @@ public class Controller {
     //***************FXML Methods***********
 
     @FXML
-    private void changeColor(ActionEvent event) {
+    private void changeColor(ActionEvent event) { // fonction permettant de choisir sa couleur
         Color choice = colorPicker.getValue();
         selected_color.setBackground(new Background(new BackgroundFill(Paint.valueOf(choice.toString()), CornerRadii.EMPTY, Insets.EMPTY)));
     }
     @FXML
-    public void Undo(){
+    public void Undo(){ // retour en arriere
         model.save.undo(model);
     }
     //
     @FXML
-    void newWindow(ActionEvent event) {
+    void newWindow(ActionEvent event) { // appel de la telecommande
         if(notYet){
             notYet = false;
             try {
@@ -92,17 +92,17 @@ public class Controller {
     }
 
     @FXML
-    public void createCube() { cubeCreation(null); }
+    public void createCube() { cubeCreation(null); } // creation de piece
 
 
     @FXML
-    public void handleMuteBox(){
+    public void handleMuteBox(){ // box a cocher pour le son
         if(mute_value.isSelected())model.mute = true;
         else model.mute = false;
     }
 
     @FXML
-    public void creationBrochure(ActionEvent actionEvent) {
+    public void creationBrochure(ActionEvent actionEvent) { // bouton brochure
         try {
             if(model.group.getChildren().size()==1 && model.selection.PartiesSelection.isEmpty()) {
                 displayAlert("Aucun lego creer", "Vous ne pouvez pas creer de brochure sans ajouter de cubes");
@@ -111,8 +111,11 @@ public class Controller {
             if(model.selection.PartiesSelection.isEmpty()) {
 //                graphAlgo();
                 graphAlgoUF();
+                Brochure.creationBrochureUF(model);
+                model.selection.Parties.clear();
             }
-            CreateBrochure();
+            else
+                CreateBrochure();
         }
         catch(Exception e){
 
@@ -120,7 +123,7 @@ public class Controller {
     }
 
     @FXML
-    public void sendEmail(ActionEvent actionEvent){
+    public void sendEmail(ActionEvent actionEvent){ // envoie un mail avec la brochure courrante
         String to = email_value.getText();
         if(model.CurrentBrochure == null){
             displayAlert("Aucune brochure n'a ete creer", "veuillez creer votre brochure");
@@ -133,11 +136,11 @@ public class Controller {
             SendEmail.sendFileEmail(to,model.CurrentBrochure);
     }
     @FXML
-    public void Exporter(ActionEvent actionEvent) {
+    public void Exporter(ActionEvent actionEvent) { // exporter une construction
         Exporter.export((model));
     }
     @FXML
-    public void Importer(ActionEvent actionEvent) {
+    public void Importer(ActionEvent actionEvent) { // importer une construction (fichier json)
         Importer.importe(model);
     }
 
@@ -148,7 +151,7 @@ public class Controller {
         alert.showAndWait();
     }
     @FXML
-    public void reset(ActionEvent actionEvent){
+    public void reset(ActionEvent actionEvent){ // creer un nouvel espace de travail
         model.selection.clear();
         Cube tmp;
         for(int i = 1;i < model.group.getChildren().size();i++){
@@ -170,58 +173,58 @@ public class Controller {
 
                 switch (event.getCode()) {
                     //seclection
-                    case ESCAPE:
+                    case ESCAPE: // deselectionne une selection
                         if(model.selection.correctPos())
                             model.selection.clear();
                         break;
                     //**********************Cube Movement**********************
-                    case W:
+                    case W: // + axe Z
                         model.save.saveRemote(model.selection.copy());// sauvegarde le dernier mouvement realiser
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.W(model.mute);// add 15 to the Z axis when the W key is pressed
 
                         break;
-                    case S:
+                    case S: // - axe Z
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.S(model.mute); // substract 15 to Z axis
                         break;
-                    case A:
+                    case A: // - axe X
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.A(model.mute);// substract 10 to X axis
                         break;
-                    case D:
+                    case D: // + axe X
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.D(model.mute); // add 10 to X axis
                         break;
-                    case Z:
+                    case Z: // - axe Y
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.Z(model.mute);
                         break;
-                    case X:
+                    case X: // + axe Y
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.X(model.mute);
 
                         break;
-                    case Q:
+                    case Q: // rotation anti-horaire
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.Q();
                         break;
-                    case E:
+                    case E: // roration horaire
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.E();
                         break;
-                    case O:
+                    case O: // affiche l'idendifiant de la piece
                         if(model.selection.listeCubeSelectionne.size() == 1)
                             System.out.println("id : "+model.selection.listeCubeSelectionne.get(0).getIdentifiant());
                             break;
-                    //Camera
+                    // deplacement de la camera
                     case UP:
                        model.camera.translateYProperty().set(model.camera.getTranslateY() - 1);
                         break;
@@ -241,7 +244,7 @@ public class Controller {
                         angleY.set(0);
                         break;
 //                        *****************miscellaneous********
-                    case BACK_SPACE:
+                    case BACK_SPACE: // supprime une piece ou une selection de piece
                         if (!model.selection.empty()) {
                             if(model.mute == false)Audio.soundDelete();
                             model.save.saveRemote(model.selection.copy());
@@ -367,30 +370,30 @@ public class Controller {
         model.graphConstruction.createGraphUF(model.group,model); // creation du graphe
         model.graphConstruction.afficherCubes();
         model.graphConstruction.unionfind.setPartie();
-        Brochure.boucleUF(model);
-//        model.graphConstruction.printGraph(); // affichage du graphe
+//        Brochure.boucleUF(model);
+        model.graphConstruction.printGraph(); // affichage du graphe
 //        model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
 //        model.graphConstruction.printOrder(); // affiche l'ordre de construction
     }
 
     public void CreateBrochure(){
         try {
-            if (model.selection.PartiesSelection.size() != 0) {
+//            if (model.selection.PartiesSelection.size() != 0)
                 model.group.getChildren().remove(1,model.group.getChildren().size()-1);
                 Brochure.creationBrochure(model);
                 model.selection.PartiesSelection.clear();
-            }
-            else {
-                for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
-                    model.selection.add(model.graphConstruction.noeuds[i].c);
-                }
-                SelectionModel tmp = model.selection.copy();
-                //vide le groupe en laissant le sol
-                while (model.group.getChildren().size() > 1) {
-                    model.group.getChildren().remove(1);
-                }
-                Brochure.creationBrochureAlgo(tmp,model);
-            }
+
+//            else {
+//                for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
+//                    model.selection.add(model.graphConstruction.noeuds[i].c);
+//                }
+//                SelectionModel tmp = model.selection.copy();
+//                //vide le groupe en laissant le sol
+//                while (model.group.getChildren().size() > 1) {
+//                    model.group.getChildren().remove(1);
+//                }
+//                Brochure.creationBrochureAlgo(tmp,model);
+//            }
             model.selection.clear();
         }
         catch(Exception e){
