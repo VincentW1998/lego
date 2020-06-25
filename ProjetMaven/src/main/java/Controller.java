@@ -268,7 +268,6 @@ public class Controller {
 
                     case Z:
                         model.save.undo(model);
-//                        model.selection.Undo(model.save);
                         break;
                     case I:// importer un fichier de sauvegarde
                         Importer.importe(model);
@@ -368,7 +367,6 @@ public class Controller {
 
     public void CreateBrochure(){
         try {
-
                 model.group.getChildren().remove(1,model.group.getChildren().size()-1);
                 Brochure.creationBrochure(model);
                 model.selection.PartiesSelection.clear();

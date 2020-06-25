@@ -7,6 +7,7 @@ import com.itextpdf.text.Image;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Transform;
@@ -229,7 +230,6 @@ public class SelectionModel {
 			if(grapheSelection!=null){
 				for(int i = 0; i< listeCubeSelectionne.size(); i++){
 					tmp.add(grapheSelection.noeuds[listeCubeSelectionne.get(i).getIdentifiant()]);
-//				group.getChildren().remove(listeCubeSelectionne.get(i));
 					listeCubeSelectionne.get(i).setVisible(false);
 				}
 				Parties.add(tmp);
