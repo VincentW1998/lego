@@ -16,7 +16,8 @@ public class Importer {
     public static LinkedList<Cube> loadFrom(File f)  {
         try{
             JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
-            Cube.numeroCube = json.getJSONObject(json.length()-1).getInt("MaxSNB");
+            JSONObject maxSNB = json.getJSONObject(0);
+            Cube.numeroCube = maxSNB.getInt("MaxSNB");
         }
         catch(Exception e){
             return loadFromOld(f);
