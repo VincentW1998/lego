@@ -7,9 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.*;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -20,9 +18,9 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import java.io.IOException;
 
+import java.io.IOException;
+import java.util.Optional;
 
 
 public class Controller {
@@ -109,10 +107,25 @@ public class Controller {
                 return;
             }
             if(model.selection.PartiesSelection.isEmpty()) {
-//                graphAlgo();
-                graphAlgoUF();
-                Brochure.creationBrochureUF(model);
-                model.selection.Parties.clear();
+                Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Choix Algorithme");
+                alert.setHeaderText("Choisissez l'aglorithme à utiliser");
+                ButtonType Naif = new ButtonType("Naif");
+                ButtonType UF = new ButtonType("UnionFind");
+                ButtonType Cancel = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
+                alert.getButtonTypes().setAll(Naif, UF, Cancel);
+                Optional<ButtonType> result = alert.showAndWait();
+                if(result.get() == Naif) {
+                    graphAlgo();
+                    CreateBrochure();
+                }
+                else if (result.get() == UF) {
+                    graphAlgoUF();
+                    Brochure.creationBrochureUF(model);
+                    model.selection.Parties.clear();
+                }
+                    else if (result.get() == Cancel)
+                        return;
             }
             else
                 CreateBrochure();
@@ -359,18 +372,26 @@ public class Controller {
         model.graphConstruction.createGraphUF(model.group,model); // creation du graphe
         model.graphConstruction.afficherCubes();
         model.graphConstruction.unionfind.setPartie();
-//        Brochure.boucleUF(model);
         model.graphConstruction.printGraph(); // affichage du graphe
-//        model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
-//        model.graphConstruction.printOrder(); // affiche l'ordre de construction
     }
 
     public void CreateBrochure(){
         try {
-                model.group.getChildren().remove(1,model.group.getChildren().size()-1);
+            if(!model.selection.PartiesSelection.isEmpty()) {
+                model.group.getChildren().remove(1, model.group.getChildren().size() - 1);
                 Brochure.creationBrochure(model);
                 model.selection.PartiesSelection.clear();
-
+            }
+            else{
+                for(int i=0;i < model.graphConstruction.noeuds.length;i++){
+                    model.selection.add(model.graphConstruction.noeuds[i].c);
+                }
+                SelectionModel tmp = model.selection.copy();
+                while(model.group.getChildren().size() > 1){
+                    model.group.getChildren().remove(1);
+                }
+                Brochure.creationBrochureAlgo(tmp,model);
+            }
             model.selection.clear();
         }
         catch(Exception e){
