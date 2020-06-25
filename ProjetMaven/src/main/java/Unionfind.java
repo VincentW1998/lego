@@ -140,17 +140,21 @@ public class Unionfind {
 
     public void makeUnionfindId(){
         for(int i=0;i<model.graphConstruction.noeuds.length;i++){
-            if(!model.graphConstruction.noeuds[i].arretesUp.isEmpty()){
-                unify(model.graphConstruction.noeuds[i].c.getIdentifiant(),model.graphConstruction.noeuds[i].arretesUp.getFirst().c.getIdentifiant());
-            }
 
             if(model.graphConstruction.noeuds[i].arretesDown.size() > 1) {
                 setRootid(model.graphConstruction.noeuds[i].c.getIdentifiant(), model.graphConstruction.noeuds[i].c.getIdentifiant());//le bloc est un root
                 setRootlock(model.graphConstruction.noeuds[i].c.getIdentifiant());//on vérouille le cube
             }
 
+            for(int cmpt = 0; cmpt < model.graphConstruction.noeuds[i].arretesUp.size();cmpt ++){
+                unify(model.graphConstruction.noeuds[i].c.getIdentifiant(),model.graphConstruction.noeuds[i].arretesUp.get(cmpt).c.getIdentifiant());
+            }
+
             if(model.graphConstruction.noeuds[i].arretesDown.size() == 1 && model.graphConstruction.noeuds[i].arretesUp.isEmpty()) // si le cube est au dessus d'un cube mais en dessous de personne alors
                 setRootid(model.graphConstruction.noeuds[i].c.getIdentifiant(), model.graphConstruction.noeuds[i].arretesDown.get(0).c.getIdentifiant());//on initialise son groupe au root du cube en dessous
+            if(i == 5)
+                for(int bcl = 0; bcl< model.graphConstruction.noeuds[i].arretesDown.size();bcl++)
+                    System.out.println(model.graphConstruction.noeuds[i].arretesDown.get(bcl).c.getIdentifiant());
 
             LinkedList<Integer> end = getListe();//on récupere la liste des groupes
             for(int j = 0;j<id.length;j++){//on remet les bons id au cubes root
