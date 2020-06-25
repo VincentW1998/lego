@@ -4,6 +4,7 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.DrawMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -11,6 +12,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.LinkedList;
 
 public class Brochure {
@@ -205,5 +207,53 @@ public class Brochure {
             }
             System.out.print("]\n");
         }
+    }
+
+    /* Creer une brochure à partir du Union-Find */
+    public static void creationBrochureUF(Model model){
+        clearAll();
+        for (int i = 0; i < model.selection.Parties.size(); i++) {
+            while(model.group.getChildren().size() > 1)
+                model.group.getChildren().remove(1);
+
+            LinkedList <Integer> listeID = new LinkedList <Integer>();
+            LinkedList <Image> creationPartie = new LinkedList<Image>();
+            for (int j = 0; j < model.selection.Parties.get(i).size(); j++) {
+			    listeID.add(model.selection.Parties.get(i).get(j).c.getIdentifiant());
+			    model.group.getChildren().add(model.selection.Parties.get(i).get(j).c);
+			    Cube.moveToLoc(model.selection.Parties.get(i).get(j).c);
+                model.selection.Parties.get(i).get(j).c.setDrawMode(DrawMode.FILL);
+                File f = new File("src/main/resources/Brochures/etape.png");
+                try {//creer l'image
+                    ImageIO.write(SwingFXUtils.fromFXImage(model.group.getScene().snapshot(null), null), "png", f);
+                    creationPartie.add(Image.getInstance(f.getPath()));
+                    f.delete();
+                } catch (IOException | BadElementException e) {
+                    System.out.println("error PNG");
+                }
+            }
+            listeIdentifiantPartie.add(listeID);
+            listeImagesPartie.add(creationPartie);
+        }
+        while(model.group.getChildren().size() > 1)
+            model.group.getChildren().remove(1);
+
+        for (int i = 0; i < model.selection.Parties.size(); i ++) {
+            for (int j = 0; j < model.selection.Parties.get(i).size(); j ++) {
+                model.group.getChildren().add(model.selection.Parties.get(i).get(j).c);
+                model.selection.Parties.get(i).get(j).c.setDrawMode(DrawMode.FILL);
+            }
+            try {
+                File f = new File("src/main/resources/Brochures/etape.png");
+                ImageIO.write(SwingFXUtils.fromFXImage(model.scene.snapshot(null), null), "png", f);
+                listeImagesAssemblage.add(Image.getInstance(f.getPath()));
+                f.delete();
+            } catch (IOException | BadElementException e) {
+                System.out.println("error PNG");
+            }
+        }
+        while(model.group.getChildren().size() > 1)
+            model.group.getChildren().remove(1);
+        imagesToPdfManuel(model);
     }
 }

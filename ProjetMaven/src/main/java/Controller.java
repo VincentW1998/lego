@@ -112,7 +112,9 @@ public class Controller {
 //                graphAlgo();
                 graphAlgoUF();
             }
-            CreateBrochure();
+//            CreateBrochure();
+            Brochure.creationBrochureUF(model);
+            model.selection.clear();
         }
         catch(Exception e){
 
@@ -367,7 +369,7 @@ public class Controller {
         model.graphConstruction.createGraphUF(model.group,model); // creation du graphe
         model.graphConstruction.afficherCubes();
         model.graphConstruction.unionfind.setPartie();
-        Brochure.boucleUF(model);
+//        Brochure.boucleUF(model);
 //        model.graphConstruction.printGraph(); // affichage du graphe
 //        model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
 //        model.graphConstruction.printOrder(); // affiche l'ordre de construction
