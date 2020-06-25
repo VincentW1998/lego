@@ -116,6 +116,7 @@ public class Unionfind {
         for(int i=0;i<l.size();i++) {
             if (l.get(i).getRootid() == r) {
                 list.add(model.graphConstruction.noeuds[l.get(i).getId()]);
+                list.getLast().c = list.getLast().c.copy();
                 l.remove(i);
                 i--;
             }
