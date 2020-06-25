@@ -7,10 +7,10 @@ import java.io.File;
 
 public class Model {
 
-    private class Ground extends Cube{
+    private class Ground extends Piece {
         public Ground(int w, int d) {
             super(Color.rgb(200, 200, 200, 0.2),w,0.01,d);
-            Cube.setId(this,-1);
+            Piece.setId(this,-1);
         }
     }
 
@@ -63,10 +63,10 @@ public class Model {
     }
 
     public void reordonnerGroup(){
-        Cube tmp;
+        Piece tmp;
         for(int i = 1; i < group.getChildren().size(); i++){
-            tmp = (Cube) group.getChildren().get(i);
-            Cube.setId(tmp,i - 1);
+            tmp = (Piece) group.getChildren().get(i);
+            Piece.setId(tmp,i - 1);
         }
     }
 

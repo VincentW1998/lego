@@ -7,13 +7,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.DrawMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.LinkedList;
+
+/* Classe qui permet de creer une brochure PDF,
+*  soit avec le decoupage manuel, soit l'algo naif et pour finir l'algo union-find  */
 
 public class Brochure {
 
@@ -48,15 +49,15 @@ public class Brochure {
             }
         }
         for(int i=1;i<model.group.getChildren().size();i++){
-            Cube tmp = (Cube) model.group.getChildren().get(i);
+            Piece tmp = (Piece) model.group.getChildren().get(i);
                 tmp.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                     if (!e.isShiftDown())
                         model.selection.clear();
-                    model.selection.add((Cube) e.getSource());
+                    model.selection.add((Piece) e.getSource());
                 });
         }
 
-        imagesToPdfManuel(model);
+        imagesToPdfManuel(model); // transforme les images du decoupage manuel en document pdf
     }
 
 
@@ -65,11 +66,11 @@ public class Brochure {
         clearAll();
         for(int i = 0; i < selection.listeCubeSelectionne.size(); i++){  // on parcourt la selection de cube
             selection.group.getChildren().add(selection.listeCubeSelectionne.get(i)); // on ajoute chaque cube de la selection dans le groupe
-            Cube.moveToLoc((Cube) selection.group.getChildren().get(i + 1));
+            Piece.moveToLoc((Piece) selection.group.getChildren().get(i + 1));
             selection.group.getChildren().get(i+1).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                 if (!e.isShiftDown())
                     model.selection.clear();
-                model.selection.add((Cube) e.getSource());
+                model.selection.add((Piece) e.getSource());
             });
             File f = new File("src/main/resources/Brochures/piece.png"); // on initialise un fichier
             listeIdentifiant.add(selection.listeCubeSelectionne.get(i).getIdentifiant());
@@ -176,7 +177,7 @@ public class Brochure {
                 listeImagesAssemblage.get(i).setBorder(Rectangle.BOX); // creer la bordure
                 listeImagesAssemblage.get(i).setBorderWidth(5); // epaisseur de la bordure
                 document.add(Image.getInstance(listeImagesAssemblage.get(i)));
-                document.add(new Paragraph("Assemblage" + (i + 1)+" Etape " + (i + 1)));
+                document.add(new Paragraph("Assemblage " + (i + 1)+" Etape " + (i + 1)));
                 document.add(saut);
             }
             document.close();
@@ -228,7 +229,7 @@ public class Brochure {
             for (int j = 0; j < model.selection.Parties.get(i).size(); j++) { // On parcourt les Parties creer via UF
 			    listeID.add(model.selection.Parties.get(i).get(j).c.getIdentifiant()); // on ajoute les identifiants qui compose chaque parties
 			    model.group.getChildren().add(model.selection.Parties.get(i).get(j).c); // on ajoute ces pieces dans le group (Editeur)
-			    Cube.moveToLoc(model.selection.Parties.get(i).get(j).c); // on les positionne avec leur coordonnes resp.
+			    Piece.moveToLoc(model.selection.Parties.get(i).get(j).c); // on les positionne avec leur coordonnes resp.
                 model.selection.Parties.get(i).get(j).c.setDrawMode(DrawMode.FILL); // On les rend visible
                 File f = new File("src/main/resources/Brochures/etape.png"); // on initialise un fichier qui contiendra une capture d'ecran de l'editeur
                 if (model.selection.Parties.get(i).size() > 1){
@@ -263,11 +264,11 @@ public class Brochure {
             }
         }
         for(int i=1;i<model.group.getChildren().size();i++){
-            Cube tmp = (Cube) model.group.getChildren().get(i);
+            Piece tmp = (Piece) model.group.getChildren().get(i);
             tmp.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
                 if (!e.isShiftDown())
                     model.selection.clear();
-                model.selection.add((Cube) e.getSource());
+                model.selection.add((Piece) e.getSource());
             });
         }
         imagesToPdfManuel(model); // fonction permettant de creer le fichier pdf

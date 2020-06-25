@@ -7,22 +7,19 @@ import com.itextpdf.text.Image;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Group;
 import javafx.scene.control.Alert;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.DrawMode;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
 
 import javax.imageio.ImageIO;
 
 public class SelectionModel {
-	LinkedList <Cube> listeCubeSelectionne;
+	LinkedList <Piece> listeCubeSelectionne;
 //	Rotate r;
 //	Transform t;
 	Group group;
 	LinkedList <LinkedList<Node>> Parties;
 	LinkedList <SelectionModel> PartiesSelection;
 	public SelectionModel(Group g) {
-		listeCubeSelectionne = new LinkedList<Cube>();
+		listeCubeSelectionne = new LinkedList<Piece>();
 //		t = new Rotate();
 		group = g;
 		Parties = new LinkedList<LinkedList<Node>>();
@@ -42,7 +39,7 @@ public class SelectionModel {
 	}
 
 	//ajoute un cube a la selection
-	public void add(Cube b) {
+	public void add(Piece b) {
 		if(!contains(b)) {
 			if(!isInCollision()) {
 				b.setDrawMode(DrawMode.LINE); // change l'apparence d'un cube en (drawMode)
@@ -56,7 +53,7 @@ public class SelectionModel {
 		LinkedList <Image> creationPartie = new LinkedList<Image>();
 		for(int i = 0; i< listeCubeSelectionne.size(); i++){
 			group.getChildren().add(listeCubeSelectionne.get(i));
-			Cube.moveToLoc(listeCubeSelectionne.get(i));
+			Piece.moveToLoc(listeCubeSelectionne.get(i));
 			listeCubeSelectionne.get(i).setDrawMode(DrawMode.FILL);
 			File f = new File("src/main/resources/Brochures/etape.png");
 			try {//creer l'image
@@ -105,7 +102,7 @@ public class SelectionModel {
 		return listeCubeSelectionne.isEmpty();
 	}
 	//verifie si un cube b appartient a la selection
-	public boolean contains(Cube b) {
+	public boolean contains(Piece b) {
 		return listeCubeSelectionne.contains(b);
 	}
 
@@ -161,10 +158,10 @@ public class SelectionModel {
 	}
 
 	public boolean isInCollision(){
-		Cube tmp;
+		Piece tmp;
 		for(int i=0;i<listeCubeSelectionne.size();i++) {
 			for (int y = 1; y < group.getChildren().size(); y++) {
-				tmp = (Cube) group.getChildren().get(y);
+				tmp = (Piece) group.getChildren().get(y);
 				if ((!tmp.equals(listeCubeSelectionne.get(i))) && listeCubeSelectionne.get(i).isColliding(tmp)) {
 					return true;
 				}
@@ -246,21 +243,21 @@ public class SelectionModel {
 	}
 
 	public boolean isFlying(){
-		Cube tmp;
+		Piece tmp;
 		for(int i=1;i<group.getChildren().size();i++){
-			tmp = (Cube) group.getChildren().get(i);
+			tmp = (Piece) group.getChildren().get(i);
 			if(fly(tmp))
 				return true;
 		}
 		return false;
 	}
 
-	public boolean fly(Cube c){
-		Cube tmp;
+	public boolean fly(Piece c){
+		Piece tmp;
 		boolean up = false;
 		boolean down = false;
 		for(int i=1;i<group.getChildren().size();i++){
-			tmp = (Cube)group.getChildren().get(i);
+			tmp = (Piece)group.getChildren().get(i);
 			if (!tmp.equals(c) && c.checkPos(tmp)) { // checkPos == true if tmp est en dessous de c
 				up = true;
 			}

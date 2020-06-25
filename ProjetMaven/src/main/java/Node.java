@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 
 public class Node {
-    Cube c; // noeud
+    Piece c; // noeud
     LinkedList<Node> arretesDown; // arretes pieces en dessous (liens)
     LinkedList<Node> arretesUp; // arretes pieces au dessus (liens)
     int ordreConstruction = -1; // utilisation explicite
@@ -13,7 +13,7 @@ public class Node {
         arretesUp = new LinkedList<Node>();
     }
 
-    public void addCube(Cube cb){ //initialise le cube
+    public void addCube(Piece cb){ //initialise le cube
         c = cb;
     }
 

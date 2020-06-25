@@ -1,12 +1,11 @@
 import javafx.scene.paint.Color;
-import java.util.Random;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.DrawMode;
-import javafx.scene.transform.Rotate;
-import javafx.scene.transform.Transform;
 
-public class Cube extends Box{
+/* Classe qui gere les pieces : la composition d'une piece (attributs), les colisions, et les deplacements  */
+
+public class Piece extends Box{
 	Color color;
 	static int numeroCube = -1;
 	private int identifiant;
@@ -17,7 +16,7 @@ public class Cube extends Box{
 
 	/* Different constructeur pour une piece */
 
-	public Cube(Color c, double w, double h, double d) {
+	public Piece(Color c, double w, double h, double d) {
 		super(w,h,d);
 		color = c;
 		setMaterial(new PhongMaterial(c));
@@ -25,7 +24,7 @@ public class Cube extends Box{
 		SerialNb = numeroCube;
 	}
 
-	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z){
+	public Piece(Color c, double w, double h, double d, int id, double x, double y, double z){
 		super(w,h,d);
 		color = c;
 		setMaterial(new PhongMaterial(c));
@@ -36,13 +35,13 @@ public class Cube extends Box{
 	}
 
 	// change l'id
-	public static void setId(Cube c, int id){
+	public static void setId(Piece c, int id){
 		c.identifiant = id;
 	}
 
 	// copie une piece
-	public Cube copy(){
-		Cube c =  new Cube(this.color,this.getWidth(),this.getHeight(),this.getDepth(),this.identifiant,this.getTranslateX(),this.getTranslateY(),this.getTranslateZ());
+	public Piece copy(){
+		Piece c =  new Piece(this.color,this.getWidth(),this.getHeight(),this.getDepth(),this.identifiant,this.getTranslateX(),this.getTranslateY(),this.getTranslateZ());
 		c.SerialNb = this.SerialNb;
 		return c;
 	}
@@ -65,7 +64,7 @@ public class Cube extends Box{
 	}
 
 	// verifie si une piece a le meme identifiant qu'une autre piece
-	public boolean equals(Cube c) {
+	public boolean equals(Piece c) {
 		return this.identifiant == c.identifiant;
 	}
 
@@ -73,27 +72,27 @@ public class Cube extends Box{
 public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 	return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
 }
-	public boolean checkXpos(Cube c){ // verifie si c.minX<= this.minX<=c.MaxX ou this.minX<= c.minX<=this.MaxX
+	public boolean checkXpos(Piece c){ // verifie si c.minX<= this.minX<=c.MaxX ou this.minX<= c.minX<=this.MaxX
 		return(inBounds(c.getBoundsInParent().getMinX(),c.getBoundsInParent().getMaxX(),getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
 		);
 	}
 
-	public boolean checkZpos(Cube c){
+	public boolean checkZpos(Piece c){
 		return(inBounds(c.getBoundsInParent().getMinZ(),c.getBoundsInParent().getMaxZ(),getBoundsInParent().getMinZ(),getBoundsInParent().getMaxZ())
 		);
 	}
-	public boolean checkYpos(Cube c){
+	public boolean checkYpos(Piece c){
 		return getBoundsInParent().getMaxY()==c.getBoundsInParent().getMinY();
 	}
 
-	public boolean IsCollidingInY(Cube c){
+	public boolean IsCollidingInY(Piece c){
 		return(inBounds(c.getBoundsInParent().getMinY(),c.getBoundsInParent().getMaxY(),getBoundsInParent().getMinY(),getBoundsInParent().getMaxY()));
 	}
-	public boolean checkPos(Cube c){
+	public boolean checkPos(Piece c){
 		return (checkYpos(c)&& ((checkXpos(c)&&(checkZpos(c)||c.checkZpos(this)))|| (c.checkXpos(this)&&(checkZpos(c)||c.checkZpos(this)))));
 	}
 	//verifie si le cube this est en collision avec le cube c
-	public boolean isColliding(Cube c){
+	public boolean isColliding(Piece c){
 		if (checkXpos(c) && IsCollidingInY(c) && checkZpos(c)){
 			return true;
 		}
@@ -112,7 +111,7 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 	}
 
 
-	public static void moveToLoc(Cube c){
+	public static void moveToLoc(Piece c){
 		c.translateXProperty().set(c.x);
 		c.translateYProperty().set(c.y);
 		c.translateZProperty().set(c.z);
