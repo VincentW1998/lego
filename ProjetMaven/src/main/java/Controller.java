@@ -111,10 +111,11 @@ public class Controller {
             if(model.selection.PartiesSelection.isEmpty()) {
 //                graphAlgo();
                 graphAlgoUF();
+                Brochure.creationBrochureUF(model);
+                model.selection.Parties.clear();
             }
-//            CreateBrochure();
-            Brochure.creationBrochureUF(model);
-            model.selection.Parties.clear();
+            else
+                CreateBrochure();
         }
         catch(Exception e){
 
@@ -377,22 +378,22 @@ public class Controller {
 
     public void CreateBrochure(){
         try {
-            if (model.selection.PartiesSelection.size() != 0) {
+//            if (model.selection.PartiesSelection.size() != 0)
                 model.group.getChildren().remove(1,model.group.getChildren().size()-1);
                 Brochure.creationBrochure(model);
                 model.selection.PartiesSelection.clear();
-            }
-            else {
-                for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
-                    model.selection.add(model.graphConstruction.noeuds[i].c);
-                }
-                SelectionModel tmp = model.selection.copy();
-                //vide le groupe en laissant le sol
-                while (model.group.getChildren().size() > 1) {
-                    model.group.getChildren().remove(1);
-                }
-                Brochure.creationBrochureAlgo(tmp,model);
-            }
+
+//            else {
+//                for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
+//                    model.selection.add(model.graphConstruction.noeuds[i].c);
+//                }
+//                SelectionModel tmp = model.selection.copy();
+//                //vide le groupe en laissant le sol
+//                while (model.group.getChildren().size() > 1) {
+//                    model.group.getChildren().remove(1);
+//                }
+//                Brochure.creationBrochureAlgo(tmp,model);
+//            }
             model.selection.clear();
         }
         catch(Exception e){
