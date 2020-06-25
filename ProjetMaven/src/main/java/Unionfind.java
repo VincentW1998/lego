@@ -53,30 +53,9 @@ public class Unionfind {
         return root;
     }
 
-    // alternative recursive de la methode find
-    // public int find(int p) {
-    //   if (p == id[p]) return p;
-    //   return id[p] = find(id[p]);
-    // }
-
-    // Retourne si 'p' et 'q' appartiennent à la même famille (groupe de cubes)
-    public boolean connected(int p, int q) {
-        return find(p) == find(q);
-    }
-
-    // Retourne la taille du groupe de cubes associé à 'p'
-    public int componentSize(int p) {
-        return getCube(p).sz;
-    }
-
     // Retourne le nombre d'élément dans cette Unionfind
     public int size() {
         return size;
-    }
-
-    // Retourne le nombre restant d'élément dans cette UnionFind
-    public int components() {
-        return numComponents;
     }
 
     // Regroupe les groupes de cubes contenant les éléments 'p' et 'q'
