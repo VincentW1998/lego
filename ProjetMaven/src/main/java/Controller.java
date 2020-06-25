@@ -84,6 +84,7 @@ public class Controller {
                 stage.setTitle("HotKeys");
                 stage.setScene(new Scene(root));
                 stage.show();
+                stage.setOnHidden(e -> notYet = true);
             } catch (Exception e) {
                 System.out.println("ERROR");
             }
