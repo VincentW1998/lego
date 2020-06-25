@@ -224,12 +224,14 @@ public class Brochure {
 			    Cube.moveToLoc(model.selection.Parties.get(i).get(j).c); // on les positionne avec leur coordonnes resp.
                 model.selection.Parties.get(i).get(j).c.setDrawMode(DrawMode.FILL); // On les rend visible
                 File f = new File("src/main/resources/Brochures/etape.png"); // on initialise un fichier qui contiendra une capture d'ecran de l'editeur
-                try {//creer l'image
-                    ImageIO.write(SwingFXUtils.fromFXImage(model.group.getScene().snapshot(null), null), "png", f);
-                    creationPartie.add(Image.getInstance(f.getPath())); // on ajoute l'image dans une linkedList d'image
-                    f.delete(); // on supprime le fichier
-                } catch (IOException | BadElementException e) {
-                    System.out.println("error PNG");
+                if (model.selection.Parties.get(i).size() > 1){
+                    try {//creer l'image
+                        ImageIO.write(SwingFXUtils.fromFXImage(model.group.getScene().snapshot(null), null), "png", f);
+                        creationPartie.add(Image.getInstance(f.getPath())); // on ajoute l'image dans une linkedList d'image
+                        f.delete(); // on supprime le fichier
+                    } catch (IOException | BadElementException e) {
+                        System.out.println("error PNG");
+                    }
                 }
             }
             listeIdentifiantPartie.add(listeID);
