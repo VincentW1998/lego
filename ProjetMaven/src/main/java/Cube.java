@@ -124,6 +124,7 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		this.translateZProperty().set(d);
 	}
 
+
 	public static void moveToLoc(Cube c){
 		c.translateXProperty().set(c.x);
 		c.translateYProperty().set(c.y);
