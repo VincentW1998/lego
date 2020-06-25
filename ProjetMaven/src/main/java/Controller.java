@@ -370,7 +370,7 @@ public class Controller {
         model.graphConstruction.afficherCubes();
         model.graphConstruction.unionfind.setPartie();
 //        Brochure.boucleUF(model);
-//        model.graphConstruction.printGraph(); // affichage du graphe
+        model.graphConstruction.printGraph(); // affichage du graphe
 //        model.graphConstruction.giveOrderToGraph(); // attribut un ordre de consutrction
 //        model.graphConstruction.printOrder(); // affiche l'ordre de construction
     }
