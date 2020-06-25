@@ -15,14 +15,14 @@ import javax.imageio.ImageIO;
 
 public class SelectionModel {
 	LinkedList <Cube> listeCubeSelectionne;
-	Rotate r;
-	Transform t;
+//	Rotate r;
+//	Transform t;
 	Group group;
 	LinkedList <LinkedList<Node>> Parties;
 	LinkedList <SelectionModel> PartiesSelection;
 	public SelectionModel(Group g) {
 		listeCubeSelectionne = new LinkedList<Cube>();
-		t = new Rotate();
+//		t = new Rotate();
 		group = g;
 		Parties = new LinkedList<LinkedList<Node>>();
 		PartiesSelection = new LinkedList<SelectionModel>();
@@ -172,39 +172,12 @@ public class SelectionModel {
 		return false;
 	}
 
-	
-	
-//	****************ROTATION*****************
-	
-	public void Q() {//tourne la selection dans l'axe x de -1
-		r = new Rotate(+90, Rotate.Y_AXIS);
-		t = t.createConcatenation(r);
-		for(int i = 0; i< listeCubeSelectionne.size(); i++) {
-			listeCubeSelectionne.get(i).getTransforms().clear();
-			listeCubeSelectionne.get(i).getTransforms().addAll(t);
-			listeCubeSelectionne.get(i).angleChange(90);
-		}
-	}
-
-	public void E() {//tourne la selection dans l'axe x de -1
-		r = new Rotate(-90, Rotate.Y_AXIS);
-		t = t.createConcatenation(r);
-		for(int i = 0; i< listeCubeSelectionne.size(); i++) {
-			listeCubeSelectionne.get(i).getTransforms().clear();
-			listeCubeSelectionne.get(i).getTransforms().addAll(t);
-			listeCubeSelectionne.get(i).angleChange(-90);
-		}
-	}
-
-
-
 	public void sortSelectionModel(char command){
 		switch (command){
 			case 'X' :
 				for(int i = 1; i < listeCubeSelectionne.size(); i++)
 					for(int j = i; j > 0; j--)
 						if (listeCubeSelectionne.get(j-1).getTranslateY() < listeCubeSelectionne.get(j).getTranslateY()){
-							Cube tmp = listeCubeSelectionne.get(j-1);
 							Collections.swap(listeCubeSelectionne,j-1,j);
 						}
 				break;
@@ -212,7 +185,6 @@ public class SelectionModel {
 				for(int i = 1; i < listeCubeSelectionne.size(); i++)
 					for(int j = i; j > 0; j--)
 						if (listeCubeSelectionne.get(j-1).getTranslateY() > listeCubeSelectionne.get(j).getTranslateY()){
-							Cube tmp = listeCubeSelectionne.get(j-1);
 							Collections.swap(listeCubeSelectionne,j-1,j);
 						}
 				break;
@@ -220,7 +192,6 @@ public class SelectionModel {
 				for(int i = 1; i < listeCubeSelectionne.size(); i++)
 					for(int j = i; j > 0; j--)
 						if (listeCubeSelectionne.get(j-1).getTranslateX() < listeCubeSelectionne.get(j).getTranslateX()){
-							Cube tmp = listeCubeSelectionne.get(j-1);
 							Collections.swap(listeCubeSelectionne,j-1,j);
 						}
 				break;
@@ -228,7 +199,6 @@ public class SelectionModel {
 				for(int i = 1; i < listeCubeSelectionne.size(); i++)
 					for(int j = i; j > 0; j--)
 						if (listeCubeSelectionne.get(j-1).getTranslateX() > listeCubeSelectionne.get(j).getTranslateX()){
-							Cube tmp = listeCubeSelectionne.get(j-1);
 							Collections.swap(listeCubeSelectionne,j-1,j);
 						}
 				break;
@@ -236,7 +206,6 @@ public class SelectionModel {
 				for(int i = 1; i < listeCubeSelectionne.size(); i++)
 					for(int j = i; j > 0; j--)
 						if (listeCubeSelectionne.get(j-1).getTranslateZ() < listeCubeSelectionne.get(j).getTranslateZ()){
-							Cube tmp = listeCubeSelectionne.get(j-1);
 							Collections.swap(listeCubeSelectionne,j-1,j);
 						}
 				break;
@@ -244,7 +213,6 @@ public class SelectionModel {
 				for(int i = 1; i < listeCubeSelectionne.size(); i++)
 					for(int j = i; j > 0; j--)
 						if (listeCubeSelectionne.get(j-1).getTranslateZ() > listeCubeSelectionne.get(j).getTranslateZ()){
-							Cube tmp = listeCubeSelectionne.get(j-1);
 							Collections.swap(listeCubeSelectionne,j-1,j);
 						}
 				break;

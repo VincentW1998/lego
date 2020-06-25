@@ -208,18 +208,8 @@ public class Controller {
                         model.save.saveRemote(model.selection.copy());
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.X(model.mute);
+                        break;
 
-                        break;
-                    case Q: // rotation anti-horaire
-                        model.save.saveRemote(model.selection.copy());
-                        model.save.saveMoves((KeyEvent) event);
-                        model.selection.Q();
-                        break;
-                    case E: // roration horaire
-                        model.save.saveRemote(model.selection.copy());
-                        model.save.saveMoves((KeyEvent) event);
-                        model.selection.E();
-                        break;
                     case O: // affiche l'idendifiant de la piece
                         if(model.selection.listeCubeSelectionne.size() == 1)
                             System.out.println("id : "+model.selection.listeCubeSelectionne.get(0).getIdentifiant());
@@ -378,22 +368,11 @@ public class Controller {
 
     public void CreateBrochure(){
         try {
-//            if (model.selection.PartiesSelection.size() != 0)
+
                 model.group.getChildren().remove(1,model.group.getChildren().size()-1);
                 Brochure.creationBrochure(model);
                 model.selection.PartiesSelection.clear();
 
-//            else {
-//                for (int i = 0; i < model.graphConstruction.noeuds.length; i++) {
-//                    model.selection.add(model.graphConstruction.noeuds[i].c);
-//                }
-//                SelectionModel tmp = model.selection.copy();
-//                //vide le groupe en laissant le sol
-//                while (model.group.getChildren().size() > 1) {
-//                    model.group.getChildren().remove(1);
-//                }
-//                Brochure.creationBrochureAlgo(tmp,model);
-//            }
             model.selection.clear();
         }
         catch(Exception e){

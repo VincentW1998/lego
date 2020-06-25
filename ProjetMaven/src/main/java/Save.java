@@ -47,8 +47,6 @@ public class Save {
 			}
 			if(move.getCode() != KeyCode.N) {
 				for (int i = 0; i < s.listeCubeSelectionne.size(); i++) {
-					Rotate r;
-					Transform t = new Rotate();
 					tmp = s.listeCubeSelectionne.get(i).copy();
 					model.group.getChildren().add(tmp);
 					//ajoute le cube a la selection (on utilise pas la fonction add de selection car la fonction check les collisions
@@ -57,9 +55,6 @@ public class Save {
 					tmp.translateXProperty().set(s.listeCubeSelectionne.get(i).x);
 					tmp.translateYProperty().set(s.listeCubeSelectionne.get(i).y);
 					tmp.translateZProperty().set(s.listeCubeSelectionne.get(i).z);
-					r = new Rotate(tmp.angle, Rotate.Y_AXIS);
-					t = t.createConcatenation(r);
-					tmp.getTransforms().addAll(t);
 					tmp.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 						//verifie si la selection n'est pas en collision et si elle n'est pas en vol et affiche les messages d'erreur si c'est le cas
 						if (model.selection.correctPos()) {
