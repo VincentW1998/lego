@@ -47,8 +47,15 @@ public class Brochure {
                 System.out.println("error PNG");
             }
         }
-        while(model.group.getChildren().size() > 1)
-            model.group.getChildren().remove(1);
+        for(int i=1;i<model.group.getChildren().size();i++){
+            Cube tmp = (Cube) model.group.getChildren().get(i);
+                tmp.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                    if (!e.isShiftDown())
+                        model.selection.clear();
+                    model.selection.add((Cube) e.getSource());
+                });
+        }
+
         imagesToPdfManuel(model);
     }
 
@@ -255,8 +262,14 @@ public class Brochure {
                 System.out.println("error PNG");
             }
         }
-        while(model.group.getChildren().size() > 1)
-            model.group.getChildren().remove(1);
+        for(int i=1;i<model.group.getChildren().size();i++){
+            Cube tmp = (Cube) model.group.getChildren().get(i);
+            tmp.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+                if (!e.isShiftDown())
+                    model.selection.clear();
+                model.selection.add((Cube) e.getSource());
+            });
+        }
         imagesToPdfManuel(model); // fonction permettant de creer le fichier pdf
     }
 }

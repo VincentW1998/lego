@@ -14,10 +14,6 @@ public class Cube extends Box{
 	double x;
 	double y;
 	double z;
-	double angle;
-	Color [] colorRange = {Color.BLACK,Color.YELLOW,Color.ORANGE,Color.RED,Color.PINK,Color.PURPLE,
-			Color.BLUE,Color.CYAN,Color.GREEN,Color.BROWN};
-
 
 	/* Different constructeur pour une piece */
 
@@ -29,7 +25,7 @@ public class Cube extends Box{
 		SerialNb = numeroCube;
 	}
 
-	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z, double a){
+	public Cube(Color c, double w, double h, double d, int id, double x, double y, double z){
 		super(w,h,d);
 		color = c;
 		setMaterial(new PhongMaterial(c));
@@ -37,7 +33,6 @@ public class Cube extends Box{
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.angle = a;
 	}
 
 	// change l'id
@@ -47,7 +42,7 @@ public class Cube extends Box{
 
 	// copie une piece
 	public Cube copy(){
-		Cube c =  new Cube(this.color,this.getWidth(),this.getHeight(),this.getDepth(),this.identifiant,this.getTranslateX(),this.getTranslateY(),this.getTranslateZ(),this.angle);
+		Cube c =  new Cube(this.color,this.getWidth(),this.getHeight(),this.getDepth(),this.identifiant,this.getTranslateX(),this.getTranslateY(),this.getTranslateZ());
 		c.SerialNb = this.SerialNb;
 		return c;
 	}
@@ -74,14 +69,6 @@ public class Cube extends Box{
 		return this.identifiant == c.identifiant;
 	}
 
-	// modifie l'angle
-	public void angleChange(double a){
-		angle += a;
-		if(angle >=360)
-			angle -= 360;
-		else if(angle < 0)
-			angle += 360;
-	}
 	
 public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 	return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
@@ -129,10 +116,6 @@ public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
 		c.translateXProperty().set(c.x);
 		c.translateYProperty().set(c.y);
 		c.translateZProperty().set(c.z);
-		Rotate r = new Rotate(c.angle, Rotate.Y_AXIS);
-		Transform t = new Rotate();
-		t = t.createConcatenation(r);
-		c.getTransforms().addAll(t);
 		c.setDrawMode(DrawMode.FILL);
 	}
 

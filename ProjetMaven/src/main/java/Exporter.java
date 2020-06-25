@@ -31,7 +31,6 @@ public class Exporter {
             json.put("x", cube.getTranslateX());
             json.put("y", cube.getTranslateY());
             json.put("z", cube.getTranslateZ());
-            json.put("angle", cube.angle);
             construction.put(json);
         }
         fw.write(construction.toString());
