@@ -16,7 +16,7 @@ public class Importer {
     public static LinkedList<Cube> loadFrom(File f)  {
         try{
             JSONArray json = new JSONArray(FileUtils.readFileToString(f, "utf-8")); // recupere le fichier JSON
-            JSONObject maxSNB = json.getJSONObject(0);
+            JSONObject maxSNB = json.getJSONObject(0); // recuper le premier JSONObject qui contient le MaxSNB
             Cube.numeroCube = maxSNB.getInt("MaxSNB");
         }
         catch(Exception e){
@@ -43,7 +43,7 @@ public class Importer {
                 Color color1 = Color.rgb(red, green, blue);
                 Cube cube = new Cube(color1, w, h, d, id, x, y, z, a); // creation du cube 3D
                 cube.SerialNb = sNb;
-                figure.add(cube);
+                figure.add(cube); // on ajoute le cube Creer dans la linkedList de Cube
             }
 
             return figure;
@@ -84,25 +84,26 @@ public class Importer {
         }
     }
 
+    // boite de dialogue lorsqu'on veut importer un fichier
     private static void configureFileChooser(final FileChooser fileChooser) {
-        fileChooser.setTitle("Import");
+        fileChooser.setTitle("Import"); // titre de la boite de dialogue
         fileChooser.setInitialDirectory(new File("src/main/resources/Data/")
         );
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("fichier json", "*.json"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("fichier json", "*.json")); // importe que les fichier json
     }
 
     public static void importe(Model model){
-        configureFileChooser(model.fileChooser);
+        configureFileChooser(model.fileChooser); // appelle la boite de dialogue
 
         File file = model.fileChooser.showOpenDialog(model.primaryStage);
         if (file != null) {
-            model.group.getChildren().clear();
-            model.group.getChildren().add(model.sol);
+            model.group.getChildren().clear(); // on vide le group
+            model.group.getChildren().add(model.sol); // on remet le sol
         }
         try {
             LinkedList<Cube> construction = Importer.loadFrom(file);
 
-            for (int i = 0; i < construction.size(); i++) {
+            for (int i = 0; i < construction.size(); i++) { // on place piece par piece le contenu du fichier json
                 Rotate r;
                 Transform t = new Rotate();
                 construction.get(i).addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {

@@ -37,14 +37,16 @@ public class Exporter {
         fw.write(construction.toString());
         fw.close();
     }
+
+    // boite de dialogue lorsqu'on veut sauvegarder une construction
     private static void configureFileSave(final FileChooser fileChooser) {
-        fileChooser.setTitle("Save");
-        fileChooser.setInitialDirectory(new File("src/main/resources/Data/"));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json"));
+        fileChooser.setTitle("Save"); // titre
+        fileChooser.setInitialDirectory(new File("src/main/resources/Data/")); // path de base
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("fichier json", "*.json")); // filtre que les fichiers json
     }
 
     public static void export(Model model){
-        configureFileSave(model.fileChooser);
+        configureFileSave(model.fileChooser); // appelle la boite de dialogue
         File file = model.fileChooser.showSaveDialog(model.primaryStage);
         try {
             Exporter.saveToFile(model.group, file);
