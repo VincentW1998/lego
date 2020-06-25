@@ -114,7 +114,7 @@ public class Controller {
             }
 //            CreateBrochure();
             Brochure.creationBrochureUF(model);
-            model.selection.clear();
+            model.selection.Parties.clear();
         }
         catch(Exception e){
 
