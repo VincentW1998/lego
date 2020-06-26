@@ -206,15 +206,6 @@ public class Brochure {
         return file.getPath();
     }
 
-    public static void boucleUF(Model model){
-        for(int i=0;i<model.selection.Parties.size();i++){
-            System.out.print("Partie "+i+" [");
-            for(int y=0;y<model.selection.Parties.get(i).size();y++){
-                System.out.print(model.selection.Parties.get(i).get(y).c.getIdentifiant()+",");
-            }
-            System.out.print("]\n");
-        }
-    }
 
     /* Creer une brochure à partir du Union-Find */
     public static void creationBrochureUF(Model model){

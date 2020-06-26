@@ -142,7 +142,7 @@ public class SelectionModel {
 			listeCubeSelectionne.get(i).translateYProperty().set(listeCubeSelectionne.get(i).getTranslateY()-1);
 		}
 	}
-	
+
 	public void X(Boolean mute){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
 		if(listeCubeSelectionne.get(0).getBoundsInParent().getMaxY()+1<=0)
