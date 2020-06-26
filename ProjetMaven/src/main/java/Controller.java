@@ -72,7 +72,7 @@ public class Controller {
     public void Undo(){ // retour en arriere
         model.save.undo(model);
     }
-    //
+
     @FXML
     void ShortCutWindow(ActionEvent event) { // appel de la fenetre de racourcis
         if(notYet){
@@ -227,10 +227,6 @@ public class Controller {
                         model.selection.X(model.mute);
                         break;
 
-                    case O: // affiche l'idendifiant de la piece
-                        if(model.selection.listeCubeSelectionne.size() == 1)
-                            System.out.println("id : "+model.selection.listeCubeSelectionne.get(0).getIdentifiant());
-                            break;
                     // deplacement de la camera
                     case UP:
                        model.camera.translateYProperty().set(model.camera.getTranslateY() - 1);
@@ -403,7 +399,6 @@ public class Controller {
             model.selection.clear();
         }
         catch(Exception e){
-//            System.out.println("CreateBrochure Error");
         }
     }
 

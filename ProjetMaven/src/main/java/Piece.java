@@ -68,10 +68,9 @@ public class Piece extends Box{
 		return this.identifiant == c.identifiant;
 	}
 
-	
-public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
-	return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
-}
+	public boolean inBounds(double AMin, double AMax, double BMin, double BMax){
+		return (AMin<BMax&&BMax<=AMax)||(AMin<=BMin&&BMin<AMax)||(AMin==BMin&&AMax==BMax);
+	}
 	public boolean checkXpos(Piece c){ // verifie si c.minX<= this.minX<=c.MaxX ou this.minX<= c.minX<=this.MaxX
 		return(inBounds(c.getBoundsInParent().getMinX(),c.getBoundsInParent().getMaxX(),getBoundsInParent().getMinX(),getBoundsInParent().getMaxX())
 		);

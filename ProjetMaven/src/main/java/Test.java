@@ -37,8 +37,6 @@ public class Test extends Application implements Initializable {
 		primaryStage.setX(0);
 		primaryStage.setY(150);
 		primaryStage.setWidth(longeur - 312); // moins 312 car la telecommande fait 312 pixels
-
-//		primaryStage.centerOnScreen();
 		primaryStage.show();
 		
 		model.setup();
