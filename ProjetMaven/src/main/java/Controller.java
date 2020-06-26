@@ -74,15 +74,16 @@ public class Controller {
     }
     //
     @FXML
-    void newWindow(ActionEvent event) { // appel de la telecommande
+    void ShortCutWindow(ActionEvent event) { // appel de la fenetre de racourcis
         if(notYet){
             notYet = false;
             try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("hotkeys.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("hotkeys.fxml"));
+                loader.setController(this);
+                AnchorPane Apane= loader.load();
                 Stage stage = new Stage();
                 stage.setTitle("HotKeys");
-                stage.setScene(new Scene(root));
+                stage.setScene(new Scene(Apane));
                 stage.show();
                 stage.setOnHidden(e -> notYet = true);
             } catch (Exception e) {
@@ -111,13 +112,13 @@ public class Controller {
             }
             if(model.selection.PartiesSelection.isEmpty()) {
                 Alert a = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Choix Algorithme");
-                alert.setHeaderText("Choisissez l'aglorithme à utiliser");
+                a.setTitle("Choix Algorithme");
+                a.setHeaderText("Choisissez l'aglorithme à utiliser");
                 ButtonType Naif = new ButtonType("Naif");
                 ButtonType UF = new ButtonType("UnionFind");
                 ButtonType Cancel = new ButtonType("Annuler", ButtonBar.ButtonData.CANCEL_CLOSE);
-                alert.getButtonTypes().setAll(Naif, UF, Cancel);
-                Optional<ButtonType> result = alert.showAndWait();
+                a.getButtonTypes().setAll(Naif, UF, Cancel);
+                Optional<ButtonType> result = a.showAndWait();
                 if(result.get() == Naif) {
                     graphAlgo();
                     CreateBrochure();
@@ -309,7 +310,7 @@ public class Controller {
         }
     }
 
-    public void initTemporaryCube(){
+    public boolean initTemporaryCube(){
         if (!width_value.getText().equals("") && !height_value.getText().equals("") && !length_value.getText().equals("")) {
             try {
                 double w = Double.parseDouble(width_value.getText());
@@ -317,19 +318,23 @@ public class Controller {
                 double d = Double.parseDouble(length_value.getText());
                 Color color = colorPicker.getValue();
                 temporaryCube = new Piece(color, w, h, d);
+                return true;
             }
             catch(Exception e){
-               displayAlert("ERREUR"," Veuillez remplir correctement les champs \n Les caracteres autres que des chiffres ne sont pas autorisés");
+                displayAlert("ERREUR"," Veuillez remplir correctement les champs \n Les caracteres autres que des chiffres ne sont pas autorisés");
+                return false;
             }
         }
-        else displayAlert("ERREUR"," Veuillez remplir tout les champs");
+        displayAlert("ERREUR"," Veuillez remplir tout les champs");
+        return false;
     }
 
     public void cubeCreation(KeyEvent event){
         if (model.selection.correctPos()) {
             {
                 try {
-                    initTemporaryCube();
+                    if(!initTemporaryCube())
+                        return;
                     Piece c = temporaryCube;
                     Piece.setId(c,model.group.getChildren().size()-1);
                     c.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
