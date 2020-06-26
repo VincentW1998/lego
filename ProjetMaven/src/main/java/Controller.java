@@ -226,7 +226,7 @@ public class Controller {
                         model.save.saveMoves((KeyEvent) event);
                         model.selection.X(model.mute);
                         break;
-                        
+
                     // deplacement de la camera
                     case UP:
                        model.camera.translateYProperty().set(model.camera.getTranslateY() - 1);

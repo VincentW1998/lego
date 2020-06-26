@@ -76,7 +76,7 @@ public class SelectionModel {
 		if(!isInCollision()){
 			if(isFlying()){
 				alert.setHeaderText("Placement incorect");
-				alert.setContentText("Au moins un de vos cubes vole");
+				alert.setContentText("Au moins un de vos cubes vole, veuillez cliquer en dehors de la construction afin de deplacer votre selection dans une position correcte");
 				alert.showAndWait();
 			}
 			else {
@@ -89,7 +89,7 @@ public class SelectionModel {
 		}
 		else{
 			alert.setHeaderText("Vous etes en collision");
-			alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+			alert.setContentText("Veuillez cliquer en dehors de la construction afin de deplacer votre selection dans une position correcte");
 			alert.showAndWait();
 		}
 	}
@@ -269,14 +269,14 @@ public class SelectionModel {
 		if(isInCollision()){
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Vous etes en collision");
-			alert.setContentText("Veuillez deplacer votre selection dans une position correcte");
+			alert.setContentText("Veuillez cliquer en dehors de la construction afin de deplacer votre selection dans une position correcte");
 			alert.showAndWait();
 			return false;
 		}
 		if(isFlying()){
 			Alert alert = new Alert(Alert.AlertType.INFORMATION);
 			alert.setHeaderText("Placement incorect");
-			alert.setContentText("Au moins un de vos cubes vole");
+			alert.setContentText("Au moins un de vos cubes vole, veuillez cliquer en dehors de la construction afin de deplacer votre selection dans une position correcte");
 			alert.showAndWait();
 			return false;
 		}
