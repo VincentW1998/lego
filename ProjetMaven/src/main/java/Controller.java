@@ -147,7 +147,7 @@ public class Controller {
         }
 
         if(!SendEmail.mailChecker(to))
-            displayAlert("Email incorect","Veuillez inserer un mail correct");
+            displayAlert("Email incorrect","Veuillez inserer un mail correct");
         else
             SendEmail.sendFileEmail(to,model.CurrentBrochure);
     }
