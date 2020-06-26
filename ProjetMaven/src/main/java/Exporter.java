@@ -52,7 +52,6 @@ public class Exporter {
         try {
             Exporter.saveToFile(model.group, file);
         } catch (Exception e) {
-//            e.printStackTrace();
         }
 
     }

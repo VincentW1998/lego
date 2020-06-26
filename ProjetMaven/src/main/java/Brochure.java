@@ -134,7 +134,6 @@ public class Brochure {
     public static void imagesToPdfManuel(Model model) {
         Document document = new Document(PageSize.A4);
 
-//        String output = "src/main/resources/Brochures/brochure.pdf"; // path de la brochure
         String output = configurePdfFile(model.primaryStage);
         try {
             FileOutputStream fos = new FileOutputStream(output);

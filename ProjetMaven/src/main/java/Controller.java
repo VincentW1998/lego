@@ -72,7 +72,7 @@ public class Controller {
     public void Undo(){ // retour en arriere
         model.save.undo(model);
     }
-    //
+
     @FXML
     void ShortCutWindow(ActionEvent event) { // appel de la fenetre de racourcis
         if(notYet){
@@ -403,7 +403,6 @@ public class Controller {
             model.selection.clear();
         }
         catch(Exception e){
-//            System.out.println("CreateBrochure Error");
         }
     }
 

@@ -13,14 +13,11 @@ import javax.imageio.ImageIO;
 
 public class SelectionModel {
 	LinkedList <Piece> listeCubeSelectionne;
-//	Rotate r;
-//	Transform t;
 	Group group;
 	LinkedList <LinkedList<Node>> Parties;
 	LinkedList <SelectionModel> PartiesSelection;
 	public SelectionModel(Group g) {
 		listeCubeSelectionne = new LinkedList<Piece>();
-//		t = new Rotate();
 		group = g;
 		Parties = new LinkedList<LinkedList<Node>>();
 		PartiesSelection = new LinkedList<SelectionModel>();
@@ -33,7 +30,6 @@ public class SelectionModel {
 			// ne fonctionne pas avec la fonction add de SelectionModel
 			tmp.listeCubeSelectionne.add(listeCubeSelectionne.get(i).copy());
 			tmp.listeCubeSelectionne.getLast().setDrawMode(DrawMode.LINE);
-			//
 		}
 		return tmp;
 	}
@@ -146,8 +142,7 @@ public class SelectionModel {
 			listeCubeSelectionne.get(i).translateYProperty().set(listeCubeSelectionne.get(i).getTranslateY()-1);
 		}
 	}
-
-//a finir
+	
 	public void X(Boolean mute){//incremente de 1 la position des cube de la selection dans l'axe y
 		sortSelectionModel('X');
 		if(listeCubeSelectionne.get(0).getBoundsInParent().getMaxY()+1<=0)
