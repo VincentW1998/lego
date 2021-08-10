@@ -9,12 +9,12 @@
 
 **NGO FELIX** :
 
-*    numéro étudiant : 21702718
+*    numéro étudiant : 71702718
 *    alias : @felixngo
     
 **WEI VINCENT** :
 
-*    numéro étudiant : 21805701
+*    numéro étudiant : 71805701
 *    alias : @WeiVincent
 
 
